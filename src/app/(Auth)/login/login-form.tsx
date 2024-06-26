@@ -15,6 +15,7 @@ const LoginForm = () => {
     try {
       const response = await AuthService.loginUser(username, password);
       if (AuthService.isAuthenticated()) {
+        console.log(localStorage.getItem('role'));
         AuthService.isCustomer() ? router.push('/diamond') : console.log("Logged in fail");
       } else {
         setUsername("");

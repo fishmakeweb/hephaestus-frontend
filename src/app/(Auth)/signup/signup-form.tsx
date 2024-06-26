@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import AuthService from "@/dbutils/userAPI/authservice";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
     const [fullName, setFullName] = useState("");
@@ -11,7 +12,9 @@ const SignUpForm = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
-  
+    const [success, setSuccess] = useState<string | null>(null);
+    const router = useRouter();
+
     const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (password !== confirmPassword) {
@@ -29,6 +32,15 @@ const SignUpForm = () => {
         };
         const response = await AuthService.registerCustomer(userData);
         console.log("Sign up successful:", response);
+        
+        const loginResponse = await AuthService.loginUser(username, password);
+         console.log("Login successful:", loginResponse);
+
+      // Set success message
+      setSuccess("Sign up successful! You are now logged in.");
+      setTimeout(() => {
+        router.push("/diamond"); // Adjust the path as needed
+      }, 2000);
         // Redirect or handle the login flow here
       } catch (error) {
         console.error("Sign up failed:", error);

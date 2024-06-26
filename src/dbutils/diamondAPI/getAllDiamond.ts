@@ -1,6 +1,6 @@
 // Import axios
 import axios from '@/dbutils/axios';
-import { Diamond, columns } from '@/app/(Home)/diamond/diamondtable';
+import { Diamond, columns } from '@/app/(Home)/diamond/diamond-table';
 
 // Updated function using axios
 async function getDiamonds(): Promise<Diamond[]> {

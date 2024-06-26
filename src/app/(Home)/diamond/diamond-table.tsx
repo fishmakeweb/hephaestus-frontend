@@ -107,9 +107,7 @@ export const columns: ColumnDef<Diamond>[] = [
         cell: ({ getValue }) => {
           const imageUrl = getValue() as string; // Type assertion to string
           return (
-              <div style={{ width: 100, height: 100, position: 'relative' }}>
-                  <Image src={imageUrl} alt="Diamond" layout="fill" objectFit="cover" />
-              </div>
+                  <Image src={imageUrl} alt="Diamond" width={100} height={100} objectFit="cover" />
           );
     }
   },

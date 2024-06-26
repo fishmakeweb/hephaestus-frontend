@@ -1,8 +1,13 @@
 import axios from '@/dbutils/axios';
 class AuthService {
     static isAuthenticated() {
+      try {
         const token = localStorage.getItem("token");
         return !!token;
+      } catch (error) {
+        // console.error("Error checking authentication status:", error);
+      }
+        
       }
     
       static isCustomer() {
@@ -35,7 +40,12 @@ class AuthService {
                 throw error; 
         }
     }
-
+    static logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("role");
+      localStorage.removeItem("user");
+    }
     static async registerCustomer(userData: any): Promise<any> {
       
         try {
