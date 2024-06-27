@@ -1,32 +1,34 @@
-FROM node:18-alpine
+# Base Stage
+FROM node:20-alpine as BASE
+WORKDIR /app
+COPY package*.json ./
+RUN apk add --no-cache git \
+    && npm ci --only=production \
+    && npm cache clean --force
 
-RUN apk add --no-cache libc6-compat
-RUN npm i -g npm
+# Build Stage
+FROM node:20-alpine AS BUILD
+WORKDIR /app
+COPY --from=BASE /app/node_modules ./node_modules
+COPY . .
+RUN apk add --no-cache git curl \
+    && npm run build \
+    && cd .next/standalone \
+    # Follow node-prune if necessary, ensure node-prune is installed or available
+    && npm prune --production
+
+# Production Stage
+FROM node:20-alpine AS PRODUCTION
+WORKDIR /app
+
+COPY --from=BUILD /app/public ./public
+COPY --from=BUILD /app/next.config.mjs ./  
+# Changed from next.config.js to next.config.mjs
+
+# Set mode "standalone" in file "next.config.mjs"
+COPY --from=BUILD /app/.next/standalone ./
+COPY --from=BUILD /app/.next/static ./.next/static
 
 EXPOSE 3000
 
-ENV PORT 3000
-ENV NODE_ENV production
-
-WORKDIR /home/nextjs/app
-
-COPY package.json .
-COPY package-lock.json .
-
-RUN npm install --omit=optional
-RUN npx browserslist@latest --update-db
-RUN npx next telemetry disable
-
-# need to install linux specific swc builds
-RUN npm install -D @swc/cli @swc/core
-
-COPY . .
-
-RUN npm run build
-
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-USER nextjs
-
-CMD [ "npm", "start" ]
+CMD ["node", "server.js"]
