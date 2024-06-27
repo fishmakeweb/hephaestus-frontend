@@ -87,7 +87,7 @@ export function Cart() {
     return itemDetails.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
 const handleCheckout = () => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   if (token) {
     sessionStorage.setItem("orderId", JSON.stringify(orderId));
@@ -96,13 +96,13 @@ const handleCheckout = () => {
     sessionStorage.setItem("token", token);
     redirect("/confirmOrder");
   } else {
-    console.error("No token found in localStorage.");
+    console.error("No token found in sessionStorage.");
   }
 };
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="rounded-3xl" onClick={fetchCartData}>
+        <Button variant="ghost" className="rounded-3xl " onClick={fetchCartData}>
           <svg className="flex-1 w-8 h-6 fill-current" viewBox="0 0 24 24">
             <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42C7.28,15 7.17,14.89 7.17,14.75L7.2,14.65L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.59C21,5.39 21.06,5.2 21.06,5A1,1 0 0,0 20.06,4H5.21L4.27,2H1Z" />
             <g fill="none">
@@ -114,11 +114,11 @@ const handleCheckout = () => {
       <SheetContent side={"right"}>
         <SheetHeader>
           <SheetTitle>
-            <Image className="inline-block pb-3" loading="lazy" src="https://ap-south-1.linodeobjects.com/diamondshop-img/incartlogo.svg" width={30} height={30} alt="In cart Logo" />
-            <h2 className="inline-block text-2xl ml-16">Your cart</h2>
+            <Image className="inline-block pb-3 w-auto h-auto" loading="lazy" src="https://ap-south-1.linodeobjects.com/diamondshop-img/incartlogo.svg" width={30} height={30}
+            alt="In cart Logo" />
+            <p className="inline-block text-2xl font-semibold ml-16">Your cart</p>
           </SheetTitle>
           <SheetDescription>
-            <hr className="border-2" />
           </SheetDescription>
         </SheetHeader>
         <div className="flex flex-col items-center">

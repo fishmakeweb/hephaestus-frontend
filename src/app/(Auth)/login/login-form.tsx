@@ -1,106 +1,133 @@
-// login-form.tsx
-'use client'
-import { useRouter } from "next/navigation";
+"use client";
 import React, { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import AuthService from "@/dbutils/userAPI/authservice";
 import Link from "next/link";
-
-const LoginForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+import { useRouter } from "next/navigation";
+export function LoginForm() {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
+
+  
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null); // Reset error message on new submission
     try {
       const response = await AuthService.loginUser(username, password);
       if (AuthService.isAuthenticated()) {
-        console.log(localStorage.getItem('role'));
-        AuthService.isCustomer() ? router.push('/diamond') : console.log("Logged in fail");
+        setSuccess("You are successfully logged in!");
+        console.log(sessionStorage.getItem("role"));
+        AuthService.isCustomer()
+          ? router.push("/")
+          : console.log("Logged in fail");
       } else {
-        setUsername("");
-        setPassword("");
         setError("Login failed. Please check your credentials.");
+        setSuccess(null);
       }
     } catch (error) {
       console.error("Login failed:", error);
       setError("Login failed. Please check your credentials.");
+      setSuccess(null);
     }
   };
 
-
   return (
-    <>
-    {/* component */}
-    <div className="flex h-screen">
-      
-      {/* Right Pane */}
-      <div className="w-full bg-gray-100 lg:w-full flex items-center justify-center">
-        <div className="max-w-md w-full p-6">
-          <h1 className="text-3xl font-semibold mb-6 text-black text-center">
-            Login
-          </h1>
-          <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
-            Join to Our Community with all time access and free{" "}
-          </h1>
-          <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
-          </div>
+    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+      <h1 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+        Welcome to Hepheathus
+      </h1>
+      <form className="my-8" onSubmit={handleLogin}>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            placeholder="Enter your username..."
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            
+          />
+        </LabelInputContainer>
+        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+        {success && <p className="text-green-500 text-sm mb-2">{success}</p>}
+        <button
+          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          type="submit"
+        >
+          Login &rarr;
+          <BottomGradient />
+        </button>
+      </form>
+      <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            {/* Your form elements go here */}
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
-              />
-            </div>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
-            <div>
-              <button
-                type="submit"
-                className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-          <div className="mt-4 text-sm text-gray-600 text-center">
-            <p>
-              Dont have an account?{" "}
-              <Link href="/signup" className="text-black hover:underline">
-                Signup here
-              </Link>
-            </p>
-          </div>
-        </div>
+      <div className="flex flex-col space-y-4">
+        <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+          Do not have an account?
+        </span>
+        <button
+          className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+          type="submit"
+        >
+          <Link
+            href="/signup"
+            className="text-neutral-700 dark:text-neutral-300 text-sm"
+          >
+            Signup now
+          </Link>
+          <BottomGradient />
+        </button>
+        <button
+          className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+          type="submit"
+        >
+          <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+          <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+            Google
+          </span>
+          <BottomGradient />
+        </button>
       </div>
     </div>
-  </>
   );
 }
 
-export default LoginForm;
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
+
+const LabelInputContainer = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div className={cn("flex flex-col space-y-2 w-full", className)}>
+      {children}
+    </div>
+  );
+};

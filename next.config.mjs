@@ -11,9 +11,7 @@ const nextConfig = {
         ],
     },
     output: "standalone",
-    flags: {
-      DEV_SSR: false,
-    },
+
     webpack: (config, { isServer }) => {
         // Alias configuration
         config.resolve.alias['@'] = path.resolve(__dirname, 'src');

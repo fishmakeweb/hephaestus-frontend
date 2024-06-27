@@ -2,7 +2,7 @@ import axios from '@/dbutils/axios';
 class AuthService {
     static isAuthenticated() {
       try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         return !!token;
       } catch (error) {
         // console.error("Error checking authentication status:", error);
@@ -11,8 +11,11 @@ class AuthService {
       }
     
       static isCustomer() {
-        const role = localStorage.getItem("role");
+        const role = sessionStorage.getItem("role");
         return role === "CUSTOMER";
+      }
+      static getUserName() {
+        return sessionStorage.getItem("username");
       }
     static async loginUser(username: string, password: string) {
         try {
@@ -22,17 +25,18 @@ class AuthService {
             });
             const { token, refreshToken, staff, customer } = response.data;
     
-            // Save the auth tokens and user information in localStorage
+            // Save the auth tokens and user information in sessionStorage
             if (token != null) {
-                localStorage.setItem("token", token);
-                localStorage.setItem("refreshToken", refreshToken);
+              sessionStorage.setItem("token", token);
+              sessionStorage.setItem("refreshToken", refreshToken);
               }
               if (staff) {
-                localStorage.setItem("role", "STAFF");
-                localStorage.setItem("user", JSON.stringify(staff));
+                sessionStorage.setItem("role", "STAFF");
+                sessionStorage.setItem("user", JSON.stringify(staff));
               } else if (customer) {
-                localStorage.setItem("role", "CUSTOMER");
-                localStorage.setItem("user", JSON.stringify(customer));
+                sessionStorage.setItem("role", "CUSTOMER");
+                sessionStorage.setItem("user", JSON.stringify(customer));
+                sessionStorage.setItem("username", JSON.stringify(customer.username)); // Initialize empty cart for new customers
               }
               return response.data;
         } catch (error) {
@@ -41,10 +45,10 @@ class AuthService {
         }
     }
     static logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("role");
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("role");
+      sessionStorage.removeItem("user");
     }
     static async registerCustomer(userData: any): Promise<any> {
       

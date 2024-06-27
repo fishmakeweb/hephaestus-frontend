@@ -3,7 +3,7 @@ import React, {useEffect, useState } from "react";
 import { useParams } from 'next/navigation'
 import Link from "next/link";
 import { getAllJewelry } from "@/dbutils/jewelryAPI/getAllJewelry"; 
-import NavbarPage from "../../../navbar/page";
+import NavbarPage from "../../../../page";
 
 
 

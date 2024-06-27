@@ -22,7 +22,7 @@ export interface CartData {
   }[];
 }
 
-const getToken = () => localStorage.getItem("token");
+const getToken = () => sessionStorage.getItem("token");
 
 export const fetchCart = async (): Promise<CartData> => {
   const token = getToken();

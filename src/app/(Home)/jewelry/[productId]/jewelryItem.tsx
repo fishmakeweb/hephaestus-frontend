@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation"; // Assuming react-router-dom for navigation
-import NavbarPage from "../../navbar/page";
+import Image from "next/image";
 import JewelryItemData from "./jewelryItemData";
 import { JewelryDetail, viewJewelryDetails } from "@/dbutils/jewelryAPI/viewJewelryDetail";
 import { addToCart } from "@/dbutils/jewelryAPI/addToCart"; // Adjusted import path
@@ -13,7 +13,7 @@ const JewelryItem: React.FC = () => {
   const [buttonText, setButtonText] = useState('ADD TO BAG');
 
   const handleClick = async () => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
       alert('Please log in to add items to your cart.');
       router.push('/login');
@@ -56,11 +56,12 @@ const JewelryItem: React.FC = () => {
       <div className="self-center mt-20 w-full max-w-[1214px] max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-2/5 max-md:ml-0 max-md:w-full">
-            <img
+            <Image
               loading="lazy"
               src={itemDetails.img}
               alt={itemDetails.name}
-              className="mt-20 w-80 h-80 object-cover mx-auto"
+              width={3000} height={3000} 
+              className="mt-20 w-80 h-80 object-cover mx-auto w-auto h-auto"
             />
           </div>
           <div className="flex flex-col ml-5 w-3/5 max-md:ml-0 max-md:w-full">
@@ -68,7 +69,14 @@ const JewelryItem: React.FC = () => {
               <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
                 <div className="flex flex-col">
                   <div className="text-base hover:text-custom-brown text-neutral-600">
-                    <button onClick={() => router.back}>BACK TO SELECTION</button>
+                    <button onClick={() => router.back()} 
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300 h-9 px-4 py-2">
+                      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4">
+                      <path d="M8.84182 3.13514C9.04327 3.32401 9.05348 3.64042 8.86462 3.84188L5.43521 7.49991L8.86462 11.1579C9.05348 11.3594 9.04327 11.6758 8.84182 11.8647C8.64036 12.0535 8.32394 12.0433 8.13508 11.8419L4.38508 7.84188C4.20477 7.64955 4.20477 7.35027 4.38508 7.15794L8.13508 3.15794C8.32394 2.95648 8.64036 2.94628 8.84182 3.13514Z" fill="currentColor" ></path>
+                      
+                      </svg>
+                      BACK TO SELECTION
+                    </button>
                   </div>
                   <div className="mt-11 text-4xl text-black max-md:mt-10">
                     {itemDetails.name}
@@ -76,13 +84,7 @@ const JewelryItem: React.FC = () => {
                   <div className="mt-4 text-2xl font-bold text-black text-opacity-50">
                     ${itemDetails.price}
                   </div>
-                </div>
-                <img
-                  loading="lazy"
-                  alt=""
-                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/993591a3a81dab2d2c2ebb7f3b4a931dab5d810de16c88f48d4f1c172185adfc?"
-                  className="shrink-0 my-auto aspect-[0.94] w-[35px]"
-                />
+                </div>               
               </div>
               <div className="mt-9 text-xl text-black font-[350] max-md:max-w-full">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -92,7 +94,7 @@ const JewelryItem: React.FC = () => {
                 <br />
               </div>
               <button
-                className="justify-center w-36 self-start px-4 py-4 mt-9 text-lg border border-solid bg-opacity-0 border-neutral-700 text-neutral-700 hover:bg-custom-brown hover:text-white"
+                className="justify-center w-36 self-start px-4 py-4 mt-9 text-lg border border-solid bg-opacity-0 border-neutral-700 text-neutral-700 hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300"
                 onClick={handleClick}
               >
                 {buttonText}
