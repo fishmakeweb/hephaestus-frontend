@@ -6,6 +6,7 @@ const nextConfig = {
       'ap-south-1.linodeobjects.com', // Add your domain here
     ],
   },
+    output: "standalone",
 };
 
 export default nextConfig;
