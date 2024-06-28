@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect } from "react";
-import Footer from "./footer";
 import {useRouter} from "next/navigation";
 
 function Homepage() {
@@ -190,7 +189,6 @@ function Homepage() {
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }
