@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {
   Button,
@@ -18,7 +19,7 @@ export default function UserProfile() {
   // Function to handle logout
   const handleLogout = () => {
     AuthService.logout(); // Assume AuthService has a logout method
-    router.refresh(); // Redirect to login page after logout
+    router.push("/"); // Redirect to login page after logout
   };
 
   // Function to navigate to the profile page
