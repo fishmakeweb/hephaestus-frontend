@@ -18,11 +18,15 @@ const NewNavbar = () => {
   return (
     <>
       {isClient && (
-        <nav className="bg-white w-full flex relative justify-between items-center mx-auto px-7 h-20 z-50">
+        <nav className="bg-white w-full flex relative justify-between items-center mx-auto md:px-7 h-20 z-50">
           
           {/* end dropdown */}
           {/* logo */}
+            <div className="block md:hidden">
+                <MenuButton  />
+            </div>
             <div className="hidden md:block">
+              
               <Link
                 href="/diamond"
                 className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full font-semibold"
@@ -50,12 +54,10 @@ const NewNavbar = () => {
             </div>
           {/* end logo */}
           {/* search bar */}
-                <div className="visible md:invisible">
-                <MenuButton  />
-                </div>
+                
                 <Link
                   href="/"
-                  className="flex items-center py-3 border-b border-b-gray-400  text-sm md:text-2xl "
+                  className="flex items-center py-3 border-b border-b-gray-400 text-sm md:text-2xl md:mr-32 "
                 >
                   <h2 className="font-bold ">H E P H A E S T U S</h2>
                 </Link>
