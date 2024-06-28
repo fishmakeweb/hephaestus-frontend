@@ -164,7 +164,7 @@ const handleCheckout = () => {
                       <p className="text-red-500 text-sm mt-2">{errorMessages[item.orderDetailId]}</p>
                     )}
                   </div>
-                  <button className="text-sm text-red-600 ml-3" onClick={() => removeFromCart(item.orderDetailId)}>
+                  <button className="text-sm text-red-600" onClick={() => removeFromCart(item.orderDetailId)}>
                     Remove
                   </button>
                 </li>
@@ -177,12 +177,12 @@ const handleCheckout = () => {
         <SheetFooter>
         {itemDetails.length > 0 && (
           <div className="mt-4">
-            <p className="text-lg font-semibold text-center">
+            <p className="text-md font-semibold text-center">
               Total Amount: ${getTotalAmount().toFixed(2)}
             </p>
             <div className="flex justify-center mt-4">
               <button
-                className="bg-black text-white text-xl px-28 py-6 rounded-md hover:bg-gray-800"
+                className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
                 onClick={handleCheckout}
               >
                 CHECK OUT
