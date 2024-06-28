@@ -9,7 +9,16 @@ class AuthService {
       }
         
       }
-    
+      static async getProfile(token:string) {
+        try {
+          const response = await axios.get(`/profile`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          return response.data;
+        } catch (error) {
+          throw error;
+        }
+      }
       static isCustomer() {
         const role = sessionStorage.getItem("role");
         return role === "CUSTOMER";
