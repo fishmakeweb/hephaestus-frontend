@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <div className="flex flex-col pt-14 mt-8 w-full border-solid bg-stone-200 border-t-[5px] border-zinc-300 max-md:mt-10 max-md:max-w-full">
+    <div className="flex flex-col pt-14 mt-8 w-full border-solid bg-gray-100 border-t-[5px] border-zinc-300 max-md:mt-10 max-md:max-w-full">
       <div className="flex flex-col px-20 w-full max-md:px-5 max-md:max-w-full">
         <div className="max-md:mr-1.5 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
