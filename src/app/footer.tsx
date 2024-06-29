@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link';
 export default function Footer() {
   return (
     <div className="flex flex-col pt-14 mt-8 w-full border-solid bg-gray-100 border-t-[5px] border-zinc-300 max-md:mt-10 max-md:max-w-full">
@@ -14,7 +14,7 @@ export default function Footer() {
                       <div className="text-sm font-bold text-black">
                         CUSTOMER SERVICES
                       </div>
-                      <div className="mt-6">Contact Us</div>
+                      <Link href="/contact" className="mt-6">Contact Us</Link>
                       <div className="mt-5">Track your Order</div>
                       <div className="mt-5">Shipping & Returns</div>
                       <div className="mt-6">Frequently Asked Questions</div>
