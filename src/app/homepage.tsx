@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect } from "react";
 import {useRouter} from "next/navigation";
-
 function Homepage() {
   const router = useRouter();
   useEffect(() => {
@@ -166,7 +165,69 @@ function Homepage() {
           <div className="flex flex-col w-full md:w-1/2 lg:w-2/5 max-md:ml-0">
             <img
               loading="lazy"
-              src="img/homepage/Rectangle.png"
+              src="img/homepage/ringyellowarticle.webp"
+              alt="Article-img"
+              className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
+            />
+          </div>
+          <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
+            <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
+              <div className="text-xl max-md:max-w-full">
+                ARTICLE • SUMMER 2024
+              </div>
+              <div className="mt-20 text-4xl font-bold max-md:mt-10 max-md:max-w-full">
+                During the golden hour.
+              </div>
+              <div className="mt-8 text-2xl max-md:max-w-full">
+                As the sun bathes everything in a warm, ethereal glow during the golden hour, our diamond boutique offers a sanctuary of timeless beauty. Discover the allure of our meticulously curated collection, where each diamond sparkles with unparalleled brilliance. Whether you're celebrating a special occasion or simply treating yourself, our expert team is dedicated to helping you find the perfect piece that resonates with elegance and sophistication.
+              </div>
+              <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
+                READ MORE
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-10 w-full bg-stone-950 max-md:mt-10 max-md:max-w-full">
+        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+          
+          <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
+            <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
+              <div className="text-xl max-md:max-w-full">
+                ARTICLE • SUMMER 2024
+              </div>
+              <div className="mt-20 text-4xl font-bold max-md:mt-10 max-md:max-w-full">
+                During the golden hour.
+              </div>
+              <div className="mt-8 text-2xl max-md:max-w-full">
+              Create a Unique
+              Custom Piece
+              At The Diamond Shop, we take you through a step by step process, beginning with a one-on-one consultation, and ending with a stunning one of a kind piece of jewelry.
+
+              Start your project off by clicking the button below and letting us know what your dream piece looks like!
+              </div>
+              <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
+                READ MORE
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-full md:w-1/2 lg:w-2/5 max-md:ml-0">
+            <img
+              loading="lazy"
+              src="img/homepage/diamondimage.webp"
+              alt="Article-img"
+              className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 w-full bg-stone-950 max-md:mt-10 max-md:max-w-full">
+        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+          <div className="flex flex-col w-full md:w-1/2 lg:w-2/5 max-md:ml-0">
+            <img
+              loading="lazy"
+              src="img/homepage/thirdring.webp"
               alt="Article-img"
               className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
             />
