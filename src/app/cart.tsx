@@ -78,7 +78,8 @@ export function Cart() {
   };
 
   const removeFromCart = (orderDetailId: number) => {
-    handleQuantityChange(orderDetailId, "0");
+    updateQuantityInState(orderDetailId, 0);
+    updateQuantity(orderDetailId, 0);
   };
 
   const getTotalAmount = () => {
