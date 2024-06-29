@@ -40,16 +40,16 @@ export default function UserProfile() {
           <DropdownMenu
             disallowEmptySelection
             aria-label="User options"
-            className="max-w-[300px]"
+            className="max-w-[300px] bg-white"
           >
             <DropdownItem
               key="profile"
               onClick={handleViewProfile}
-              className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300"
+              className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
               View Profile
             </DropdownItem>
-            <DropdownItem key="logout" onClick={handleLogout} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300">
+            <DropdownItem key="logout" onClick={handleLogout} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">
               Logout
             </DropdownItem>
           </DropdownMenu>
