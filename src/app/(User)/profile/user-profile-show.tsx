@@ -78,7 +78,7 @@ const UserProfileShow: React.FC = () => {
 
         <div className="sm:w-4/5 xs:w-11/12 mx-auto flex">
           <h1 className="w-full text-center my-8 sm:mx-4 xs:pl-4 text-gray-800 text-black lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
-            CUSTOMER INFORMATION 
+            USER INFORMATION 
           </h1>
         </div>
 
