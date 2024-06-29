@@ -16,16 +16,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { fetchCart, updateQuantity, ItemDetails } from "@/dbutils/cartAPI/cartFunction";
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export function Cart() {
   const [itemDetails, setItemDetails] = useState<ItemDetails[]>([]);
   const [errorMessages, setErrorMessages] = useState<{ [key: number]: string }>({});
   const [orderId, setOrderId] = useState<number>();
-
-  // useEffect(() => {
-  //   fetchCartData();
-  // }, []);
+  const router = useRouter();
+  
 
   const fetchCartData = async () => {
     try {
@@ -87,18 +85,20 @@ export function Cart() {
     return itemDetails.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
 const handleCheckout = () => {
-  const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
 
-  if (token) {
-    sessionStorage.setItem("orderId", JSON.stringify(orderId));
-    sessionStorage.setItem("itemDetails", JSON.stringify(itemDetails));
-    sessionStorage.setItem("totalAmount", JSON.stringify(getTotalAmount()));
-    sessionStorage.setItem("token", token);
-    redirect("/confirmOrder");
-  } else {
-    console.error("No token found in sessionStorage.");
-  }
-};
+    if (token) {
+      const queryParams = new URLSearchParams({
+        itemDetails: JSON.stringify(itemDetails),
+        totalAmount: getTotalAmount().toString(),
+        token,
+      }).toString();
+
+      router.push(`/order-confirmation?${queryParams}`);
+    } else {
+      console.error("No token found in sessionStorage.");
+    }
+  };
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -175,7 +175,7 @@ const handleCheckout = () => {
         </div>       
         
         <SheetFooter>
-        {itemDetails.length > 0 && (
+          {itemDetails.length > 0 && (
           <div className="mt-4">
             <p className="text-md font-semibold text-center">
               Total Amount: ${getTotalAmount().toFixed(2)}
