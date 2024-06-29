@@ -24,13 +24,13 @@ export default function MenuButton() {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="bordered">MENU</Button>
+        <Button variant="bordered" className="border-4">MENU</Button>
       </DropdownTrigger>
-      <DropdownMenu>
-        <DropdownItem key="home" onClick={handleHome} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300">HOME</DropdownItem>
-        <DropdownItem key="diamond" onClick={handleDiamond} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300">Diamond</DropdownItem>
-        <DropdownItem key="jewelry" onClick={handleJewelry} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300">Jewelry</DropdownItem>
-        <DropdownItem key="newrelease" onClick={handleNewRelease} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300">New release</DropdownItem>
+      <DropdownMenu className="bg-white">
+        <DropdownItem key="home" onClick={handleHome} className="hover:bg-gray-300  active:bg-gray-300 focus:outline-none focus:ring-gray-300">HOME</DropdownItem>
+        <DropdownItem key="diamond" onClick={handleDiamond} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">Diamond</DropdownItem>
+        <DropdownItem key="jewelry" onClick={handleJewelry} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">Jewelry</DropdownItem>
+        <DropdownItem key="newrelease" onClick={handleNewRelease} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">New release</DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );
