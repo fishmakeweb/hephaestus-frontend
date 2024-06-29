@@ -1,6 +1,6 @@
 import React from "react";
 import "@/app/(Payment)/Success/PaymentSuccess.css";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const PaymentSuccess: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const PaymentSuccess: React.FC = () => {
         <div className="text-2xl font-bold text-green-600 mb-4">Payment Success!</div>
         <div className="text-xl text-black mb-8">Thank you for your purchase!</div>
         <div className="items-center">
-          <Link to="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
+          <Link href="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
             Go Back to Store
           </Link>
         </div>
