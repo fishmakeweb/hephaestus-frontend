@@ -1,0 +1,25 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const PaymentCanceled: React.FC = () => {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-sm w-full text-center">
+        <div className="flex justify-center mb-4">
+          <img 
+            src="https://cdn1.iconfinder.com/data/icons/ui-navigation-1/152/close-256.png" 
+            alt="cancelled"
+          />
+        </div>
+        <div className="text-2xl font-bold text-red-600 mb-10">Payment Cancelled!</div>
+        <div className="items-center">
+          <Link to="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
+            Go Back to Store
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default PaymentCanceled;
