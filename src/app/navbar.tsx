@@ -74,7 +74,7 @@ const NewNavbar = () => {
               {AuthService.isAuthenticated() ? (
                 <div className="flex mr-4 mt-1">
                   <div className="inline relative">
-                    <div className="inline-flex relative px-2 border rounded-full hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300">   
+                    <div className="inline-flex relative px-2 border rounded-full hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">   
                         <UserProfile />
                     </div>
                   </div>
