@@ -12,6 +12,7 @@ const NewNavbar = () => {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   useEffect(() => {
+    router.refresh();
     setIsClient(true); // This will be true only on the client side after mounting
   }, []);
 
