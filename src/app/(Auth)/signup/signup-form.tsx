@@ -60,31 +60,6 @@ export function SignUpForm() {
     }
   };
 
-  const handleInput = (name: string, value: string) => {
-    switch (name) {
-      case "fullName":
-        setFullName(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "address":
-        setAddress(value);
-        break;
-      case "username":
-        setUsername(value);
-        break;
-      case "password":
-        setPassword(value);
-        break;
-      case "confirmPassword":
-        setConfirmPassword(value);
-        break;
-    }
-    const errorMsg = validateInput(name, value);
-    setValidationErrors((prev) => ({ ...prev, [name]: errorMsg }));
-  };
-
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let allValid = true;
@@ -112,11 +87,13 @@ export function SignUpForm() {
     if (!allValid) {
       return; // Stop form submission if errors exist
     }
-
-    // Try to register the user if validation is successful
     try {
       const userData = { fullName, email, address, username, password };
       const response = await AuthService.registerCustomer(userData);
+      if(response.error){
+        setError(response.error);
+        return;
+      }
       const loginResponse = await AuthService.loginUser(username, password);
       setSuccess("Sign up successful! You are now logged in.");
       setTimeout(() => router.push("/"), 2000);
@@ -205,13 +182,14 @@ export function SignUpForm() {
         {success && (
           <div className="mb-4 p-3 text-green-600 bg-green-100 rounded border border-green-500">
             {success}
-            {error && (
+            
+          </div>
+        )}
+        {error && (
               <div className="mb-4 p-3 text-red-600 bg-red-100 rounded border border-red-500">
                 {error}
               </div>
             )}
-          </div>
-        )}
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
