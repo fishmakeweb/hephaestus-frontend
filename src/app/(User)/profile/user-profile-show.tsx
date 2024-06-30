@@ -5,7 +5,7 @@ import UpdateUser from './user-profile-update-form';
 import ChangePassword from './user-change-password-form';
 import { fetchProfile } from '@/dbutils/userAPI/showprofile';
 
-interface Profile {
+export interface Profile {
   customer: {
     userId: string;
     fullName: string;
