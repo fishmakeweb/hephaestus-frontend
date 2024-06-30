@@ -27,6 +27,10 @@ export default function UserProfile() {
     router.push("/profile");
   };
 
+  const handleViewOrders = () => {
+    router.push("/tracked-orders");
+  };
+
   return (
     <div className="flex gap-4 items-center ">
       <ButtonGroup variant="flat">
@@ -48,6 +52,13 @@ export default function UserProfile() {
               className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
               View Profile
+            </DropdownItem>
+            <DropdownItem
+              key="profile"
+              onClick={handleViewOrders}
+              className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
+            >
+              Purchased Orders
             </DropdownItem>
             <DropdownItem key="logout" onClick={handleLogout} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">
               Logout
