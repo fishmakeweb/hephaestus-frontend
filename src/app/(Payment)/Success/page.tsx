@@ -1,5 +1,5 @@
 import React from "react";
-import "@/app/(Payment)/Success/PaymentSuccess.css";
+import "@/app/(Payment)/Success/PaymentSuccess.module.css";
 import Link from "next/link";
 
 const PaymentSuccess: React.FC = () => {
