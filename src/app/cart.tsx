@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { fetchCart, updateQuantity, ItemDetails } from "@/dbutils/cartAPI/cartFunction";
 import { useRouter } from 'next/navigation'
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function Cart() {
   const [itemDetails, setItemDetails] = useState<ItemDetails[]>([]);
@@ -24,7 +25,6 @@ export function Cart() {
   const [orderId, setOrderId] = useState<number>();
   const router = useRouter();
   
-
   const fetchCartData = async () => {
     try {
       const data = await fetchCart();
@@ -85,7 +85,8 @@ export function Cart() {
   const getTotalAmount = () => {
     return itemDetails.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
-const handleCheckout = () => {
+
+  const handleCheckout = () => {
     const token = sessionStorage.getItem("token");
 
     if (token) {
@@ -100,6 +101,7 @@ const handleCheckout = () => {
       console.error("No token found in sessionStorage.");
     }
   };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -124,76 +126,76 @@ const handleCheckout = () => {
         </SheetHeader>
         <div className="flex flex-col items-center">
           {itemDetails.length === 0 ? (
-            <p className="text-xl text-center font-medium text-neutrzal-600">
+            <p className="text-xl text-center font-medium text-neutral-600">
               Your cart is currently empty.
             </p>
           ) : (
-            <ul className="divide-y divide-gray-200 w-full">
-              {itemDetails.map((item) => (
-                <li key={item.orderDetailId} className="py-4 flex items-center">
-                  <img
-                    loading="lazy"
-                    src={item.img}
-                    alt={item.name}
-                    className="w-24 h-24 rounded-md object-cover"
-                  />
-                  <div className="ml-4 flex-grow">
-                    <p className="text-lg font-medium text-gray-900">{item.name}</p>
-                    <p className="text-sm text-gray-500">Price: ${item.price.toFixed(2)}</p>
-                    <div className="flex items-center">
-                      <button
-                        className="text-sm text-gray-600 px-3 py-1 bg-gray-200 rounded-md"
-                        onClick={() => decrementQuantity(item.orderDetailId, item.quantity)}
-                      >
-                        -
-                      </button>
-                      <input
-                        type="number"
-                        max="1000"
-                        className="w-12 text-center border border-gray-300 rounded-md mx-2"
-                        value={item.quantity}
-                        onChange={(e) => handleQuantityChange(item.orderDetailId, e.target.value)}
-                      />
-                      <button
-                        className="text-sm text-gray-600 px-3 py-1 bg-gray-200 rounded-md"
-                        onClick={() => incrementQuantity(item.orderDetailId, item.quantity)}
-                      >
-                        +
-                      </button>
+            <ScrollArea className="w-full h-[530px]">
+              <ul className="divide-y divide-gray-200 w-full">
+                {itemDetails.map((item) => (
+                  <li key={item.orderDetailId} className="py-4 flex items-center">
+                    <img
+                      loading="lazy"
+                      src={item.img}
+                      alt={item.name}
+                      className="w-24 h-24 rounded-md object-cover"
+                    />
+                    <div className="ml-4 flex-grow">
+                      <p className="text-lg font-medium text-gray-900">{item.name}</p>
+                      <p className="text-sm text-gray-500">Price: ${item.price.toFixed(2)}</p>
+                      <div className="flex items-center">
+                        <button
+                          className="text-sm text-gray-600 px-3 py-1 bg-gray-200 rounded-md"
+                          onClick={() => decrementQuantity(item.orderDetailId, item.quantity)}
+                        >
+                          -
+                        </button>
+                        <input
+                          type="number"
+                          max="1000"
+                          className="w-12 text-center border border-gray-300 rounded-md mx-2"
+                          value={item.quantity}
+                          onChange={(e) => handleQuantityChange(item.orderDetailId, e.target.value)}
+                        />
+                        <button
+                          className="text-sm text-gray-600 px-3 py-1 bg-gray-200 rounded-md"
+                          onClick={() => incrementQuantity(item.orderDetailId, item.quantity)}
+                        >
+                          +
+                        </button>
+                      </div>
+                      {errorMessages[item.orderDetailId] && (
+                        <p className="text-red-500 text-sm mt-2">{errorMessages[item.orderDetailId]}</p>
+                      )}
                     </div>
-                    {errorMessages[item.orderDetailId] && (
-                      <p className="text-red-500 text-sm mt-2">{errorMessages[item.orderDetailId]}</p>
-                    )}
-                  </div>
-                  <button className="text-sm text-red-600" onClick={() => removeFromCart(item.orderDetailId)}>
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    <button className="text-sm text-red-600 mr-6" onClick={() => removeFromCart(item.orderDetailId)}>
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </ScrollArea>
           )}
-          
-        </div>       
+        </div>
         
         <SheetFooter>
           {itemDetails.length > 0 && (
-          <div className="mt-4">
-            <p className="text-md font-semibold text-center">
-              Total Amount: ${getTotalAmount().toFixed(2)}
-            </p>
-            <div className="flex justify-center mt-4">
-              <button
-                className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
-                onClick={handleCheckout}
-              >
-                CHECK OUT
-              </button>
+            <div className="mt-4 w-full flex flex-col items-center">
+              <p className="text-md font-semibold text-center">
+                Total Amount: ${getTotalAmount().toFixed(2)}
+              </p>
+              <div className="mt-4">
+                <button
+                  className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
+                  onClick={handleCheckout}
+                >
+                  CHECK OUT
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </SheetFooter>
       </SheetContent>
-      
     </Sheet>
   );
 }
