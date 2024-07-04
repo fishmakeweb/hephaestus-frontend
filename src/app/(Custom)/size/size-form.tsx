@@ -68,7 +68,7 @@ export default function SizeForm({ jewelry, setJewelry }: SizeFormProps) {
     } else {
       setsrcSize("/img/jewelry/ringSize.jpg");
     }
-  }, [jewelry]); // This useEffect will run when 'jewelry' changes
+  }, [jewelry]); 
 
   const handleSizeSelect = (size: Size, sizeText: string) => {
     setSelectedSize(size);
@@ -134,8 +134,8 @@ export default function SizeForm({ jewelry, setJewelry }: SizeFormProps) {
       <Card>
         <CardBody className="items-center">
           <p className="max-w-md text-center">
-            We usually recommend a 15mm ring face for a typical man's ring. If
-            you're planning for this to be a pinky ring or for a woman, a 13mm
+            We usually recommend a 15mm ring face for a typical man&apos;s ring. If
+            you&apos;re planning for this to be a pinky ring or for a woman, a 13mm
             ring face is a great fit. Bigger options (17mm+) make a statement
             and look good on large fingers.
           </p>
