@@ -33,8 +33,8 @@ export default function CategoryForm() {
       category: cat,
     };
   
-    sessionStorage.setItem('edittingJewelry', JSON.stringify(updatedJewelry));
-    router.push('/material');  // Navigate to MaterialForm page
+    sessionStorage.setItem("edittingJewelry", JSON.stringify(updatedJewelry));
+    router.push("/material");  // Navigate to MaterialForm page
   };
 
   return (
