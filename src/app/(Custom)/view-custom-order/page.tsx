@@ -8,7 +8,7 @@ import {
 import CusOrderCards from "./view-custom-form";
 import SelectedCusOrderForm from "./view-custom-details";
 import { deleteCusOrder } from "@/dbutils/customAPI/customOrder";
-const viewCustomOrder = () => {
+const ViewCustomOrder = () => {
   const [customOrderData, setCustomOrderData] = useState<CustomOrderData[]>([]);
   const [selectedCusOrder, setSelectedCusOrder] =
     useState<CustomOrderData | null>(null);
@@ -52,7 +52,7 @@ const viewCustomOrder = () => {
           <div className="mb-10 flex flex-col items-center justify-center w-full font-nunito text-slate-600">
             <section className="max-w-full lg:max-w-[968px] w-full mx-4 flex items-center justify-center">
               <p className="text-xl lg:text-2xl font-semibold text-gray-700">
-                You don't have an order yet
+                You don&apos;t have an order yet
               </p>
             </section>
           </div>
@@ -78,4 +78,4 @@ const viewCustomOrder = () => {
   );
 };
 
-export default viewCustomOrder;
+export default ViewCustomOrder;
