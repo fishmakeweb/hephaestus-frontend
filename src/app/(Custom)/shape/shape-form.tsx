@@ -22,7 +22,7 @@ export default function ShapeForm({ jewelry, setJewelry }: ShapeFormProps) {
     };
 
     fetchData();
-    const storedJewelry = sessionStorage.getItem('edittingJewelry');
+    const storedJewelry = sessionStorage.getItem("edittingJewelry");
     if (storedJewelry) {
       setJewelry(JSON.parse(storedJewelry));
     }
@@ -34,8 +34,8 @@ export default function ShapeForm({ jewelry, setJewelry }: ShapeFormProps) {
       shape: shape,
     };
 
-    sessionStorage.setItem('edittingJewelry', JSON.stringify(updatedJewelry));
-    router.push('/gemstone');  // Navigate to MaterialForm page
+    sessionStorage.setItem("edittingJewelry", JSON.stringify(updatedJewelry));
+    router.push("/gemstone");  // Navigate to MaterialForm page
   };
 
   const shapeImageMap: { [key: string]: string } = {
