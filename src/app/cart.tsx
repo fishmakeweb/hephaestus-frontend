@@ -91,7 +91,7 @@ export function Cart() {
 
     if (token) {
       const queryParams = new URLSearchParams({
-        itemDetails: JSON.stringify(itemDetails),
+        // itemDetails:null,
         totalAmount: getTotalAmount().toString(),
         token,
       }).toString();
