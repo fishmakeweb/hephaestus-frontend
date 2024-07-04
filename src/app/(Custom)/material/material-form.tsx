@@ -22,7 +22,7 @@ export default function MaterialForm({ jewelry, setJewelry }: MaterialFormProps)
     };
 
     fetchData();
-    const storedJewelry = sessionStorage.getItem('edittingJewelry');
+    const storedJewelry = sessionStorage.getItem("edittingJewelry");
     if (storedJewelry) {
       setJewelry(JSON.parse(storedJewelry));
     }
@@ -34,8 +34,8 @@ export default function MaterialForm({ jewelry, setJewelry }: MaterialFormProps)
       material: mat,
     };
 
-    sessionStorage.setItem('edittingJewelry', JSON.stringify(updatedJewelry));
-    router.push('/shape');  // Navigate to MaterialForm page
+    sessionStorage.setItem("edittingJewelry", JSON.stringify(updatedJewelry));
+    router.push("/shape");  // Navigate to MaterialForm page
   };
 
   const materialImageMap: { [key: string]: string } = {
