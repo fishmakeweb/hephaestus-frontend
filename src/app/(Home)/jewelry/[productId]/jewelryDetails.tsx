@@ -22,6 +22,12 @@ const JewelryDetails: React.FC<Props> = ({ jewelry }) => {
               <td>${jewelry.price}</td>
             </tr>
           )}
+          {jewelry.shape && jewelry.shape.shapeDescription && (
+            <tr>
+              <th>Shape:</th>
+              <td>{jewelry.shape.shapeDescription}</td>
+            </tr>
+          )}
           {jewelry.material && jewelry.material.materialName && (
             <tr>
               <th>Material:</th>

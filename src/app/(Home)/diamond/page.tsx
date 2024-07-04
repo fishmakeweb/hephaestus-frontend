@@ -4,6 +4,7 @@ import { DataTable } from "@/components/data-table";
 import getDiamonds from "@/dbutils/diamondAPI/getAllDiamond";
 export default async function DiamondPage() {
     const data = await getDiamonds();
+    const filteredData = data.filter(diamond => !diamond.sold);
 
     return(
         <>
@@ -11,7 +12,7 @@ export default async function DiamondPage() {
             <div className="container">
                 <DataTable
                     columns={columns}
-                    data={data}
+                    data={filteredData}
                 />
             </div>
         </section>
