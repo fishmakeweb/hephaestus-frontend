@@ -36,17 +36,17 @@ export default function NoteForm({ jewelry, setJewelry }: NoteFormProps) {
       const jewelryWithPrice = response.data;
 
       // Save the updated jewelry with the price to session storage
-      sessionStorage.setItem('edittingJewelry', JSON.stringify(jewelryWithPrice));
+      sessionStorage.setItem("edittingJewelry", JSON.stringify(jewelryWithPrice));
 
       // Navigate to the price page
-      router.push('/price');
+      router.push("/price");
     } catch (error) {
       console.error("Error calculating price:", error);
     }
   };
 
   useEffect(() => {
-    const storedJewelry = sessionStorage.getItem('edittingJewelry');
+    const storedJewelry = sessionStorage.getItem("edittingJewelry");
     if (storedJewelry) {
       setJewelry(JSON.parse(storedJewelry));
     }
