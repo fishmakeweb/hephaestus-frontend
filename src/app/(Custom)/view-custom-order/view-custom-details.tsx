@@ -3,6 +3,7 @@ import { Profile } from "@/app/(User)/profile/user-profile-show";
 import { fetchProfile } from "@/dbutils/userAPI/showprofile";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CustomOrderData } from "@/dbutils/customAPI/customOrder";
+import Image from "next/image";
 interface SelectedOrderFormProps {
   selectedOrderDetail: CustomOrderData | null;
   onCancel: (customOrderId: number) => void;
@@ -133,7 +134,7 @@ const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
                     {formData.customJewelry.diamond !== null && (
                       <div className="flex-grow">
                         <p className="text-md text-black">Diamond:</p>
-                        <img
+                        <Image
                           loading="lazy"
                           src={formData.customJewelry.diamond.img}
                           alt={
