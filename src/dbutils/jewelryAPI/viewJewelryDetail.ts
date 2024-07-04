@@ -5,6 +5,7 @@ export interface JewelryDetail {
   img: string;
   name: string;
   price: number;
+  shape?: {shapeDescription: string}
   material?: { materialName: string };
   category?: { categoryName: string };
   gemstone?: { gemstoneName: string };
