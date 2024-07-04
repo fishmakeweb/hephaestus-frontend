@@ -2,6 +2,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import AuthService from "@/dbutils/userAPI/authservice";
+import { fetchCart , ItemDetails} from "@/dbutils/cartAPI/cartFunction";
+import axios from "axios";
 
 interface Profile {
   customer: {
@@ -14,41 +16,85 @@ interface Profile {
   };
 }
 
-interface ItemDetail {
-  orderDetailId: string;
-  img: string;
-  name: string;
-  price: number;
-  quantity: number;
-}
 
-interface ConfirmOrderProps {
-  itemDetails: ItemDetail[];
-  totalAmount: number;
-  token: string;
-}
-
-const ConfirmOrderForm: React.FC<ConfirmOrderProps> = ({ itemDetails, totalAmount, token }) => {
+const ConfirmOrderForm: React.FC = () =>  {
+  const [itemDetails, setItemDetails] = useState<ItemDetails[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [totalAmount,setTotalAmount] = useState<number>(0);
+  const [orderId, setOrderId] = useState<number>();
 
   useEffect(() => {
+    const token  = sessionStorage.getItem("token");
     if (token) {
       fetchProfile(token);
     }
-  }, [token]);
+    fetchCartData();
+  }, []);
 
+ 
+  const fetchCartData = async () => {
+    try {
+      const data = await fetchCart();
+      console.log(data);
+      if (data.listOrderDetail.length !== 0) setOrderId(data.listOrderDetail[0].id);
+
+      const items = data.listOrderDetail.map((item: any) => ({
+        ...item.product.jewelry,
+        orderDetailId: item.id,
+        quantity: item.quantity,
+      }));
+
+      setItemDetails(items);
+
+      const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      setTotalAmount(total);
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  };
+
+  
   const fetchProfile = async (token: string) => {
     try {
       const data = await AuthService.getProfile(token);
       setProfile(data);
     } catch (error) {
-      console.error('Failed to fetch profile:', error);
+      console.error("Failed to fetch profile:", error);
     }
   };
 
-  if (!profile) {
+  if (!profile || !itemDetails) {
     return <div>Loading...</div>;
   }
+
+  const handleSubmit = async () => {
+    const amount = totalAmount;
+    const expiredAt = Math.floor((Date.now() + 30 * 1000) / 1000);
+    const description = "Order";
+    const body = {
+      orderCode: Number(String(Date.now()).slice(-6)),
+      amount,
+      description,
+      expiredAt,
+      returnUrl: `http://localhost:3000/Success`,
+      cancelUrl: `http://localhost:3000/Cancel`
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/create-payment-link",
+        body
+      );
+      if (response.data) {
+        window.location.href = response.data.checkoutUrl;
+      } else {
+        alert("Failed to create payment link");
+      }
+      console.log(response);
+    } catch (error) {
+      console.error("Error creating payment link:", error);
+      alert("Error processing your request");
+    }
+  };
 
   const { fullName, email, address, registeredDate } = profile.customer;
 
@@ -116,7 +162,10 @@ const ConfirmOrderForm: React.FC<ConfirmOrderProps> = ({ itemDetails, totalAmoun
               <p className="text-lg font-semibold">${totalAmount.toFixed(2)}</p>
             </div>
           </div>
-          <button className="w-full bg-black mb-5 text-white py-4 rounded-lg text-lg font-semibold hover:bg-gray-900 transition duration-300 ease-in-out">
+          <button
+            className="w-full bg-black mb-5 text-white py-4 rounded-lg text-lg font-semibold hover:bg-gray-900 transition duration-300 ease-in-out"
+            onClick={handleSubmit}
+          >
             Confirm Order
           </button>
         </section>
