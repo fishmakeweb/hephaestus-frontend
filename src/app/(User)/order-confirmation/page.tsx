@@ -1,10 +1,10 @@
-import OrderConfirmPage from "./suspense-wrapper"
 import { Suspense } from "react"
+import ConfirmOrderForm from "./order-confirm-form"
 
-const SuspenseWrapper = () => (
-	<Suspense>
-		<OrderConfirmPage />
-	</Suspense>
+const Page = () => (
+	<>
+		<ConfirmOrderForm />
+	</>
 )
 
-export default SuspenseWrapper
+export default Page
