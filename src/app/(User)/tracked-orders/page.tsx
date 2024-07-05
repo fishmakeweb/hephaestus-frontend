@@ -59,7 +59,7 @@ const TrackedOrderForm: React.FC = () => {
             ) : (
                 <>
                     <div className="flex flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full lg:w-1/3">
-                        <p className="text-xl font-semibold mb-4">Your Orders:</p>
+                        <p className="text-xl text-center font-semibold mb-4">Your Orders:</p>
                         <OrderCards orderData={orderData} onItemClick={handleItemClick} />
                     </div>
                     <div className="flex-1 p-4">
