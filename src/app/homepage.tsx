@@ -179,7 +179,7 @@ function Homepage() {
                 During the golden hour.
               </div>
               <div className="mt-8 text-2xl max-md:max-w-full">
-                As the sun bathes everything in a warm, ethereal glow during the golden hour, our diamond boutique offers a sanctuary of timeless beauty. Discover the allure of our meticulously curated collection, where each diamond sparkles with unparalleled brilliance. Whether you're celebrating a special occasion or simply treating yourself, our expert team is dedicated to helping you find the perfect piece that resonates with elegance and sophistication.
+                As the sun bathes everything in a warm, ethereal glow during the golden hour, our diamond boutique offers a sanctuary of timeless beauty. Discover the allure of our meticulously curated collection, where each diamond sparkles with unparalleled brilliance. Whether youre celebrating a special occasion or simply treating yourself, our expert team is dedicated to helping you find the perfect piece that resonates with elegance and sophistication.
               </div>
               <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
                 READ MORE
@@ -241,7 +241,7 @@ function Homepage() {
                 During the golden hour.
               </div>
               <div className="mt-8 text-2xl max-md:max-w-full">
-                As the sun bathes everything in a warm, ethereal glow during the golden hour, our diamond boutique offers a sanctuary of timeless beauty. Discover the allure of our meticulously curated collection, where each diamond sparkles with unparalleled brilliance. Whether you're celebrating a special occasion or simply treating yourself, our expert team is dedicated to helping you find the perfect piece that resonates with elegance and sophistication.
+                As the sun bathes everything in a warm, ethereal glow during the golden hour, our diamond boutique offers a sanctuary of timeless beauty. Discover the allure of our meticulously curated collection, where each diamond sparkles with unparalleled brilliance. Whether youre celebrating a special occasion or simply treating yourself, our expert team is dedicated to helping you find the perfect piece that resonates with elegance and sophistication.
               </div>
               <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
                 READ MORE

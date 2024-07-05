@@ -15,10 +15,7 @@ import {
 
 
 export type Diamond = {
-    shape: {
-        shapeId: number;
-        shapeDescription: string;
-    };
+    diamonId: string;
     measurement: {
         measurementId: number;
         length: number;
@@ -48,14 +45,10 @@ export type Diamond = {
     };
     price: number;
     img: string;
+    sold:boolean;
 };
 
 export const columns: ColumnDef<Diamond>[] = [
-    {
-        accessorKey: 'shape.shapeDescription',
-        header: 'Shape',
-        cell: info => info.getValue(),
-    },
     {
         accessorKey: 'measurement',
         header: 'Measurement',

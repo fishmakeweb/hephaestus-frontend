@@ -22,6 +22,11 @@ const UserProfileShow: React.FC = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (token) {
+      sessionStorage.setItem('token', token);
+    }
     const getProfile = async () => {
       try {
         const data = await fetchProfile();

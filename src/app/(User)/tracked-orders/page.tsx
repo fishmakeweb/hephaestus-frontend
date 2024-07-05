@@ -51,7 +51,7 @@ const TrackedOrderForm: React.FC = () => {
                     <div className="mb-10 flex flex-col items-center justify-center w-full font-nunito text-slate-600">
                         <section className="max-w-full lg:max-w-[968px] w-full mx-4 flex items-center justify-center">
                             <p className="text-xl lg:text-2xl font-semibold text-gray-700">
-                                You don't have an order yet
+                                You don&apos;t have an order yet
                             </p>
                         </section>
                     </div>
