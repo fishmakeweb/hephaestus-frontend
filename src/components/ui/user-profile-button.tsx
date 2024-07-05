@@ -22,6 +22,10 @@ export default function UserProfile() {
     router.refresh(); // Redirect to login page after logout
   };
 
+  const handleViewCustomOrder = () => {
+    router.push("/view-custom-order");
+  }
+
   // Function to navigate to the profile page
   const handleViewProfile = () => {
     router.push("/profile");
@@ -52,6 +56,13 @@ export default function UserProfile() {
               className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
               View Profile
+            </DropdownItem>
+            <DropdownItem
+              key="profile"
+              onClick={handleViewCustomOrder}
+              className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
+            >
+              View custom order
             </DropdownItem>
             <DropdownItem
               key="profile"

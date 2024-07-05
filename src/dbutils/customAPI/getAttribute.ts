@@ -4,22 +4,26 @@ import { Diamond } from '@/app/(Home)/diamond/diamond-table';
 export interface Category {
     categoryId:number;
     categoryName:string;
+    categoryImg:string;
 }
 
 export interface Material {
     materialId:number;
     materialName:string;
+    materialImg:string;
 }
 export interface Size {
     sizeId:number;
     type:string;
     sizeNumber:number;
     unit:string;
+    sizeImg:string;
 }
 
 export interface Shape {
     shapeId: number;
     shapeDescription: string;
+    shapeImg:string;
 }
 export interface Jewelry {
     id: number;
