@@ -24,7 +24,8 @@ class AuthService {
         return role === "CUSTOMER";
       }
       static getUserName() {
-        return sessionStorage.getItem("username");
+        const username = sessionStorage.getItem("username");
+        return username ? JSON.parse(username) : null;
       }
     static async loginUser(username: string, password: string) {
         try {
