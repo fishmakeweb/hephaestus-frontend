@@ -47,7 +47,7 @@ const SelectedOrderForm: React.FC<SelectedOrderFormProps> = ({ selectedOrderDeta
 
     return (
         <div className="flex flex-col mt-4 h-full lg:mt-8 mr-5 lg:mr-28 relative">
-            <ScrollArea className="max-h-[500px] lg:max-h-[615px]">
+            <ScrollArea className="max-h-[500px] lg:max-h-[615px] overflow-y-auto w-full">
                 <div className="bg-white py-3 px-3 rounded-lg mb-8 flex flex-col items-center justify-center w-full font-nunito text-slate-600">
                     <section className="max-w-full lg:max-w-[720px] w-full mx-4">
                         <div className="flex justify-between items-center">
@@ -73,13 +73,13 @@ const SelectedOrderForm: React.FC<SelectedOrderFormProps> = ({ selectedOrderDeta
                                 </div>
                                 <div className="w-full">
                                     <dl className="text-black divide-y divide-gray-200">
-                                        <div className="flex flex-col pb-2">
+                                        <div className="flex flex-col py-2">
                                             <dt className="mb-1 text-gray-500 text-md">Address</dt>
                                             <dd className="text-md font-medium text-gray-900">{userData?.customer.address}</dd>
                                         </div>
                                         <div className="flex flex-col pt-2">
                                             <dt className="mb-1 text-gray-500 text-md">Registered Date</dt>
-                                            <dd className="text-md font-medium text-gray-900">{userData?.customer.registeredDate}</dd>
+                                            <dd className="text-md font-medium text-gray-900">{userData ? new Date(userData.customer.registeredDate).toLocaleDateString() : ''}</dd>
                                         </div>
                                     </dl>
                                 </div>
