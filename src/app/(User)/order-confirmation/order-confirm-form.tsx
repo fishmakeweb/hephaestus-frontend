@@ -76,12 +76,12 @@ const ConfirmOrderForm: React.FC = () =>  {
       amount,
       description,
       expiredAt,
-      returnUrl: `http://localhost:3000/Success`,
-      cancelUrl: `http://localhost:3000/Cancel`
+      returnUrl: `https://hephaestus.store/Success`,
+      cancelUrl: `https://hephaestus.store/Cancel`
     };
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/create-payment-link",
+        "https://payment.hephaestus.store/create-payment-link",
         body
       );
       if (response.data) {
