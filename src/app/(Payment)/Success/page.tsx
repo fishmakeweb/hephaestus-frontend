@@ -1,5 +1,5 @@
 import React from "react";
-import "@/app/(Payment)/Success/PaymentSuccess.module.css";
+import styles from "@/app/(Payment)/Success/PaymentSuccess.module.css";
 import Link from "next/link";
 
 const PaymentSuccess: React.FC = () => {
@@ -7,12 +7,12 @@ const PaymentSuccess: React.FC = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-sm w-full text-center">
         <div className="flex justify-center mb-4">
-          <div className="success-checkmark">
-            <div className="check-icon">
-              <span className="icon-line line-tip"></span>
-              <span className="icon-line line-long"></span>
-              <div className="icon-circle"></div>
-              <div className="icon-fix"></div>
+          <div className={styles["success-checkmark"]}>
+            <div className={styles["check-icon"]}>
+              <span className={`${styles["icon-line"]} ${styles["line-tip"]}`}></span>
+              <span className={`${styles["icon-line"]} ${styles["line-long"]}`}></span>
+              <div className={styles["icon-circle"]}></div>
+              <div className={styles["icon-fix"]}></div>
             </div>
           </div>
         </div>

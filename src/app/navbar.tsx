@@ -19,7 +19,7 @@ const NewNavbar = () => {
   return (
     <>
       {isClient && (
-        <nav className="bg-white w-full flex relative justify-between items-center mx-auto md:px-7 h-20 z-50">
+        <nav className="bg-white shadow-md shadow-black/5 w-full flex relative justify-between items-center mx-auto md:px-7 h-20 z-50">
           
           {/* end dropdown */}
           {/* logo */}
