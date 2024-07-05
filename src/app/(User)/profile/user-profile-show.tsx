@@ -108,13 +108,13 @@ const UserProfileShow: React.FC = () => {
               </div>
               <div className="w-full">
                 <dl className="text-black divide-y divide-gray-200">
-                  <div className="flex flex-col pb-3">
+                  <div className="flex flex-col py-3">
                     <dt className="mb-1 text-gray-500 md:text-lg">Address</dt>
                     <dd className="text-lg font-semibold">{address}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
                     <dt className="mb-1 text-gray-500 md:text-lg">Registered Date</dt>
-                    <dd className="text-lg font-semibold">{registeredDate}</dd>
+                    <dd className="text-lg font-semibold">{new Date(registeredDate).toLocaleDateString()}</dd>
                   </div>
                 </dl>
               </div>
