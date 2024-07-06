@@ -65,19 +65,19 @@ export default function Jewelry() {
         <PaginationContent>
           {currentPage > 0 && (
             <PaginationItem>
-              <PaginationPrevious href={"http://localhost:3000/jewelry/page/"+ (currentPage - 1)} />
+              <PaginationPrevious href={"/jewelry/page/"+ (currentPage - 1)} />
             </PaginationItem>
           )}
           {Array.from({ length: totalPages }, (_, i) => (
             <PaginationItem key={i}>
-              <PaginationLink href={"http://localhost:3000/jewelry/page/"+ i} isActive={i === currentPage}>
+              <PaginationLink href={"/jewelry/page/"+ i} isActive={i === currentPage}>
                 {i + 1}
               </PaginationLink>
             </PaginationItem>
           ))}
           {currentPage < totalPages - 1 && (
             <PaginationItem>
-              <PaginationNext href={"http://localhost:3000/jewelry/page/"+ (currentPage + 1)} />
+              <PaginationNext href={"/jewelry/page/"+ (currentPage + 1)} />
             </PaginationItem>
           )}
         </PaginationContent>
