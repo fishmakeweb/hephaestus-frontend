@@ -68,32 +68,21 @@ const ConfirmOrderForm: React.FC = () =>  {
   }
 
   const handleSubmit = async () => {
-    const amount = totalAmount;
-    const expiredAt = Math.floor((Date.now() + 30 * 1000) / 1000);
-    const description = "Order";
-    const body = {
-      orderCode: Number(String(Date.now()).slice(-6)),
-      amount,
-      description,
-      expiredAt,
-      returnUrl: `https://hephaestus.store/Success`,
-      cancelUrl: `https://hephaestus.store/Cancel`
-    };
-    try {
-      const response = await axios.post(
-        "https://payment.hephaestus.store/create-payment-link",
-        body
-      );
-      if (response.data) {
-        window.location.href = response.data.checkoutUrl;
-      } else {
-        alert("Failed to create payment link");
+      try {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          const checkoutUrl = await AuthService.checkOut(token);
+          // alert(data);
+          window.location.href = checkoutUrl;
+          // console.log(data);
+        } else {
+          console.error('No token found');
+          throw new Error('No token found');
+        }
+      } catch (error) {
+        alert('Failed to create payment link:'+ error);
+        throw new Error('Failed to create payment link');
       }
-      console.log(response);
-    } catch (error) {
-      console.error("Error creating payment link:", error);
-      alert("Error processing your request");
-    }
   };
 
   const { fullName, email, address, registeredDate } = profile.customer;
