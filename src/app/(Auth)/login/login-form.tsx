@@ -104,7 +104,7 @@ export function LoginForm() {
           type="submit"
         >
           <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-          <Link href="http://localhost:8080/oauth2/authorization/google" className="text-neutral-700 dark:text-neutral-300 text-sm">
+          <Link href="https://api.hephaestus.store/oauth2/authorization/google" className="text-neutral-700 dark:text-neutral-300 text-sm">
             Google
           </Link>
           <BottomGradient />
