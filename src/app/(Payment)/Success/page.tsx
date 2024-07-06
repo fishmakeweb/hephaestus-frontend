@@ -1,8 +1,31 @@
-import React from "react";
-import styles from "@/app/(Payment)/Success/PaymentSuccess.module.css";
-import Link from "next/link";
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import AuthService from '@/dbutils/userAPI/authservice';
+import styles from '@/app/(Payment)/Success/PaymentSuccess.module.css';
+import Link from 'next/link';
 
 const PaymentSuccess: React.FC = () => {
+  const searchParams = useSearchParams();  // Correctly destructuring to get searchParams
+  const [token,setToken] = useState<string|null>('');
+
+  useEffect(() => {
+    setToken(searchParams.get('payToken'));  // Correctly using searchParams to get the payToken
+    if (token) {  // Checking if the token is available and is a string
+      console.log(token);
+      AuthService.successCheckOut(token)
+        .then(result => {
+          console.log('Checkout success:', result);
+          // Optionally handle success, e.g., navigating away or displaying a success message
+        })
+        .catch(error => {
+          console.error('Error in processing checkout:', error);
+          // Optionally handle error, e.g., displaying an error message to the user
+        });
+    }
+  }, [token]);  // Dependency array updated to react only to changes in token
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-sm w-full text-center">
@@ -18,11 +41,9 @@ const PaymentSuccess: React.FC = () => {
         </div>
         <div className="text-2xl font-bold text-green-600 mb-4">Payment Success!</div>
         <div className="text-xl text-black mb-8">Thank you for your purchase!</div>
-        <div className="items-center">
-          <Link href="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
-            Go Back to Store
-          </Link>
-        </div>
+        <Link href="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
+          Go Back to Store
+        </Link>
       </div>
     </div>
   );
