@@ -1,30 +1,27 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+'use client'
+import React, { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import AuthService from '@/dbutils/userAPI/authservice';
 import styles from '@/app/(Payment)/Success/PaymentSuccess.module.css';
 import Link from 'next/link';
 
 const PaymentSuccess: React.FC = () => {
-  const searchParams = useSearchParams();  // Correctly destructuring to get searchParams
-  const [token,setToken] = useState<string|null>('');
+  const searchParams = useSearchParams();  // Updated destructuring to also get readiness state
+  const [token, setToken] = useState<string | null>('');
 
   useEffect(() => {
-    setToken(searchParams.get('payToken'));  // Correctly using searchParams to get the payToken
-    if (token) {  // Checking if the token is available and is a string
-      console.log(token);
-      AuthService.successCheckOut(token)
-        .then(result => {
-          console.log('Checkout success:', result);
-          // Optionally handle success, e.g., navigating away or displaying a success message
-        })
-        .catch(error => {
-          console.error('Error in processing checkout:', error);
-          // Optionally handle error, e.g., displaying an error message to the user
-        });
+    setToken(searchParams.get('payToken'));
+    if (token) {  // Check if searchParams are ready
+
+        AuthService.successCheckOut(token)
+          .then(result => {
+            console.log('Checkout success:', result);
+          })
+          .catch(error => {
+            console.error('Error in processing checkout:', error);
+          });
     }
-  }, [token]);  // Dependency array updated to react only to changes in token
+  }, [token]);  // React to changes in searchParams and their readiness
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -47,6 +44,12 @@ const PaymentSuccess: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
-export default PaymentSuccess;
+const WrappedPaymentSuccess = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <PaymentSuccess />
+  </Suspense>
+);
+
+export default WrappedPaymentSuccess;
