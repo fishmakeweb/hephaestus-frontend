@@ -3,20 +3,19 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { OrderDetail } from '@/dbutils/userAPI/order';
 import { Profile } from '@/app/(User)/profile/user-profile-show';
-import React, { useState, useEffect,useId } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchProfile } from '@/dbutils/userAPI/showprofile';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { fetchOrderDetail, OrderData, fetchOrder } from '@/dbutils/userAPI/order';
 import { Card, CardHeader, CardBody, CardFooter, Divider } from "@nextui-org/react";
 import { Client } from "@stomp/stompjs";
 import SockJS from 'sockjs-client';
-import { ChatMessage, OrderChatMessage } from '@/dbutils/chatAPI/types';
+import { OrderChatMessage } from '@/dbutils/chatAPI/types';
 import AuthService from '@/dbutils/userAPI/authservice';
 
 import axios from 'axios';
 
 const TrackedOrderCard: React.FC = () => {
-    const messageId = useId();
     const { orderId } = useParams<{ orderId: string }>();
     const [formData, setFormData] = useState<OrderDetail[]>([]);
     const [userData, setUserData] = useState<Profile | null>(null);
@@ -27,14 +26,29 @@ const TrackedOrderCard: React.FC = () => {
 
     useEffect(() => {
         getProfile();
-        getOrderDetails();
         fetchData();
-        setupWebSocket();
-
+        getOrderDetails();
+        const socket = new SockJS("https://api.hephaestus.store/chat");
+        const client = new Client({
+            webSocketFactory: () => socket,
+            connectHeaders: {
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+            onConnect: () => {
+                client.subscribe(`/topic/orders/${orderId}`, (message) => {
+                    const receivedMessage: OrderChatMessage = JSON.parse(message.body);
+                    setChatMessages((prevMessages) => [...prevMessages, receivedMessage]);
+                });
+    
+            },
+        });
+        client.activate();
+        setStompClient(client);
+        fetchChatHistory();
         return () => {
-            stompClient?.deactivate();
-        };
-    }, []);
+            client.deactivate();
+          };
+    }, [orderId]);
 
     const getProfile = async () => {
         const data = await fetchProfile();
@@ -51,56 +65,24 @@ const TrackedOrderCard: React.FC = () => {
         setFormData(data);
     };
 
-    const generateUniqueID = (): string => {
-        const timestamp = Date.now(); // Gets the current time in milliseconds since the Unix Epoch
-        const randomPortion = Math.floor(Math.random() * 1000000); // Generates a random number between 0 and 999999
-        return `${timestamp}-${randomPortion}`;
-    };
-    
-
-    const setupWebSocket = () => {
-        const socket = new SockJS("http://localhost:8080/chat");
-        const client = new Client({
-            webSocketFactory: () => socket,
-            connectHeaders: {
-                Authorization: "Bearer " + sessionStorage.getItem("token"),
-            },
-            onConnect: () => {
-                client.subscribe(`/topic/orders/${orderId}`, (message) => {
-                    const receivedMessage: OrderChatMessage = JSON.parse(message.body);
-                    setChatMessages((prevMessages) => [...prevMessages, receivedMessage]);
-                });
-            },
-        });
-
-        client.activate();
-        setStompClient(client);
-        fetchChatHistory();
-        return () => {
-            client.deactivate();
-          };
-    };
-
     const fetchChatHistory = async () => {
         const response = await axios.get<OrderChatMessage[]>(
-            `http://localhost:8080/api/chat/history/${orderId}`,
+            `https://api.hephaestus.store/api/chat/history/${orderId}`,
             { headers: { Authorization: "Bearer " + sessionStorage.getItem("token") } }
         );
         setChatMessages(response.data);
+        console.log(response.data);
     };
 
     const sendMessage = () => {
         if (newMessage.trim() !== "" && stompClient) {
             const timestamp = new Date().toISOString();
-            const username = AuthService.getUserName(); // Assume this returns a string directly.
+            const username = AuthService.getUserName();
             const chatMessage = {
-                id: generateUniqueID(),
                 message: newMessage.trim(),
                 username: username,
                 timestamp: timestamp,
             };
-            console.log("Sending message:", chatMessage);
-
             stompClient.publish({
                 destination: `/app/chat/${orderId}`,
                 body: JSON.stringify(chatMessage),
@@ -241,7 +223,7 @@ const TrackedOrderCard: React.FC = () => {
                                                 value={newMessage}
                                                 onChange={(e) => setNewMessage(e.target.value)}
                                                 placeholder="Type a message..."
-                                                onKeyPress={(e) => (e.key === 'Enter' ? sendMessage() : null)}
+                                                onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
                                             />
                                             <button onClick={sendMessage}>Send</button>
                                         </div>
