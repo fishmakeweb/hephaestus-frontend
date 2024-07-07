@@ -76,6 +76,32 @@ class AuthService {
       throw error;
     }
   }
+
+  static async checkOutCustomOrder(token: string,customOrderId: number) {
+    try {
+      const response = await axios.get(`/custom-orders/checkOutCustomOrder/${customOrderId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data.checkoutUrl)
+      return response.data.checkoutUrl;
+      
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static async successCheckOutForCustomOrder(payToken: string) {
+    try {
+      const response = await axios.post('/custom-orders/successCheckOutForCustomOrder', { payToken });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to checkout', error);
+      throw error;
+    }
+  }
+
+
+
   static logout() {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("refreshToken");
