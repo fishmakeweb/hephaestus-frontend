@@ -3,7 +3,7 @@ import { Profile } from "@/app/(User)/profile/user-profile-show";
 import { fetchProfile } from "@/dbutils/userAPI/showprofile";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CustomOrderData } from "@/dbutils/customAPI/customOrder";
-
+import AuthService from "@/dbutils/userAPI/authservice";
 interface SelectedOrderFormProps {
   selectedOrderDetail: CustomOrderData | null;
   onCancel: (customOrderId: number) => void;
@@ -25,6 +25,22 @@ const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
       console.error(error);
     }
   };
+
+  const handleSubmit = async (customOrderId:number) => {
+    try {
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        const checkoutUrl = await AuthService.checkOutCustomOrder(token,customOrderId);
+        window.location.href = checkoutUrl;
+      } else {
+        console.error('No token found');
+        throw new Error('No token found');
+      }
+    } catch (error) {
+      alert('Failed to create payment link:'+ error);
+      throw new Error('Failed to create payment link');
+    }
+};
 
   const handleCancel = async (customOrderId: number) => {
     onCancel(customOrderId);
@@ -160,7 +176,7 @@ const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
             </div>
             <div className="flex justify-between mt-6">
               <button
-                onClick={() => console.log("Checkout")}
+                onClick={() => handleSubmit(formData.customOrderId)}
                 className="bg-black hover:bg-gray-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
               >
                 Checkout
