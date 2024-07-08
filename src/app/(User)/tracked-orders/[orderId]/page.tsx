@@ -1,5 +1,4 @@
 'use client'
-import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { OrderDetail } from '@/dbutils/userAPI/order';
 import { Profile } from '@/app/(User)/profile/user-profile-show';
@@ -7,7 +6,6 @@ import React, { useState, useEffect } from 'react';
 import { fetchProfile } from '@/dbutils/userAPI/showprofile';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { fetchOrderDetail, OrderData, fetchOrder } from '@/dbutils/userAPI/order';
-import { Card, CardHeader, CardBody, CardFooter, Divider } from "@nextui-org/react";
 import { Client } from "@stomp/stompjs";
 import SockJS from 'sockjs-client';
 import { OrderChatMessage } from '@/dbutils/chatAPI/types';
@@ -19,16 +17,14 @@ const TrackedOrderCard: React.FC = () => {
     const { orderId } = useParams<{ orderId: string }>();
     const [formData, setFormData] = useState<OrderDetail[]>([]);
     const [userData, setUserData] = useState<Profile | null>(null);
-    const [orderData, setOrderData] = useState<OrderData[]>([]);
     const [chatMessages, setChatMessages] = useState<OrderChatMessage[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [stompClient, setStompClient] = useState<Client | null>(null);
 
     useEffect(() => {
         getProfile();
-        fetchData();
         getOrderDetails();
-        const socket = new SockJS("https://api.hephaestus.store/chat");
+        const socket = new SockJS("http://localhost:8080/chat");
         const client = new Client({
             webSocketFactory: () => socket,
             connectHeaders: {
@@ -55,11 +51,6 @@ const TrackedOrderCard: React.FC = () => {
         setUserData(data);
     };
 
-    const fetchData = async () => {
-        const data = await fetchOrder();
-        setOrderData(data);
-    };
-
     const getOrderDetails = async () => {
         const data = await fetchOrderDetail(parseInt(orderId));
         setFormData(data);
@@ -67,7 +58,7 @@ const TrackedOrderCard: React.FC = () => {
 
     const fetchChatHistory = async () => {
         const response = await axios.get<OrderChatMessage[]>(
-            `https://api.hephaestus.store/api/chat/history/${orderId}`,
+            `http://localhost:8080/api/chat/history/${orderId}`,
             { headers: { Authorization: "Bearer " + sessionStorage.getItem("token") } }
         );
         setChatMessages(response.data);
@@ -94,53 +85,7 @@ const TrackedOrderCard: React.FC = () => {
 
 
     return (
-        <main className="bg-gray-100 flex flex-col lg:flex-row lg:space-x-4 p-4">
-            {orderData.length === 0 ? (
-                <div className="flex flex-col h-full mt-10 lg:mt-28 mr-5 lg:mr-28">
-                    <div className="mb-10 flex flex-col items-center justify-center w-full font-nunito text-slate-600">
-                        <section className="max-w-full lg:max-w-[968px] w-full mx-4 flex items-center justify-center">
-                            <p className="text-xl lg:text-2xl font-semibold text-gray-700">
-                                You don&apos;t have an order yet
-                            </p>
-                        </section>
-                    </div>
-                </div>
-            ) : (
-                <>
-                    <div className="flex flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full lg:w-1/3">
-                        <p className="text-xl text-center font-semibold mb-4">Your Orders:</p>
-                        <ScrollArea className="max-h-[550px] lg:max-h-[620px] overflow-y-auto">
-                            <div className="flex flex-wrap justify-center gap-4">
-                                {orderData.map((order) => (
-                                    <Card
-                                        key={order.orderId}
-                                        className="w-full bg-white rounded-lg shadow-md"
-                                    >
-                                        <CardHeader className="flex gap-3">
-                                            <div className="flex flex-col">
-                                                <p className="text-md font-semibold">Order ID: {order.orderId}</p>
-                                                <p className="text-sm text-default-500">Date: {order.orderDate}</p>
-                                            </div>
-                                        </CardHeader>
-                                        <Divider />
-                                        <CardBody>
-                                            <p className="text-lg font-semibold">Status: {order.orderStatus.statusDescription}</p>
-                                            <p className="text-lg font-semibold">Total Price: ${order.totalPrice}</p>
-                                        </CardBody>
-                                        <Divider />
-                                        <CardFooter>
-                                            <Link
-                                                href={'/tracked-orders/' + order.orderId}
-                                                className="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded"
-                                            >
-                                                View Details
-                                            </Link>
-                                        </CardFooter>
-                                    </Card>
-                                ))}
-                            </div>
-                        </ScrollArea>
-                    </div>
+        <div className="bg-gray-100 flex flex-col lg:flex-row lg:space-x-4 p-4">
                     <div className="flex-1 p-4">
                         <div className="flex flex-col mt-4 h-full lg:mt-8 mr-5 lg:mr-28 relative">
                             <ScrollArea className="max-h-[500px] lg:max-h-[615px] overflow-y-auto w-full">
@@ -232,9 +177,7 @@ const TrackedOrderCard: React.FC = () => {
                             </ScrollArea>
                         </div>
                     </div>
-                </>
-            )}
-        </main>
+        </div>
     )
 }
 

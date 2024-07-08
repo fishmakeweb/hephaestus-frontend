@@ -1,18 +1,14 @@
 import React from "react";
 import { Card, CardHeader, CardBody, CardFooter, Divider } from "@nextui-org/react";
+import Link from "next/link";
 import { OrderData } from "@/dbutils/userAPI/order";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface OrderCardsProps {
   orderData: OrderData[];
-  onItemClick: (order: number) => void;
 }
 
-const OrderCards: React.FC<OrderCardsProps> = ({ orderData, onItemClick }) => {
-  const handleItemClick = (orderId: number) => {
-    onItemClick(orderId);
-  };
-
+const OrderCards: React.FC<OrderCardsProps> = ({ orderData }) => {
   if (!orderData) {
     return <div>Loading...</div>;
   }
@@ -38,12 +34,12 @@ const OrderCards: React.FC<OrderCardsProps> = ({ orderData, onItemClick }) => {
               </CardBody>
               <Divider />
               <CardFooter>
-                <button
+                <Link
+                href={`/tracked-orders/${order.orderId}`}
                   className="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleItemClick(order.orderId)}
                 >
                   View Details
-                </button>
+                </Link>
               </CardFooter>
             </Card>
           ))}
