@@ -6,7 +6,6 @@ import { getAllJewelry } from "@/dbutils/jewelryAPI/getAllJewelry";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -29,7 +28,7 @@ export default function Jewelry() {
 
 
   useEffect(() => {
-    const pageNumber = parseInt(page_number || '0');
+    const pageNumber = parseInt(page_number || '0')-1;
     getAllJewelry(pageNumber)
       .then(data => {
         setItems(data.content.map((item: JewelryItem) => ({
@@ -65,19 +64,19 @@ export default function Jewelry() {
         <PaginationContent>
           {currentPage > 0 && (
             <PaginationItem>
-              <PaginationPrevious href={"/jewelry/page/"+ (currentPage - 1)} />
+              <PaginationPrevious href={"/jewelry/page/"+ (currentPage)} />
             </PaginationItem>
           )}
           {Array.from({ length: totalPages }, (_, i) => (
             <PaginationItem key={i}>
-              <PaginationLink href={"/jewelry/page/"+ i} isActive={i === currentPage}>
+              <PaginationLink href={"/jewelry/page/"+ (i+1)} isActive={i === currentPage}>
                 {i + 1}
               </PaginationLink>
             </PaginationItem>
           ))}
           {currentPage < totalPages - 1 && (
             <PaginationItem>
-              <PaginationNext href={"/jewelry/page/"+ (currentPage + 1)} />
+              <PaginationNext href={"/jewelry/page/"+ (currentPage + 2)} />
             </PaginationItem>
           )}
         </PaginationContent>
