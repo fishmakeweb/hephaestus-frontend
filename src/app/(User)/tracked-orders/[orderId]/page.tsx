@@ -96,9 +96,9 @@ const TrackedOrderCard: React.FC = () => {
         setChatInitialized(true);
     };
     return (
-        <div className="bg-gray-100 flex flex-col lg:flex-row lg:space-x-4 p-4">
-            <div className="flex-1 p-4">
-                <div className="flex flex-col mt-4 h-full lg:mt-8 mr-5 lg:mr-28 relative">
+        <div className="bg-gray-100 flex flex-col lg:flex-row lg:space-x-4">
+            <div className="flex-1">
+                <div className="flex flex-col h-full lg:mt-8 mr-5 lg:mr-28 relative">
                     <ScrollArea className="max-h-[500px] lg:max-h-[615px] overflow-y-auto w-full">
                         <div className="bg-white py-3 px-3 rounded-lg mb-8 flex flex-col items-center justify-center w-full font-nunito text-slate-600">
                             <section className="max-w-full lg:max-w-[720px] w-full mx-4">

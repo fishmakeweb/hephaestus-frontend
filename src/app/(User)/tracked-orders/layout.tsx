@@ -4,9 +4,6 @@ import React, { useState, useEffect } from 'react';
 import OrderCards from './order-cards';
 import { fetchOrder, OrderData } from '@/dbutils/userAPI/order';
 
-// const inter = Inter({ subsets: ["latin"] });
-
-
 export default function TrackedOrderLayout({
     children,
 }: Readonly<{
