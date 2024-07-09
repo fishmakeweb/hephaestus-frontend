@@ -1,17 +1,28 @@
 import axios from '@/dbutils/axios';
 
-interface ChangePasswordParams {
-  userId: string;
-  password: string;
-}
+const getToken = () => sessionStorage.getItem("token");
 
-export const changePassword = async ({ userId, password }: ChangePasswordParams) => {
+export const checkAndChangePassword = async (oldPassword: string, newPassword: string) => {
+  const token = getToken();
+  
+  if (!token) {
+    throw new Error("Token not found in session storage");
+  }
+
+  const payload = {
+    oldPassword,
+    newPassword
+  };
+
   try {
-    const userPassword = { password };
-    const response = await axios.put(`/secure/customers/password/${userId}`, userPassword);
+    const response = await axios.put('/secure/customers/password', payload, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return response.data;
   } catch (error) {
-    console.error('Operation failed: ', error);
-    throw new Error('Operation failed. Please try again.');
+    console.log(error);
+    throw error;  
   }
 };

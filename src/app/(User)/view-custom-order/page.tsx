@@ -4,6 +4,7 @@ import {
   fetchOrder,
   CustomOrderData,
   fetchCusOrder,
+  requestCancelCusOrder,
 } from "@/dbutils/customAPI/customOrder";
 import CusOrderCards from "./view-custom-form";
 import SelectedCusOrderForm from "./view-custom-details";
@@ -44,6 +45,15 @@ const ViewCustomOrder = () => {
       console.error("Fail to delete", error);
     }
   };
+  const handleRequestCancel = async (cusOrderId: number) => {
+    try {
+      await requestCancelCusOrder(cusOrderId);
+      fetchData();
+      setSelectedCusOrder(null);
+    } catch (error) {
+      console.error("Fail to request cancel", error);
+    }
+  };
 
   return (
     <div className="bg-gray-100 flex flex-col lg:flex-row lg:space-x-4 p-4">
@@ -60,7 +70,9 @@ const ViewCustomOrder = () => {
       ) : (
         <>
           <div className="flex flex-col space-y-4 lg:space-y-0 lg:space-x-4 w-full lg:w-1/3">
-            <p className="text-xl text-center font-semibold mb-4">Your Orders:</p>
+            <p className="text-xl text-center font-semibold mb-4">
+              Your Orders:
+            </p>
             <CusOrderCards
               customOrderData={customOrderData}
               onItemClick={handleItemClick}
@@ -70,6 +82,7 @@ const ViewCustomOrder = () => {
             <SelectedCusOrderForm
               selectedOrderDetail={selectedCusOrder}
               onCancel={handleCancel}
+              onRequestCancel={handleRequestCancel}
             />
           </div>
         </>

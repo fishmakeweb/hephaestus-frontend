@@ -94,3 +94,15 @@ export const deleteCusOrder = async (customOrderId: number) =>{
   
 }
 
+export const requestCancelCusOrder = async (customOrderId: number) =>{
+  const token = getToken();
+  try {
+    await axios.put(`/custom-orders/request-cancel/${customOrderId}`,{}, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    console.error("Failed to request cancel: ", error)
+  }
+  
+}
+
