@@ -7,11 +7,13 @@ import AuthService from "@/dbutils/userAPI/authservice";
 interface SelectedOrderFormProps {
   selectedOrderDetail: CustomOrderData | null;
   onCancel: (customOrderId: number) => void;
+  onRequestCancel: (customOrderId: number) => void;
 }
 
 const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
   selectedOrderDetail,
   onCancel,
+  onRequestCancel,
 }) => {
   const [formData, setFormData] = useState<CustomOrderData | null>(null);
   const [userData, setUserData] = useState<Profile | null>(null);
@@ -42,9 +44,13 @@ const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
     }
 };
 
-  const handleCancel = async (customOrderId: number) => {
+const handleCancel = async (customOrderId: number, orderStatusId: number) => {
+  if (orderStatusId === 2) {
     onCancel(customOrderId);
-  };
+  } else if (orderStatusId === 3) {
+    onRequestCancel(customOrderId);
+  }
+};
 
   useEffect(() => {
     if (selectedOrderDetail) {
@@ -174,20 +180,30 @@ const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
                 </div>
               </div>
             </div>
-            <div className="flex justify-between mt-6">
-              <button
-                onClick={() => handleSubmit(formData.customOrderId)}
-                className="bg-black hover:bg-gray-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
-              >
-                Checkout
-              </button>
-              <button
-                onClick={() => handleCancel(formData.customOrderId)}
-                className="bg-red-500 hover:bg-red-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
-              >
-                Cancel
-              </button>
-            </div>
+            {formData.orderStatus.statusId !== 4 && (             
+              <div className="flex justify-between mt-6">
+                {formData.orderStatus.statusId !==3 && (
+                  <button
+                  onClick={() => handleSubmit(formData.customOrderId)}
+                  className="bg-black hover:bg-gray-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                >
+                  Checkout
+                </button>
+                )}
+                {formData.description !== 'REQUEST CANCEL' && (<button
+                  onClick={() =>
+                    handleCancel(
+                      formData.customOrderId,
+                      formData.orderStatus.statusId
+                    )
+                  }
+                  className="bg-red-500 hover:bg-red-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                >
+                  Cancel
+                </button>)}              
+                
+              </div>
+            )}
           </section>
         </div>
       </ScrollArea>
