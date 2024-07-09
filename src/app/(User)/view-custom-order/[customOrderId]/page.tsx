@@ -1,22 +1,21 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { Profile } from "@/app/(User)/profile/user-profile-show";
 import { fetchProfile } from "@/dbutils/userAPI/showprofile";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CustomOrderData } from "@/dbutils/customAPI/customOrder";
+import {
+  CustomOrderData,
+  fetchCusOrder,
+} from "@/dbutils/customAPI/customOrder";
 import AuthService from "@/dbutils/userAPI/authservice";
-interface SelectedOrderFormProps {
-  selectedOrderDetail: CustomOrderData | null;
-  onCancel: (customOrderId: number) => void;
-  onRequestCancel: (customOrderId: number) => void;
-}
+import { useParams } from "next/navigation";
+import { deleteCusOrder } from "@/dbutils/customAPI/customOrder";
 
-const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
-  selectedOrderDetail,
-  onCancel,
-  onRequestCancel,
-}) => {
+const SelectedCusOrderForm: React.FC = ({}) => {
   const [formData, setFormData] = useState<CustomOrderData | null>(null);
   const [userData, setUserData] = useState<Profile | null>(null);
+  const { customOrderId } = useParams<{ customOrderId: string }>();
+//   const useRouter = useRouter();
 
   const getProfile = async () => {
     try {
@@ -28,38 +27,43 @@ const SelectedCusOrderForm: React.FC<SelectedOrderFormProps> = ({
     }
   };
 
-  const handleSubmit = async (customOrderId:number) => {
+  const handleSubmit = async (customOrderId: number) => {
     try {
-      const token = sessionStorage.getItem('token');
+      const token = sessionStorage.getItem("token");
       if (token) {
-        const checkoutUrl = await AuthService.checkOutCustomOrder(token,customOrderId);
+        const checkoutUrl = await AuthService.checkOutCustomOrder(
+          token,
+          customOrderId
+        );
         window.location.href = checkoutUrl;
       } else {
-        console.error('No token found');
-        throw new Error('No token found');
+        console.error("No token found");
+        throw new Error("No token found");
       }
     } catch (error) {
-      alert('Failed to create payment link:'+ error);
-      throw new Error('Failed to create payment link');
+      alert("Failed to create payment link:" + error);
+      throw new Error("Failed to create payment link");
     }
-};
+  };
 
-const handleCancel = async (customOrderId: number, orderStatusId: number) => {
-  if (orderStatusId === 2) {
-    onCancel(customOrderId);
-  } else if (orderStatusId === 3) {
-    onRequestCancel(customOrderId);
-  }
-};
+
+  const handleCancel = async (cusOrderId: number) => {
+    try {
+      await deleteCusOrder(cusOrderId);
+    } catch (error) {
+      console.error("Fail to delete", error);
+    }
+  };
+
+  const getCustomOrderDetails = async () => {
+    const data = await fetchCusOrder(parseInt(customOrderId));
+    setFormData(data);
+  };
 
   useEffect(() => {
-    if (selectedOrderDetail) {
-      getProfile();
-      setFormData(selectedOrderDetail);
-    } else {
-      setFormData(null);
-    }
-  }, [selectedOrderDetail]);
+    getCustomOrderDetails();
+    getProfile();
+  }, [customOrderId]);
 
   if (!formData) {
     return (
@@ -155,9 +159,9 @@ const handleCancel = async (customOrderId: number, orderStatusId: number) => {
                   </div>
                   {formData.customJewelry.diamond !== null && (
                     <div className="flex-grow flex items-center gap-2">
-                                        
                       <p className="text-md text-black">
-                      Diamond: {formData.customJewelry.diamond.cut.cutDescription}
+                        Diamond:{" "}
+                        {formData.customJewelry.diamond.cut.cutDescription}
                       </p>
                     </div>
                   )}
@@ -193,8 +197,7 @@ const handleCancel = async (customOrderId: number, orderStatusId: number) => {
                 {formData.description !== 'REQUEST CANCEL' && (<button
                   onClick={() =>
                     handleCancel(
-                      formData.customOrderId,
-                      formData.orderStatus.statusId
+                      formData.customOrderId
                     )
                   }
                   className="bg-red-500 hover:bg-red-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
