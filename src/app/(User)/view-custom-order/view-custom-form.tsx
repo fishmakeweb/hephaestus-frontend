@@ -6,21 +6,19 @@ import {
   CardFooter,
   Divider,
 } from "@nextui-org/react";
+import Link from "next/link";
 import { CustomOrderData } from "@/dbutils/customAPI/customOrder";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface OrderCardsProps {
   customOrderData: CustomOrderData[];
-  onItemClick: (customOrder: number) => void;
 }
 
 const CusOrderCards: React.FC<OrderCardsProps> = ({
   customOrderData,
-  onItemClick,
+
 }) => {
-  const handleItemClick = (orderId: number) => {
-    onItemClick(orderId);
-  };
+
 
   if (!customOrderData) {
     return <div>Loading...</div>;
@@ -61,12 +59,12 @@ const CusOrderCards: React.FC<OrderCardsProps> = ({
             </CardBody>
             <Divider />
             <CardFooter className="flex justify-end">
-              <button
+              <Link
+                href={`/view-custom-order/${customOrder.customOrderId}`}
                 className="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded"
-                onClick={() => handleItemClick(customOrder.customOrderId)}
               >
                 View Details
-              </button>
+              </Link>
             </CardFooter>
           </Card>
         ))}
