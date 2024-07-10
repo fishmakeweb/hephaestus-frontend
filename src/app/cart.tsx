@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 import Image from "next/image";
 import { fetchCart, updateQuantity, ItemDetails } from "@/dbutils/cartAPI/cartFunction";
 import { useRouter } from 'next/navigation'
@@ -86,22 +87,6 @@ export function Cart() {
     return itemDetails.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };
 
-  const handleCheckout = () => {
-    const token = sessionStorage.getItem("token");
-
-    if (token) {
-      const queryParams = new URLSearchParams({
-        // itemDetails:null,
-        totalAmount: getTotalAmount().toString(),
-        token,
-      }).toString();
-
-      router.push(`/order-confirmation?${queryParams}`);
-    } else {
-      console.error("No token found in sessionStorage.");
-    }
-  };
-
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -130,7 +115,7 @@ export function Cart() {
               Your cart is currently empty.
             </p>
           ) : (
-            <ScrollArea className="w-full h-[530px]">
+            <ScrollArea className="w-full h-[70vh]">
               <ul className="divide-y divide-gray-200 w-full">
                 {itemDetails.map((item) => (
                   <li key={item.orderDetailId} className="py-4 flex items-center">
@@ -185,12 +170,12 @@ export function Cart() {
                 Total Amount: ${getTotalAmount().toFixed(2)}
               </p>
               <div className="mt-4">
-                <button
+                <Link
                   className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
-                  onClick={handleCheckout}
+                  href='/order-confirmation'
                 >
                   CHECK OUT
-                </button>
+                </Link>
               </div>
             </div>
           )}
