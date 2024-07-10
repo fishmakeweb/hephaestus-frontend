@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { debounce } from "lodash";
 import {
   Sheet,
@@ -12,8 +12,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -29,26 +27,24 @@ export function Cart() {
   const [errorMessages, setErrorMessages] = useState<{ [key: number]: string }>(
     {}
   );
+  const [totalPrice, setTotalPrice] = useState(0);
   const [orderId, setOrderId] = useState<number>();
   const router = useRouter();
 
   const fetchCartData = async () => {
     try {
-      const data = await fetchCart();
-      if (data.listOrderDetail.length !== 0)
-        setOrderId(data.listOrderDetail[0].id);
-      setItemDetails(
-        data.listOrderDetail.map((item) => ({
-          ...item.product.jewelry,
-          orderDetailId: item.id,
-          quantity: item.quantity,
-        }))
-      );
+      const { listOrderDetail, totalPrice } = await fetchCart();
+      setTotalPrice(totalPrice);
+      const items = listOrderDetail.map(item => ({
+        ...item.jewelry,
+        orderDetailId: item.id,
+        quantity: item.quantity,
+      })).filter(item => item !== null); // Filtering out any null jewelry items
+      setItemDetails(items);
     } catch (error) {
       console.error("Error fetching cart data:", error);
     }
   };
-
   const updateQuantityInState = (
     orderDetailId: number,
     newQuantity: number
@@ -179,7 +175,7 @@ export function Cart() {
                         {item.name}
                       </p>
                       <p className="text-sm text-gray-500">
-                        Price: ${item.price.toFixed(2)}
+                        Price: ${item.price}
                       </p>
                       <div className="flex items-center mt-2 md:mt-0">
                         <button
@@ -233,7 +229,7 @@ export function Cart() {
             {itemDetails.length > 0 && (
               <div className="mt-4 w-full flex flex-col items-center">
                 <p className="text-md font-semibold text-center">
-                  Total Amount: ${getTotalAmount().toFixed(2)}
+                  Total Amount: ${getTotalAmount()}
                 </p>
                 <SheetClose asChild className="mt-4">
                   <Link

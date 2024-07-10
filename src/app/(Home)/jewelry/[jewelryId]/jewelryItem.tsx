@@ -8,7 +8,7 @@ import { addToCart } from "@/dbutils/jewelryAPI/addToCart"; // Adjusted import p
 
 const JewelryItem: React.FC = () => {
   const router = useRouter();
-  const { productId } = useParams<{ productId?: string }>(); // productId may be undefined
+  const { jewelryId } = useParams<{ jewelryId?: string }>(); // productId may be undefined
   const [itemDetails, setItemDetails] = useState<JewelryDetail | null>(null);
   const [buttonText, setButtonText] = useState('ADD TO BAG');
 
@@ -20,13 +20,13 @@ const JewelryItem: React.FC = () => {
       return;
     }
 
-    if (!productId) {
+    if (!jewelryId) {
       console.error('Product ID is undefined');
       return;
     }
 
     try {
-      await addToCart(productId, token);
+      await addToCart(jewelryId, token);
       setButtonText('ADDED');
       setTimeout(() => setButtonText('ADD TO BAG'), 700);
     } catch (error) {
@@ -36,10 +36,10 @@ const JewelryItem: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!productId) return;
-
+      if (!jewelryId) return;
       try {
-        const details = await viewJewelryDetails(productId);
+        const details = await viewJewelryDetails(jewelryId);
+        console.log(details);
         setItemDetails(details);
       } catch (error) {
         console.error('Error fetching jewelry details:', error);
@@ -47,7 +47,7 @@ const JewelryItem: React.FC = () => {
     };
 
     fetchData();
-  }, [productId]);
+  }, [jewelryId]);
 
   if (!itemDetails) return <div>Loading...</div>;
 

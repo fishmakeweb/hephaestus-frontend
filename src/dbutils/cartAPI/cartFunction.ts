@@ -12,14 +12,13 @@ export interface CartData {
   listOrderDetail: {
     id: number;
     quantity: number;
-    product: {
       jewelry: {
         img: string;
         name: string;
         price: number;
       };
-    };
   }[];
+  totalPrice:number,
 }
 
 const getToken = () => sessionStorage.getItem("token");
@@ -29,6 +28,7 @@ export const fetchCart = async (): Promise<CartData> => {
   const response = await axios.get<CartData>("/orders/getcart", {
     headers: { Authorization: `Bearer ${token}` },
   });
+  console.log(response.data);
   return response.data;
 };
 

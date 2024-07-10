@@ -1,12 +1,12 @@
 import axios from "@/dbutils/axios";
 
-export const addToCart = async (productId: string, token: string) => {
+export const addToCart = async (jewelryId: string, token: string) => {
   try {
     await axios.post(
       '/order_details/addToCart',
       null,
       {
-        params: { productId },
+        params: { jewelryId },
         headers: { Authorization: `Bearer ${token}` }
       }
     );
