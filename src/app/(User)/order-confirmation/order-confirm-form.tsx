@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import AuthService from "@/dbutils/userAPI/authservice";
 import { fetchCart , ItemDetails} from "@/dbutils/cartAPI/cartFunction";
+import axios from "axios";
 
 interface Profile {
   customer: {

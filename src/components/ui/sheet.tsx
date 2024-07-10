@@ -80,7 +80,7 @@ const SheetHeader = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col items-center justify-center space-y-2 sm:space-y-0 sm:flex-row sm:justify-between sm:space-x-2",
+      "flex flex-col space-y-2 text-center sm:text-left",
       className
     )}
     {...props}
@@ -94,7 +94,7 @@ const SheetFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col items-center justify-center space-y-2",
+      "flex flex-col-reverse sm:flex-row sm:justify-center sm:space-x-2 justify-center",
       className
     )}
     {...props}

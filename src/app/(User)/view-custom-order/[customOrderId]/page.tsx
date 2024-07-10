@@ -9,7 +9,7 @@ import {
 } from "@/dbutils/customAPI/customOrder";
 import AuthService from "@/dbutils/userAPI/authservice";
 import { useParams } from "next/navigation";
-import { deleteCusOrder, requestCancelCusOrder } from "@/dbutils/customAPI/customOrder";
+import { deleteCusOrder } from "@/dbutils/customAPI/customOrder";
 
 const SelectedCusOrderForm: React.FC = ({}) => {
   const [formData, setFormData] = useState<CustomOrderData | null>(null);
@@ -47,14 +47,9 @@ const SelectedCusOrderForm: React.FC = ({}) => {
   };
 
 
-  const handleCancel = async (cusOrderId: number, statusId: number) => {
+  const handleCancel = async (cusOrderId: number) => {
     try {
-      if(statusId === 2){
-        await deleteCusOrder(cusOrderId);
-      }else if(statusId === 3){
-        await requestCancelCusOrder(cusOrderId);
-      }
-
+      await deleteCusOrder(cusOrderId);
     } catch (error) {
       console.error("Fail to delete", error);
     }
@@ -202,7 +197,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                 {formData.description !== 'REQUEST CANCEL' && (<button
                   onClick={() =>
                     handleCancel(
-                      formData.customOrderId, formData.orderStatus.statusId
+                      formData.customOrderId
                     )
                   }
                   className="bg-red-500 hover:bg-red-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"

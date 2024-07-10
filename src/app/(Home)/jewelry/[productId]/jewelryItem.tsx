@@ -60,12 +60,8 @@ const JewelryItem: React.FC = () => {
               loading="lazy"
               src={itemDetails.img}
               alt={itemDetails.name}
-              width={150} height={150} 
-              sizes="100vw"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
+              width={3000} height={3000} 
+              className="mt-20 w-80 h-80 object-cover mx-auto w-auto h-auto"
             />
           </div>
           <div className="flex flex-col ml-5 w-3/5 max-md:ml-0 max-md:w-full">
