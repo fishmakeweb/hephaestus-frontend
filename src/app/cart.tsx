@@ -155,8 +155,7 @@ export function Cart() {
               Your cart is currently empty.
             </p>
           ) : (
-            <div className="w-full flex flex-col h-full">
-              <ScrollArea className="w-full h-[530px] overflow-auto flex-grow">
+                        <ScrollArea className="w-full h-[70vh]">
                 <ul className="divide-y divide-gray-200 w-full">
                   {itemDetails.map((item) => (
                     <li
