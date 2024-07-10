@@ -9,14 +9,94 @@ import {
 } from "@/dbutils/customAPI/customOrder";
 import AuthService from "@/dbutils/userAPI/authservice";
 import { useParams } from "next/navigation";
-import { deleteCusOrder, requestCancelCusOrder } from "@/dbutils/customAPI/customOrder";
-
+import {
+  deleteCusOrder,
+  requestCancelCusOrder,
+} from "@/dbutils/customAPI/customOrder";
+import { CustomOrderChatMessage } from "@/dbutils/chatAPI/custom-types";
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+import axios from "@/dbutils/axios";
 const SelectedCusOrderForm: React.FC = ({}) => {
   const [formData, setFormData] = useState<CustomOrderData | null>(null);
   const [userData, setUserData] = useState<Profile | null>(null);
   const { customOrderId } = useParams<{ customOrderId: string }>();
-//   const useRouter = useRouter();
+  const [chatInitialized, setChatInitialized] = useState(false);
+  const [stompClient, setStompClient] = useState<Client | null>(null);
+  const [chatMessages, setChatMessages] = useState<CustomOrderChatMessage[]>(
+    []
+  );
+  const [newMessage, setNewMessage] = useState("");
+  //   const useRouter = useRouter();
 
+  useEffect(() => {
+    getProfile();
+    getCustomOrderDetails();
+    fetchChatHistory();
+  }, [customOrderId]);
+
+  useEffect(() => {
+    console.log("success");
+    let client: Client;
+    if (chatInitialized) {
+      const socket = new SockJS("http://localhost:8080/custom-order-chat");
+      client = new Client({
+        webSocketFactory: () => socket,
+        connectHeaders: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+        onConnect: () => {
+          client.subscribe(`/topic/custom-orders/${customOrderId}`, (message) => {
+            const receivedMessage: CustomOrderChatMessage = JSON.parse(message.body);
+            setChatMessages((prevMessages) => [
+              ...prevMessages,
+              receivedMessage,
+            ]);
+          });
+        },
+      });
+      client.activate();
+      setStompClient(client);
+    }
+
+    return () => {
+      if (client) {
+        client.deactivate();
+      }
+    };
+  }, [chatInitialized, customOrderId]);
+
+
+
+  const fetchChatHistory = async () => {
+    const response = await axios.get<CustomOrderChatMessage[]>(
+      `http://localhost:8080/api/chat/custom-order-history/${customOrderId}`,
+      {
+        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+      }
+    );
+    setChatMessages(response.data);
+    if (response.data.length > 0) {
+      setChatInitialized(true);
+    }
+  };
+
+  const sendMessage = () => {
+    if (newMessage.trim() !== "" && stompClient) {
+      const timestamp = new Date().toISOString();
+      const username = AuthService.getUserName();
+      const chatMessage = {
+        message: newMessage.trim(),
+        username: username,
+        timestamp: timestamp,
+      };
+      stompClient.publish({
+        destination: `/app/custom-order-chat/${customOrderId}`,
+        body: JSON.stringify(chatMessage),
+      });
+      setNewMessage("");
+    }
+  };
   const getProfile = async () => {
     try {
       const data = await fetchProfile();
@@ -46,15 +126,13 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     }
   };
 
-
   const handleCancel = async (cusOrderId: number, statusId: number) => {
     try {
-      if(statusId === 2){
+      if (statusId === 2) {
         await deleteCusOrder(cusOrderId);
-      }else if(statusId === 3){
+      } else if (statusId === 3) {
         await requestCancelCusOrder(cusOrderId);
       }
-
     } catch (error) {
       console.error("Fail to delete", error);
     }
@@ -69,7 +147,9 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     getCustomOrderDetails();
     getProfile();
   }, [customOrderId]);
-
+  const createOrderTicket = () => {
+    setChatInitialized(true);
+  };
   if (!formData) {
     return (
       <div className="flex flex-col h-full mt-10 lg:mt-28 mr-5 lg:mr-28">
@@ -91,8 +171,16 @@ const SelectedCusOrderForm: React.FC = ({}) => {
           <section className="max-w-full lg:max-w-4xl w-full">
             <div className="mb-5">
               <h1 className="text-2xl font-semibold text-gray-800">
-                Order Review
+                Custom Order Review
               </h1>
+              {!chatInitialized && (
+                <button
+                  className="mt-2 bg-gray-800 hover:bg-black text-white font-bold py-1 px-3 rounded ml-auto"
+                  onClick={createOrderTicket}
+                >
+                  Create an order ticket
+                </button>
+              )}
             </div>
             <div className="mb-5">
               <h2 className="text-lg font-bold text-gray-800">
@@ -189,30 +277,56 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                 </div>
               </div>
             </div>
-            {formData.orderStatus.statusId !== 4 && (             
+            {formData.orderStatus.statusId !== 4 && (
               <div className="flex justify-between mt-6">
-                {formData.orderStatus.statusId !==3 && (
+                {formData.orderStatus.statusId !== 3 && (
                   <button
-                  onClick={() => handleSubmit(formData.customOrderId)}
-                  className="bg-black hover:bg-gray-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
-                >
-                  Checkout
-                </button>
+                    onClick={() => handleSubmit(formData.customOrderId)}
+                    className="bg-black hover:bg-gray-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                  >
+                    Checkout
+                  </button>
                 )}
-                {formData.description !== 'REQUEST CANCEL' && (<button
-                  onClick={() =>
-                    handleCancel(
-                      formData.customOrderId, formData.orderStatus.statusId
-                    )
-                  }
-                  className="bg-red-500 hover:bg-red-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
-                >
-                  Cancel
-                </button>)}              
-                
+                {formData.description !== "REQUEST CANCEL" && (
+                  <button
+                    onClick={() =>
+                      handleCancel(
+                        formData.customOrderId,
+                        formData.orderStatus.statusId
+                      )
+                    }
+                    className="bg-red-500 hover:bg-red-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+                  >
+                    Cancel
+                  </button>
+                )}               
               </div>
             )}
           </section>
+          {chatInitialized && (
+                  <>
+                    <p className="text-md font-semibold">Support Box</p>
+                    <div className="chat-box">
+                      <div className="messages">
+                        {chatMessages.map((msg) => (
+                          <p key={msg.id}>
+                            {msg.username}: {msg.message}
+                          </p>
+                        ))}
+                      </div>
+                      <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        placeholder="Type a message..."
+                        onKeyPress={(e) =>
+                          e.key === "Enter" ? sendMessage() : null
+                        }
+                      />
+                      <button onClick={sendMessage}>Send</button>
+                    </div>
+                  </>
+                )}
         </div>
       </ScrollArea>
     </div>
