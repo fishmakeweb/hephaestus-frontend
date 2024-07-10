@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 import Image from "next/image";
 import {
   fetchCart,
@@ -113,22 +114,6 @@ export function Cart() {
       (acc, item) => acc + item.price * item.quantity,
       0
     );
-  };
-
-  const handleCheckout = () => {
-    const token = sessionStorage.getItem("token");
-
-    if (token) {
-      const queryParams = new URLSearchParams({
-        // itemDetails:null,
-        totalAmount: getTotalAmount().toString(),
-        token,
-      }).toString();
-
-      router.push(`/order-confirmation?${queryParams}`);
-    } else {
-      console.error("No token found in sessionStorage.");
-    }
   };
 
   return (
@@ -249,19 +234,20 @@ export function Cart() {
                   ))}
                 </ul>
               </ScrollArea>
-              {itemDetails.length > 0 && (
-                <SheetFooter className=" w-full">
-                  <p className="text-md font-semibold text-center mb-2">
-                    Total Amount: ${getTotalAmount().toFixed(2)}
-                  </p>
-                  <button
-                    className="bg-black text-white font-semibold px-10 py-2 rounded-full hover:bg-gray-800"
-                    onClick={handleCheckout}
-                  >
-                    CHECK OUT
-                  </button>
-                </SheetFooter>
-              )}
+        <SheetFooter>
+          {itemDetails.length > 0 && (
+            <div className="mt-4 w-full flex flex-col items-center">
+              <p className="text-md font-semibold text-center">
+                Total Amount: ${getTotalAmount().toFixed(2)}
+              </p>
+              <SheetClose asChild className="mt-4">
+                <Link
+                  className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
+                  href="/order-confirmation"
+                >
+                  CHECK OUT
+                </Link>
+              </SheetClose>
             </div>
           )}
         </div>
