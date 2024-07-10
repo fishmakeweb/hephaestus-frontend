@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,12 @@ export function LoginForm() {
   const router = useRouter();
   
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    const token = sessionStorage.getItem("token");
+    if(token != null) {
+      alert("You are already logged in!");
+      AuthService.logout();
+      return;
+    }
     e.preventDefault();
     setError(null); // Reset error message on new submission
     try {
