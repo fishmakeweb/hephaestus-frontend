@@ -1,6 +1,6 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from 'next/navigation';
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
   Pagination,
@@ -10,8 +10,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 import { getAllNewRelease } from "@/dbutils/newReleaseAPI/getAllJewelry";
+import Image from "next/image";
 
 interface JewelryItem {
   productId: string;
@@ -27,35 +28,51 @@ export default function Jewelry() {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
-
   useEffect(() => {
-    const pageNumber = parseInt(page_number || '0');
+    const pageNumber = parseInt(page_number || "0") - 1;
     getAllNewRelease(pageNumber)
-      .then(data => {
-        setItems(data.content.map((item: JewelryItem) => ({
-          productId: item.productId,
-          img: item.img,
-          name: item.name,
-          price: item.price
-        })));
+      .then((data) => {
+        setItems(
+          data.content.map((item: JewelryItem) => ({
+            productId: item.productId,
+            img: item.img,
+            name: item.name,
+            price: item.price,
+          }))
+        );
         setTotalPages(data.totalPages);
         setCurrentPage(data.number);
       })
-      .catch(error => console.error("Error fetching jewelry data:", error));
+      .catch((error) => console.error("Error fetching jewelry data:", error));
   }, [page_number]);
-
-  
 
   return (
     <div className="bg-white">
-      <section className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+      <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 justify-items-center gap-y-20 gap-x-14 mt-10 mb-5">
         {items.map((item) => (
-          <div key={item.productId} className="w-72 bg-white rounded-xl hover:shadow-md duration-500">
+          <div
+            key={item.productId}
+            className="w-full max-w-xs bg-white rounded-xl hover:shadow-md duration-500"
+          >
             <Link href={`/jewelry/${item.productId}`}>
-              <img src={item.img} alt={item.name} className="w-64 h-64 mt-2 mb-2 object-cover mx-auto" />
+              <Image
+                width={150}
+                height={100}
+                src={item.img}
+                alt={item.name}
+                sizes="100vw"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
+              />
               <div className="px-4 py-3">
-                <p className="text-darkgray text-sm font-normal truncate capitalize">{item.name}</p>
-                <p className="text-lightgray text-sm font-normal my-3">${item.price}</p>
+                <p className="text-darkgray text-sm font-normal truncate capitalize">
+                  {item.name}
+                </p>
+                <p className="text-lightgray text-sm font-normal my-3">
+                  ${item.price}
+                </p>
               </div>
             </Link>
           </div>
@@ -65,24 +82,26 @@ export default function Jewelry() {
         <PaginationContent>
           {currentPage > 0 && (
             <PaginationItem>
-              <PaginationPrevious href={"/jewelry/page/"+ (currentPage - 1)} />
+              <PaginationPrevious href={"/newrelease/page/" + currentPage} />
             </PaginationItem>
           )}
           {Array.from({ length: totalPages }, (_, i) => (
             <PaginationItem key={i}>
-              <PaginationLink href={"/jewelry/page/"+ i} isActive={i === currentPage}>
+              <PaginationLink
+                href={"/newrelease/page/" + (i + 1)}
+                isActive={i === currentPage}
+              >
                 {i + 1}
               </PaginationLink>
             </PaginationItem>
           ))}
           {currentPage < totalPages - 1 && (
             <PaginationItem>
-              <PaginationNext href={"/jewelry/page/"+ (currentPage + 1)} />
+              <PaginationNext href={"/jewelry/page/" + (currentPage + 2)} />
             </PaginationItem>
           )}
         </PaginationContent>
       </Pagination>
-
     </div>
   );
 }
