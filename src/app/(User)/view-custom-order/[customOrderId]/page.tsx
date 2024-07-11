@@ -39,7 +39,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     console.log("success");
     let client: Client;
     if (chatInitialized) {
-      const socket = new SockJS("http://localhost:8080/custom-order-chat");
+      const socket = new SockJS("https://api.hephaestus.store/custom-order-chat");
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
@@ -70,7 +70,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
 
   const fetchChatHistory = async () => {
     const response = await axios.get<CustomOrderChatMessage[]>(
-      `http://localhost:8080/api/chat/custom-order-history/${customOrderId}`,
+      `https://api.hephaestus.store/api/chat/custom-order-history/${customOrderId}`,
       {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       }
