@@ -38,7 +38,7 @@ const ConfirmOrderForm: React.FC = () =>  {
       if (data.listOrderDetail.length !== 0) setOrderId(data.listOrderDetail[0].id);
 
       const items = data.listOrderDetail.map((item: any) => ({
-        ...item.product.jewelry,
+        ...item.jewelry,
         orderDetailId: item.id,
         quantity: item.quantity,
       }));

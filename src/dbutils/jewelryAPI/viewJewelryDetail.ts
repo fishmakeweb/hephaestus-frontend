@@ -12,10 +12,10 @@ export interface JewelryDetail {
   size?: { sizeNumber: number; unit: string };
 }
 
-export const viewJewelryDetails = async (productId: string): Promise<JewelryDetail> => {
+export const viewJewelryDetails = async (jewelryId: string): Promise<JewelryDetail> => {
   try {
-    const response = await axios.get(`/products/${productId}`);
-    return response.data.jewelry as JewelryDetail; // Assuming response.data directly contains jewelry details
+    const response = await axios.get(`/jewelry/${jewelryId}`);
+    return response.data as JewelryDetail; // Assuming response.data directly contains jewelry details
   } catch (error) {
     console.error("Error fetching jewelry details:", error);
     throw error;

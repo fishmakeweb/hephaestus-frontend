@@ -180,16 +180,16 @@ const TrackedOrderCard: React.FC = () => {
                       <div key={detail.id} className="py-3 flex items-center">
                         <img
                           loading="lazy"
-                          src={detail.product.jewelry.img}
-                          alt={detail.product.jewelry.name}
+                          src={detail.jewelry.img}
+                          alt={detail.jewelry.name}
                           className="w-20 h-20 rounded-md object-cover"
                         />
                         <div className="ml-3 flex-grow">
                           <p className="text-md font-medium text-gray-900">
-                            {detail.product.jewelry.name}
+                            {detail.jewelry.name}
                           </p>
                           <p className="text-sm text-gray-500">
-                            Price: ${detail.product.jewelry.price.toFixed(2)}
+                            Price: ${detail.jewelry.price.toFixed(2)}
                           </p>
                           <p className="text-sm text-gray-500">
                             Quantity: {detail.quantity}
@@ -208,7 +208,7 @@ const TrackedOrderCard: React.FC = () => {
                         .reduce(
                           (total, detail) =>
                             total +
-                            detail.product.jewelry.price * detail.quantity,
+                            detail.jewelry.price * detail.quantity,
                           0
                         )
                         .toFixed(2)}

@@ -86,6 +86,7 @@ export const columns: ColumnDef<Diamond>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          // className="text-cente"
         >
           Price
           <ArrowUpDown className="ml-2 h-4 w-4 " />
@@ -100,16 +101,16 @@ export const columns: ColumnDef<Diamond>[] = [
     cell: ({ getValue }) => {
       const imageUrl = getValue() as string; // Type assertion to string
       return (
-        <Image
-          src={imageUrl}
-          alt="Diamond"
-          width={100}
-          height={100}
-          style={{
-            width: '100%',
-            height: "auto",
-          }}
-        />
+        <div className="w-full h-[10vh] flex items-center justify-center">
+          <Image
+            src={imageUrl}
+            alt="Diamond"
+            width={100}
+            height={100}
+            sizes="10vw"
+            className="w-[40%] h-auto" // Use Tailwind classes for width and height instead of inline styles
+          />
+        </div>
       );
     },
   },
