@@ -15,7 +15,7 @@ import { getAllNewRelease } from "@/dbutils/newReleaseAPI/getAllJewelry";
 import Image from "next/image";
 
 interface JewelryItem {
-  productId: string;
+  jewelryId: string;  
   img: string;
   name: string;
   price: number;
@@ -34,7 +34,7 @@ export default function Jewelry() {
       .then((data) => {
         setItems(
           data.content.map((item: JewelryItem) => ({
-            productId: item.productId,
+            jewelryId: item.jewelryId,
             img: item.img,
             name: item.name,
             price: item.price,
@@ -51,21 +51,23 @@ export default function Jewelry() {
       <section className="w-full px-4 sm:px-6 md:px-8 lg:px-10 mx-auto grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 justify-items-center gap-y-20 gap-x-14 mt-10 mb-5">
         {items.map((item) => (
           <div
-            key={item.productId}
+            key={item.jewelryId}
             className="w-full max-w-xs bg-white rounded-xl hover:shadow-md duration-500"
           >
-            <Link href={`/jewelry/${item.productId}`}>
+            <Link href={`/jewelry/${item.jewelryId}`}>
+            <div className="w-full h-[50vh] ">
               <Image
                 width={150}
                 height={100}
                 src={item.img}
                 alt={item.name}
-                sizes="100vw"
+                sizes="8vw"
                 style={{
                   width: "100%",
                   height: "auto",
                 }}
               />
+              </div>
               <div className="px-4 py-3">
                 <p className="text-darkgray text-sm font-normal truncate capitalize">
                   {item.name}
