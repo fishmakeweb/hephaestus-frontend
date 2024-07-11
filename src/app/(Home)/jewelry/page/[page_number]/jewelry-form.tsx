@@ -54,7 +54,7 @@ export default function Jewelry() {
             className="w-full max-w-xs bg-white rounded-xl hover:shadow-md duration-500"
           >
             <Link href={`/jewelry/${item.jewelryId}`}>
-
+              <div className="w-full h-[50vh] ">
               <Image
                 width={150}
                 height={100}
@@ -66,6 +66,8 @@ export default function Jewelry() {
                   height: "auto",
                 }}
               />
+              </div>
+              
               <div className="px-4 py-3">
                 <p className="text-darkgray text-sm font-normal truncate capitalize">
                   {item.name}
