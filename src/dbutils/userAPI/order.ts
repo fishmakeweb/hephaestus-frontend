@@ -38,7 +38,7 @@ interface Product {
 
 export interface OrderDetail {
   id: number;
-  product: Product;
+  jewelry: Jewelry;
   orderId: number;
   quantity: number;
 }
