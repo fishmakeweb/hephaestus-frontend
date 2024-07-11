@@ -1,7 +1,8 @@
 "use client"
 import React, { useEffect } from "react";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 function Homepage() {
   const router = useRouter();
   useEffect(() => {
@@ -14,7 +15,7 @@ function Homepage() {
       alert('Please log in to custom your jewelry.');
       router.push('/login');
       return;
-    }else{
+    } else {
       router.push("/custom");
     }
   }
@@ -32,11 +33,17 @@ function Homepage() {
             {/* wedding ring page */}
             <div className="flex flex-col grow justify-center max-md:mt-10">
               <div className="flex flex-col justify-center shadow-sm bg-stone-300">
-                <img
-                  loading="lazy"
-                  srcSet="https://i.ebayimg.com/images/g/tQYAAOSwiqpijl0b/s-l1200.webp"
-                  alt="wedding-ring-sample"
+                <Image
                   className="w-full aspect-[0.9]"
+                  width={150}
+                  height={100}
+                  src={'/img/homepage/s-l1200.webp'}
+                  alt={'wedding-ring-sample'}
+                  sizes="10vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
                 />
               </div>
               <div className="self-center mt-5 text-2xl text-center text-black">
@@ -48,11 +55,17 @@ function Homepage() {
             {/* Engagement Ring page */}
             <div className="flex flex-col grow justify-center max-md:mt-10">
               <div className="flex flex-col justify-center shadow-sm bg-stone-300">
-                <img
-                  loading="lazy"
-                  srcSet="img\homepage\eng-ring-sample.png"//item 2
-                  alt="eng-ring-sample"
+                <Image
                   className="w-full aspect-[0.9]"
+                  width={150}
+                  height={100}
+                  src={'/img/homepage/eng-ring-sample.png'}
+                  alt={'eng-ring-sample'}
+                  sizes="10vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
                 />
               </div>
               <div className="self-center mt-5 text-2xl text-center text-black">
@@ -64,13 +77,20 @@ function Homepage() {
             {/* Diamond page */}
             <div className="flex flex-col grow justify-center max-md:mt-10">
               <div className="flex flex-col justify-center shadow-sm bg-stone-300">
-                <img
-                  loading="lazy"
-                  srcSet="img\homepage\diamond.png"//item 3
-                  alt="diamond"
+                <Image
                   className="w-full aspect-[0.9]"
+                  width={150}
+                  height={200}
+                  src={'/img/homepage/diamond.png'}
+                  alt={'jdiamond'}
+                  sizes="10vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
                 />
               </div>
+
               <div className="self-center mt-5 text-2xl text-center text-black">
                 Diamond
               </div>
@@ -80,11 +100,17 @@ function Homepage() {
             {/* Jewelry page */}
             <div className="flex flex-col grow justify-center max-md:mt-10">
               <div className="flex flex-col justify-center shadow-sm bg-stone-300">
-                <img
-                  loading="lazy"
-                  srcSet="img\homepage\jewerly-sample.png"//item 4
-                  alt="jewerly-sample"
+                <Image
                   className="w-full aspect-[0.9]"
+                  width={150}
+                  height={200}
+                  src={'/img/homepage/jewerly-sample.png'}
+                  alt={'jewerly-sample'}
+                  sizes="10vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
                 />
               </div>
               <div className="self-center mt-5 text-2xl text-center text-black">
@@ -172,13 +198,18 @@ function Homepage() {
       </div>
       <div className="mt-10 w-full bg-stone-950 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <div className="flex flex-col w-full md:w-1/2 lg:w-2/5 max-md:ml-0">
-            <img
-              loading="lazy"
-              src="img/homepage/ringyellowarticle.webp"
-              alt="Article-img"
+          <div className="flex flex-col w-full md:w-1/2 lg:w-[25vw] max-md:ml-0">
+            <Image
               className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
-            />
+              width={150}
+              height={200}
+              src={'/img/homepage/ringyellowarticle.webp'}
+              alt={'Article-img'}
+              sizes="20vw"
+              style={{
+                width: "100%",
+                height: "auto",
+              }} />
           </div>
           <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
             <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
@@ -200,7 +231,7 @@ function Homepage() {
       </div>
       <div className="mt-10 w-full bg-stone-950 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          
+
           <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
             <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
               <div className="text-xl max-md:max-w-full">
@@ -210,37 +241,45 @@ function Homepage() {
                 During the golden hour.
               </div>
               <div className="mt-8 text-2xl max-md:max-w-full">
-              Create a Unique
-              Custom Piece
-              At The Diamond Shop, we take you through a step by step process, beginning with a one-on-one consultation, and ending with a stunning one of a kind piece of jewelry.
+                Create a Unique
+                Custom Piece
+                At The Diamond Shop, we take you through a step by step process, beginning with a one-on-one consultation, and ending with a stunning one of a kind piece of jewelry.
 
-              Start your project off by clicking the button below and letting us know what your dream piece looks like!
+                Start your project off by clicking the button below and letting us know what your dream piece looks like!
               </div>
               <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
                 READ MORE
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-full md:w-1/2 lg:w-2/5 max-md:ml-0">
-            <img
-              loading="lazy"
-              src="img/homepage/diamondimage.webp"
-              alt="Article-img"
-              className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
-            />
+          <div className="flex flex-col w-full md:w-1/2 lg:w-[100vw] max-md:ml-0">
+            <Image
+              width={2000}
+              height={1000}
+              src={'/img/homepage/diamondimage.webp'}
+              alt={'Article-img'}
+              sizes="100vw"
+              style={{
+                width: "auto",
+                height: "100%",
+              }} />
           </div>
         </div>
       </div>
 
       <div className="mt-10 w-full bg-stone-950 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <div className="flex flex-col w-full md:w-1/2 lg:w-2/5 max-md:ml-0">
-            <img
-              loading="lazy"
-              src="img/homepage/thirdring.webp"
-              alt="Article-img"
-              className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
-            />
+          <div className="flex flex-col w-full md:w-1/2 lg:w-[60vw] max-md:ml-0">
+            <Image
+              width={2000}
+              height={1000}
+              src={'/img/homepage/thirdring.webp'}
+              alt={'Article-img'}
+              sizes="40vw"
+              style={{
+                width: "auto",
+                height: "100%",
+              }} />
           </div>
           <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
             <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
