@@ -5,27 +5,15 @@ class AuthService {
       const token = sessionStorage.getItem("token");
       return !!token;
     } catch (error) {
-      // console.error("Error checking authentication status:", error);
     }
 
   }
   static async getProfile(token: string) {
     try {
-      const response = await axios.get(`/profile`, {
+      const response = await axios.get(`/public/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async checkOut(token: string) {
-    try {
-      const response = await axios.get(`/orders/checkOut`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data.checkoutUrl;
     } catch (error) {
       throw error;
     }
@@ -55,22 +43,12 @@ class AuthService {
         username,
         password
       });
-      const { token, refreshToken, staff, customer } = response.data;
-
-      // Save the auth tokens and user information in sessionStorage
-      if (token != null) {
+      const token = response.data.token;
+      if (token ) {
         sessionStorage.setItem("token", token);
-        sessionStorage.setItem("refreshToken", refreshToken);
       }
-      if (staff) {
-        sessionStorage.setItem("role", "STAFF");
-        sessionStorage.setItem("user", JSON.stringify(staff));
-      } else if (customer) {
-        sessionStorage.setItem("role", "CUSTOMER");
-        sessionStorage.setItem("user", JSON.stringify(customer));
-        sessionStorage.setItem("username", JSON.stringify(customer.username)); // Initialize empty cart for new customers
-      }
-      return response.data;
+      window.location.href = "localhost:3000";
+      return response.data.token;
     } catch (error) {
       console.error('Failed to login', error);
       throw error;

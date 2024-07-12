@@ -27,10 +27,10 @@ export function LoginForm() {
       const response = await AuthService.loginUser(username, password);
       if (AuthService.isAuthenticated()) {
         setSuccess("You are successfully logged in!");
-        console.log(sessionStorage.getItem("role"));
-        AuthService.isCustomer()
-          ? router.push("/")
-          : console.log("Logged in fail");
+        // console.log(sessionStorage.getItem("role"));
+        // AuthService.isCustomer()
+           router.push("/")
+          console.log("Logged sucess");
       } else {
         setError("Login failed. Please check your credentials.");
         setSuccess(null);

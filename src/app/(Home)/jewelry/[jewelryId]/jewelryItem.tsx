@@ -26,7 +26,7 @@ const JewelryItem: React.FC = () => {
     }
 
     try {
-      await addToCart(jewelryId, token);
+      await addToCart(parseInt(jewelryId));
       setButtonText('ADDED');
       setTimeout(() => setButtonText('ADD TO BAG'), 700);
     } catch (error) {

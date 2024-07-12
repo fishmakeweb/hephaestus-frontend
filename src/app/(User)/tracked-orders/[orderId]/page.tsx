@@ -34,7 +34,7 @@ const TrackedOrderCard: React.FC = () => {
   useEffect(() => {
     let client: Client;
     if (chatInitialized) {
-      const socket = new SockJS("https://api.hephaestus.store/chat");
+      const socket = new SockJS("http://localhost:8080/chat");
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
@@ -73,7 +73,7 @@ const TrackedOrderCard: React.FC = () => {
 
   const fetchChatHistory = async () => {
     const response = await axios.get<OrderChatMessage[]>(
-      `https://api.hephaestus.store/api/chat/history/${orderId}`,
+      `http://localhost:8080/api/chat/history/${orderId}`,
       {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       }

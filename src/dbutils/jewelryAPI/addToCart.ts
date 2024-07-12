@@ -1,14 +1,12 @@
-import axios from "@/dbutils/axios";
+import axios from "@/dbutils/axiosAuth";
 
-export const addToCart = async (jewelryId: string, token: string) => {
+
+
+export const addToCart = async (jewelryId: number) => {
+
   try {
     await axios.post(
-      '/order_details/addToCart',
-      null,
-      {
-        params: { jewelryId },
-        headers: { Authorization: `Bearer ${token}` }
-      }
+      `/public/order_details/addToCart?jewelryId=${jewelryId}`
     );
   } catch (error) {
     console.error("Error adding item to cart:", error);

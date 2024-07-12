@@ -14,7 +14,7 @@ export interface JewelryDetail {
 
 export const viewJewelryDetails = async (jewelryId: string): Promise<JewelryDetail> => {
   try {
-    const response = await axios.get(`/jewelry/${jewelryId}`);
+    const response = await axios.get(`/public/jewelry/${jewelryId}`);
     return response.data as JewelryDetail; // Assuming response.data directly contains jewelry details
   } catch (error) {
     console.error("Error fetching jewelry details:", error);
