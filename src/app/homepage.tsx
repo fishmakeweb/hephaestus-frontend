@@ -1,5 +1,6 @@
 "use client"
 import ThreeScene from "./ThreeScene"
+
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -18,15 +19,15 @@ function Homepage() {
     }
   }, []);
   const handleClick = async () => {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     if (!token) {
-      alert('Please log in to custom your jewelry.');
-      router.push('/login');
+      alert("Please log in to custom your jewelry.");
+      router.push("/login");
       return;
     } else {
       router.push("/custom");
     }
-  }
+  };
   return (
     <>
       <div className="relative h-screen">
@@ -138,7 +139,6 @@ function Homepage() {
             </div>
           </div>
         </div>
-
         <section className="relative bg-center mt-40 bg-no-repeat bg-gray-700 bg-blend-multiply w-full">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
@@ -170,12 +170,17 @@ function Homepage() {
         <div className="h-[80vh] bg-gray-50 flex items-center">
           {/* <section
           className="bg-cover bg-center py-32 w-full"
-          style={{ backgroundImage: "url('https://i.pinimg.com/originals/eb/2e/a5/eb2ea5d47889eddbd3c8f452561430e6.jpg')" }}
+          style={{
+            backgroundImage:
+              "url('https://i.pinimg.com/originals/eb/2e/a5/eb2ea5d47889eddbd3c8f452561430e6.jpg')",
+          }}
         >
           <div className="container mx-auto text-left text-white">
             <div className="flex flex-col md:flex-row items-center">
               <div className="w-full md:w-1/2 md:pr-16">
-                <h1 className="text-5xl text-black font-medium mb-6">Are you interested yet?</h1>
+                <h1 className="text-5xl text-black font-medium mb-6">
+                  Are you interested yet?
+                </h1>
                 <p className="text-xl text-black mb-12">
                   Fill in the form so our staff can support you right away.
                 </p>
@@ -183,7 +188,12 @@ function Homepage() {
               <div className="w-full md:w-1/2 mt-8 md:mt-20">
                 <form className="bg-white p-8 rounded-lg shadow-md">
                   <div className="mb-4">
-                    <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
+                    <label
+                      htmlFor="name"
+                      className="block text-gray-700 font-bold mb-2"
+                    >
+                      Name
+                    </label>
                     <input
                       type="text"
                       id="name"
@@ -192,7 +202,12 @@ function Homepage() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="email" className="block text-gray-700 font-bold mb-2">Email</label>
+                    <label
+                      htmlFor="email"
+                      className="block text-gray-700 font-bold mb-2"
+                    >
+                      Email
+                    </label>
                     <input
                       type="email"
                       id="email"
@@ -201,7 +216,12 @@ function Homepage() {
                     />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="message" className="block text-gray-700 font-bold mb-2">Message</label>
+                    <label
+                      htmlFor="message"
+                      className="block text-gray-700 font-bold mb-2"
+                    >
+                      Message
+                    </label>
                     <textarea
                       id="message"
                       className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -334,6 +354,7 @@ function Homepage() {
                 <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
                   READ MORE
                 </div>
+
               </div>
             </div>
             <div className="flex flex-col w-full md:w-1/2 lg:w-[100vw] max-md:ml-0">
@@ -387,6 +408,5 @@ function Homepage() {
     </>
   );
 }
-
 
 export default Homepage;

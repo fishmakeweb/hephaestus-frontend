@@ -1,5 +1,5 @@
 
-import axios from "@/dbutils/axios"
+import axios from "@/dbutils/axiosAuth"
 import { Diamond } from '@/app/(Home)/diamond/diamond-table';
 export interface Category {
     categoryId:number;
@@ -38,7 +38,7 @@ export interface Jewelry {
 export default class getAttribute {
     async getCategory () : Promise<Category[]>{
         try {
-            const response = await axios.get<Category[]>('/categories');
+            const response = await axios.get<Category[]>('/customer/categories');
             return response.data;
         } catch (error) {
             console.error('Failed to fetch categories:', error);
@@ -48,7 +48,7 @@ export default class getAttribute {
 
     async getMaterial () : Promise<Material[]>{
         try {
-            const response = await axios.get<Material[]>('/materials');
+            const response = await axios.get<Material[]>('/customer/materials');
             return response.data;
         } catch (error) {
             console.error('Failed to fetch materials:', error);
@@ -57,7 +57,7 @@ export default class getAttribute {
     }
     async getShape () : Promise<Shape[]>{
         try {
-            const response = await axios.get<Shape[]>('/shapes');
+            const response = await axios.get<Shape[]>('/customer/shapes');
             return response.data;
         } catch (error) {
             console.error('Failed to fetch materials:', error);
@@ -66,7 +66,7 @@ export default class getAttribute {
     }
     async getDiamonds(): Promise<Diamond[]> {
         try {
-            const response = await axios.get('/diamonds');
+            const response = await axios.get('/public/diamonds');
             return response.data;
         } catch (error) {
             console.error('Failed to fetch diamonds:', error);
@@ -76,7 +76,7 @@ export default class getAttribute {
 
     async getSizes() : Promise<Size[]> {
         try {
-            const response = await axios.get<Size[]>('/sizes');
+            const response = await axios.get<Size[]>('/customer/sizes');
             return response.data;
         } catch (error) {
             console.error('Failed to fetch sizes:', error);

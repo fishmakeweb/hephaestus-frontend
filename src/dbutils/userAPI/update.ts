@@ -1,5 +1,5 @@
 // utils/updateUser.ts
-import axios from '@/dbutils/axios';
+import axios from '@/dbutils/axiosAuth';
 
 interface UpdateUserParams {
   userId: string;
@@ -15,7 +15,7 @@ export const updateUser = async ({ userId, fullName, email, address }: UpdateUse
       email,
       address,
     };
-    const response = await axios.put(`/secure/customers/${userId}`, userData);
+    const response = await axios.put(`/customer/update-profile/${userId}`, userData);
     return response.data;
   } catch (error) {
     console.error('Operation failed: ', error);

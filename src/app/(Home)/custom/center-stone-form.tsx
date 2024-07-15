@@ -31,7 +31,8 @@ export default function CenterStoneForm({
       try {
         setLoading(true);
         const fetchedDiamonds = await getDiamonds();
-        setDiamonds(fetchedDiamonds);
+        const filteredData = fetchedDiamonds.filter(diamond => !diamond.sold);
+        setDiamonds(filteredData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching diamonds:", error);

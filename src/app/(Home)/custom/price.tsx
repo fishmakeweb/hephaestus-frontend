@@ -3,7 +3,7 @@ import React from "react";
 import { Card, CardBody } from "@nextui-org/react";
 import { Jewelry } from "@/dbutils/customAPI/getAttribute";
 import { useRouter } from "next/navigation";
-import { createCustomOrder } from "@/dbutils/customAPI/customOrder";
+import { createCustomOrder} from "@/dbutils/customAPI/customOrder";
 import { ScrollArea } from "@/components/ui/scroll-area";
 interface PriceFormProps {
   jewelry: Jewelry | null;
@@ -15,7 +15,7 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
 
   const handleSave = async (jewelry: Jewelry) => {
     try {
-      // Then, create the custom order after the jewelry is successfully saved
+
       const orderResponse = await createCustomOrder(jewelry);
       console.log(orderResponse);
 
@@ -29,7 +29,12 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
 
   return (
     <>
-      <button className="bg-white hover:bg-gray-300 transition duration-300 text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline" onClick={onBack}>←</button>
+      <button
+        className="bg-white hover:bg-gray-300 transition duration-300 text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+        onClick={onBack}
+      >
+        ←
+      </button>
       <ol className="flex items-center w-full mb-4 sm:mb-5">
         <li className="flex w-full items-center text-green-600 dark:text-green-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-green-100 after:border-4 after:inline-block dark:after:border-green-800">
           <div className="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
@@ -100,7 +105,7 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
             </svg>
           </div>
         </li>
-        
+
         <li className="flex items-center w-full">
           <div className="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full lg:h-12 lg:w-12 dark:bg-green-700 shrink-0">
             <svg
@@ -122,12 +127,21 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
         <div className="flex flex-wrap justify-center gap-4">
           <Card className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md">
             <CardBody className="flex flex-col gap-2">
-              <p className="text-md font-semibold">Category: "{jewelry?.category.categoryName}"</p>
-              <p className="text-md font-semibold">Material: "{jewelry?.material.materialName}"</p>
-              <p className="text-md font-semibold">Shape: "{jewelry?.shape.shapeDescription}"</p>
-              <p className="text-md font-semibold">Gemstone: {jewelry?.diamond?.cut.cutDescription}</p>
               <p className="text-md font-semibold">
-                Size: {jewelry?.size.sizeNumber} {jewelry?.size.unit} ({jewelry?.size.type})
+                Category: "{jewelry?.category.categoryName}"
+              </p>
+              <p className="text-md font-semibold">
+                Material: "{jewelry?.material.materialName}"
+              </p>
+              <p className="text-md font-semibold">
+                Shape: "{jewelry?.shape.shapeDescription}"
+              </p>
+              <p className="text-md font-semibold">
+                Gemstone: {jewelry?.diamond?.cut.cutDescription}
+              </p>
+              <p className="text-md font-semibold">
+                Size: {jewelry?.size.sizeNumber} {jewelry?.size.unit} (
+                {jewelry?.size.type})
               </p>
             </CardBody>
           </Card>
@@ -136,7 +150,10 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
       <Card>
         <CardBody className="items-center">
           <p className="max-w-md text-center">
-            Estimated price: {jewelry?.price !== undefined ? `$${jewelry.price}` : "Calculating..."}
+            Estimated price:{" "}
+            {jewelry?.price !== undefined
+              ? `$${jewelry.price}`
+              : "Calculating..."}
           </p>
           <div className="mt-4">
             <button

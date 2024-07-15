@@ -2,7 +2,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import AuthService from "@/dbutils/userAPI/authservice";
-import { fetchCart , ItemDetails} from "@/dbutils/cartAPI/cartFunction";
+import { fetchCart , ItemDetails,checkOut} from "@/dbutils/cartAPI/cartFunction";
 
 interface Profile {
   customer: {
@@ -70,10 +70,8 @@ const ConfirmOrderForm: React.FC = () =>  {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const checkoutUrl = await AuthService.checkOut(token);
-          // alert(data);
+          const checkoutUrl = await checkOut();
           window.location.href = checkoutUrl;
-          // console.log(data);
         } else {
           console.error('No token found');
           throw new Error('No token found');
