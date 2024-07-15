@@ -1,9 +1,9 @@
 'use client'
 import React, { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import AuthService from '@/dbutils/userAPI/authservice';
 import styles from '@/app/(Payment)/Success/PaymentSuccess.module.css';
 import Link from 'next/link';
+import { successCheckOutForCustomOrder } from '@/dbutils/cartAPI/cartFunction';
 
 const PaymentSuccessForCustomOrder: React.FC = () => {
   const searchParams = useSearchParams();  // Updated destructuring to also get readiness state
@@ -13,7 +13,7 @@ const PaymentSuccessForCustomOrder: React.FC = () => {
     setToken(searchParams.get('payToken'));
     if (token) {  // Check if searchParams are ready
 
-        AuthService.successCheckOutForCustomOrder(token)
+        successCheckOutForCustomOrder(token)
           .then(result => {
             console.log('Checkout success:', result);
           })

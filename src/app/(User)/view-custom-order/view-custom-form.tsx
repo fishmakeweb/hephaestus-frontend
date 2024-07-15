@@ -14,12 +14,7 @@ interface OrderCardsProps {
   customOrderData: CustomOrderData[];
 }
 
-const CusOrderCards: React.FC<OrderCardsProps> = ({
-  customOrderData,
-
-}) => {
-
-
+const CusOrderCards: React.FC<OrderCardsProps> = ({ customOrderData }) => {
   if (!customOrderData) {
     return <div>Loading...</div>;
   }
@@ -38,7 +33,15 @@ const CusOrderCards: React.FC<OrderCardsProps> = ({
                   Custom Order ID: {customOrder.customOrderId}
                 </p>
                 <p className="text-md font-semibold">
-                  Start Date: {customOrder.startDate}
+                  Start Date:{" "}
+                  {new Date(customOrder.startDate).toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}
                 </p>
               </div>
             </CardHeader>

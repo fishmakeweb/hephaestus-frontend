@@ -19,15 +19,7 @@ class AuthService {
     }
   }
 
-  public static async successCheckOut(payToken: string) {
-    try {
-      const response = await axios.post('/orders/successCheckOut', { payToken });
-      return response.data;
-    } catch (error) {
-      console.error('Failed to checkout', error);
-      throw error;
-    }
-  }
+  
 
   static isCustomer() {
     const role = sessionStorage.getItem("role");
@@ -35,7 +27,7 @@ class AuthService {
   }
   static getUserName() {
     const username = sessionStorage.getItem("username");
-    return username ? JSON.parse(username) : null;
+    return username ? username : null;
   }
   static async loginUser(username: string, password: string) {
     try {
@@ -44,10 +36,11 @@ class AuthService {
         password
       });
       const token = response.data.token;
-      if (token ) {
+      if (token) {
         sessionStorage.setItem("token", token);
+        sessionStorage.setItem("username",username);
       }
-      window.location.href = "localhost:3000";
+      window.location.href = "/";
       return response.data.token;
     } catch (error) {
       console.error('Failed to login', error);
@@ -55,28 +48,7 @@ class AuthService {
     }
   }
 
-  static async checkOutCustomOrder(token: string,customOrderId: number) {
-    try {
-      const response = await axios.get(`/custom-orders/checkOutCustomOrder/${customOrderId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log(response.data.checkoutUrl)
-      return response.data.checkoutUrl;
-      
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  public static async successCheckOutForCustomOrder(payToken: string) {
-    try {
-      const response = await axios.post('/custom-orders/successCheckOutForCustomOrder', { payToken });
-      return response.data;
-    } catch (error) {
-      console.error('Failed to checkout', error);
-      throw error;
-    }
-  }
+  
 
 
 

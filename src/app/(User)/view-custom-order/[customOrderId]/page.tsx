@@ -18,18 +18,22 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import axios from "@/dbutils/axiosAuth";
 import { useRouter } from "next/navigation";
-
-
+import { checkOutCustomOrder } from "@/dbutils/cartAPI/cartFunction";
 interface NotificationBoxProps {
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-const NotificationBox: React.FC<NotificationBoxProps> = ({ onConfirm, onCancel }) => (
+const NotificationBox: React.FC<NotificationBoxProps> = ({
+  onConfirm,
+  onCancel,
+}) => (
   <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center p-4 z-20">
     <div className="bg-white rounded-lg shadow-xl max-w-sm w-full">
       <div className="p-5 border-b border-gray-200">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">Confirmation</h3>
+        <h3 className="text-lg leading-6 font-medium text-gray-900">
+          Confirmation
+        </h3>
         <p className="mt-2 text-sm text-gray-600">
           Are you sure you want to cancel this order?
         </p>
@@ -86,7 +90,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     console.log("success");
     let client: Client;
     if (chatInitialized) {
-      const socket = new SockJS("http://localhost:8080/custom-order-chat");
+      const socket = new SockJS("https://api.hephaestus.store/custom-order-chat");
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
@@ -120,7 +124,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
 
   const fetchChatHistory = async () => {
     const response = await axios.get<CustomOrderChatMessage[]>(
-      `http://localhost:8080/api/chat/custom-order-history/${customOrderId}`,
+      `https://api.hephaestus.store/api/chat/custom-order-history/${customOrderId}`,
       {
         headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
       }
@@ -161,7 +165,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     try {
       const token = sessionStorage.getItem("token");
       if (token) {
-        const checkoutUrl = await AuthService.checkOutCustomOrder(
+        const checkoutUrl = await checkOutCustomOrder(
           token,
           customOrderId
         );
@@ -277,7 +281,16 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                         Registered Date
                       </dt>
                       <dd className="mt-1 text-md font-medium">
-                        {userData?.customer.registeredDate}
+                        {
+                          userData? new Date(userData.customer.registeredDate
+                        ).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        }) : "No data"}
                       </dd>
                     </div>
                   </dl>
@@ -352,8 +365,13 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                 )}
                 {showNotification && (
                   <NotificationBox
-                  onConfirm={() => handleConfirmCancel(formData.customOrderId, formData.orderStatus.statusId)}
-                  onCancel={handleCancelNotification}
+                    onConfirm={() =>
+                      handleConfirmCancel(
+                        formData.customOrderId,
+                        formData.orderStatus.statusId
+                      )
+                    }
+                    onCancel={handleCancelNotification}
                   />
                 )}
               </div>

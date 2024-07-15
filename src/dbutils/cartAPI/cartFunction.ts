@@ -48,3 +48,34 @@ export const checkOut = async () => {
     throw error;
   }
 }
+export const successCheckOut = async (payToken: string) => { 
+  try {
+    const response = await axios.post('/customer/successCheckOut', { payToken });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to checkout', error);
+    throw error;
+  }
+}
+export const checkOutCustomOrder = async (token: string,customOrderId: number) => {
+  try {
+    const response = await axios.get(`/customer/checkOutCustomOrder/${customOrderId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response.data.checkoutUrl)
+    return response.data.checkoutUrl;
+    
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const successCheckOutForCustomOrder = async (payToken: string) => {
+  try {
+    const response = await axios.post('/customer/successCheckOutForCustomOrder', { payToken });
+    return response.data;
+  } catch (error) {
+    console.error('Failed to checkout', error);
+    throw error;
+  }
+}

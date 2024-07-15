@@ -24,9 +24,7 @@ export default function UserProfile() {
   };
 
   return (
-    <div className="flex mr-4 mt-1">
-      <div className="inline relative">
-        <div className="inline-flex relative px-2 border rounded-full hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">
+    
           <div className="flex gap-4 items-center ">
             <ButtonGroup variant="flat">
               <Dropdown placement="bottom-end">
@@ -79,8 +77,6 @@ export default function UserProfile() {
               </Dropdown>
             </ButtonGroup>
           </div>
-        </div>
-      </div>
-    </div>
+
   );
 }

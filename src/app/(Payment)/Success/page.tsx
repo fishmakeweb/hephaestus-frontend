@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import AuthService from '@/dbutils/userAPI/authservice';
 import styles from '@/app/(Payment)/Success/PaymentSuccess.module.css';
 import Link from 'next/link';
-
+import { successCheckOut } from '@/dbutils/cartAPI/cartFunction';
 const PaymentSuccess: React.FC = () => {
   const searchParams = useSearchParams();  // Updated destructuring to also get readiness state
   const [token, setToken] = useState<string | null>('');
@@ -13,7 +13,7 @@ const PaymentSuccess: React.FC = () => {
     setToken(searchParams.get('payToken'));
     if (token) {  // Check if searchParams are ready
 
-        AuthService.successCheckOut(token)
+        successCheckOut(token)
           .then(result => {
             console.log('Checkout success:', result);
           })
