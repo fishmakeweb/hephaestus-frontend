@@ -124,7 +124,6 @@ export default function NoteForm({ jewelry, onBack, onSubmitNote }: NoteFormProp
               rows={4}
               className="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-2"
               onChange={(e) => setNote(e.target.value)}
-              required
             />
           </LabelInputContainer>
           <button

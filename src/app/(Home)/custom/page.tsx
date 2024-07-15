@@ -92,7 +92,7 @@ export default function JewelryForm() {
 
     try {
       // Make a request to calculate the price
-      const response = await axios.post("/calculate-price", updatedJewelry);
+      const response = await axios.post("/public/calculate-price", updatedJewelry);
       console.log(response);
       const jewelryWithPrice = response.data;
 

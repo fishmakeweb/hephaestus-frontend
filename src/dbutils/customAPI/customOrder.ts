@@ -1,4 +1,4 @@
-import axios from "@/dbutils/axios";
+import axios from "@/dbutils/axiosAuth";
 import { Diamond } from "@/app/(Home)/diamond/diamond-table";
 export interface Category {
     categoryId:number;
@@ -21,7 +21,7 @@ export interface Shape {
     shapeDescription: string;
 }
 
-interface CustomJewelry {
+export interface CustomJewelry {
     id: number;
     category: Category;
     material: Material;
@@ -50,26 +50,15 @@ export interface CustomOrderData {
   finishDate: string;
 }
 
-const getToken = () => sessionStorage.getItem("token");
 
 export const fetchOrder = async (): Promise<CustomOrderData[]> => {
-  const token = getToken();
-  const response = await axios.get<CustomOrderData[]>("/custom-orders/getcustomorder", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get<CustomOrderData[]>("/customer/get-customorder");
   return response.data;
 };
 
 export const createCustomOrder = async (customJewelry : CustomJewelry) => {
   try {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      throw new Error("No token found in session storage");
-    }
-
-    const response = await axios.post("/custom-orders/create-customorder", customJewelry, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+   const response = await axios.post("/customer/create-customorder", customJewelry);
     return response.data; // Assuming your API returns some data
   } catch (error) {
     console.error("Error creating custom order:", error);
@@ -78,31 +67,27 @@ export const createCustomOrder = async (customJewelry : CustomJewelry) => {
 };
 
 export const fetchCusOrder = async (customOrderId: number): Promise<CustomOrderData> => {
-  const response = await axios.get<CustomOrderData>(`/custom-orders/${customOrderId}`);
+  const response = await axios.get<CustomOrderData>(`/customer/custom-orders/${customOrderId}`);
   return response.data;
 };
 
 export const deleteCusOrder = async (customOrderId: number) =>{
-  const token = getToken();
   try {
-    await axios.delete(`/custom-orders/${customOrderId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await axios.delete(`/customer/delete-customorder/${customOrderId}`);
   } catch (error) {
-    console.error("Failed to del: ", error)
+    console.error("Failed to del: ", error);
   }
   
 }
 
 export const requestCancelCusOrder = async (customOrderId: number) =>{
-  const token = getToken();
   try {
-    await axios.put(`/custom-orders/request-cancel/${customOrderId}`,{}, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await axios.put(`/customer/request-cancel/${customOrderId}`);
   } catch (error) {
     console.error("Failed to request cancel: ", error)
   }
   
 }
+
+
 

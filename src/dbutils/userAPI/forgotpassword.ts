@@ -7,7 +7,7 @@ import axios from "@/dbutils/axios";
  */
 async function sendForgotPasswordRequest(email: string): Promise<string> {
   try {
-    const response = await axios.post('/forgot_password', { email });
+    const response = await axios.post('/public/forgot_password', { email });
     return response.data; // Assuming the server sends back a success message
   } catch (error: any) {
     // Handle errors in Axios requests

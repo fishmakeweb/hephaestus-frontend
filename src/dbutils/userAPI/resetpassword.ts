@@ -12,7 +12,7 @@ interface ResetPasswordData {
  */
 async function resetPassword(data: ResetPasswordData): Promise<string> {
   try {
-    const response = await axios.post('reset_password', data);
+    const response = await axios.post('/public/reset_password', data);
     return response.data; // Assuming the server sends back a success message
   } catch (error: any) {
     // Handle errors in Axios requests
