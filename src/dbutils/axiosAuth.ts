@@ -1,19 +1,52 @@
+// import axios from 'axios';
+
+// const getToken = () => {
+//   if (typeof window !== 'undefined') {
+//     return sessionStorage.getItem('token');
+//   }
+//   return '';
+// };
+
+// const instance = axios.create({
+//   baseURL: "https://api.hephaestus.store/api",
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${getToken()}`,
+//   }
+// });
+
+// export default instance;
+
 import axios from 'axios';
 
+// Function to retrieve the token from sessionStorage
 const getToken = () => {
   if (typeof window !== 'undefined') {
-    // This ensures sessionStorage is only accessed in a browser environment
     return sessionStorage.getItem('token');
   }
   return '';
 };
 
+// Create an axios instance with a base URL
 const instance = axios.create({
   baseURL: "https://api.hephaestus.store/api",
   headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${getToken()}`,
+    "Content-Type": "application/json"
   }
 });
+
+// Use an interceptor to append the Authorization header before each request
+instance.interceptors.request.use(
+  config => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 export default instance;

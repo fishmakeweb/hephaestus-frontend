@@ -1,4 +1,3 @@
-
 import axios from '@/dbutils/axiosAuth'
 
 export const fetchProfile = async (): Promise<any> => {

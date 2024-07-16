@@ -7,16 +7,17 @@ import { IconBrandGoogle } from "@tabler/icons-react";
 import AuthService from "@/dbutils/userAPI/authservice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 export function LoginForm() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
-  
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     const token = sessionStorage.getItem("token");
-    if(token != null) {
+    if (token != null) {
       alert("You are already logged in!");
       AuthService.logout();
       return;
@@ -29,8 +30,8 @@ export function LoginForm() {
         setSuccess("You are successfully logged in!");
         // console.log(sessionStorage.getItem("role"));
         // AuthService.isCustomer()
-           router.push("/")
-          console.log("Logged sucess");
+        router.push("/");
+        console.log("Logged sucess");
       } else {
         setError("Login failed. Please check your credentials.");
         setSuccess(null);
@@ -56,7 +57,6 @@ export function LoginForm() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
@@ -67,24 +67,23 @@ export function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            
           />
         </LabelInputContainer>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         {success && <p className="text-green-500 text-sm mb-2">{success}</p>}
         <Link
-            href="/forgot-password"
-            className="text-neutral-700 dark:text-neutral-300 text-sm"
-          >
-            Forgot password?
-          </Link>
-        <button
+          href="/forgot-password"
+          className="text-neutral-700 dark:text-neutral-300 text-sm"
+        >
+          Forgot password?
+        </Link>
+        <Button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
           Login &rarr;
           <BottomGradient />
-        </button>
+        </Button>
       </form>
       <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
@@ -92,6 +91,7 @@ export function LoginForm() {
         <span className="text-neutral-700 dark:text-neutral-300 text-sm">
           Do not have an account?
         </span>
+
         <button
           className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
           type="submit"
@@ -104,17 +104,25 @@ export function LoginForm() {
           </Link>
           <BottomGradient />
         </button>
-          
-        <button
-          className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-          type="submit"
+
+        <Link
+          href="https://api.hephaestus.store/oauth2/authorization/google"
+          className="text-neutral-700 dark:text-neutral-300 text-sm"
         >
-          <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-          <Link href="http://api.hephaestus.store/oauth2/authorization/google" className="text-neutral-700 dark:text-neutral-300 text-sm">
-            Google
-          </Link>
-          <BottomGradient />
-        </button>
+          <button
+            className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+            type="submit"
+          >
+            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+            <Link
+              href="http://api.hephaestus.store/oauth2/authorization/google"
+              className="text-neutral-700 dark:text-neutral-300 text-sm"
+            >
+              Google
+            </Link>
+            <BottomGradient />
+          </button>
+        </Link>
       </div>
     </div>
   );

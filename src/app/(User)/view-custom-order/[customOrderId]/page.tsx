@@ -185,6 +185,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
       if (statusId === 2) {
         await deleteCusOrder(cusOrderId);
         router.push("/view-custom-order");
+        window.location.reload();
       } else if (statusId === 3) {
         await requestCancelCusOrder(cusOrderId);
       }
