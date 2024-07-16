@@ -115,6 +115,7 @@ class AuthService {
         sessionStorage.setItem("username", username);
         AuthService.notify();
       }
+
       return token;
     } catch (error) {
       console.error('Failed to login', error);
