@@ -7,8 +7,6 @@ import { fetchProfile } from "@/dbutils/userAPI/showprofile";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   fetchOrderDetail,
-  OrderData,
-  fetchOrder,
 } from "@/dbutils/userAPI/order";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";

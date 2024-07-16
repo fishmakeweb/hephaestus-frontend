@@ -1,9 +1,9 @@
 // components/UserProfile.tsx
-"use client"
-import React, { useState, useEffect } from 'react';
-import UpdateUser from './user-profile-update-form';
-import ChangePassword from './user-change-password-form';
-import { fetchProfile } from '@/dbutils/userAPI/showprofile';
+"use client";
+import React, { useState, useEffect } from "react";
+import UpdateUser from "./user-profile-update-form";
+import ChangePassword from "./user-change-password-form";
+import { fetchProfile } from "@/dbutils/userAPI/showprofile";
 
 export interface Profile {
   customer: {
@@ -22,21 +22,15 @@ const UserProfileShow: React.FC = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-    if (token) {
-      sessionStorage.setItem('token', token);
-    }
     const getProfile = async () => {
       try {
         const data = await fetchProfile();
-        console.log('Fetched profile data:', data); // Debugging
+        console.log("Fetched profile data:", data); // Debugging
         setProfile(data);
       } catch (error) {
         console.error(error);
       }
     };
-
     getProfile();
   }, []);
 
@@ -70,7 +64,8 @@ const UserProfileShow: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const { fullName, email, address, username, registeredDate } = profile.customer;
+  const { fullName, email, address, username, registeredDate } =
+    profile.customer;
 
   return (
     <section className="w-full overflow-hidden bg-white">
@@ -83,7 +78,7 @@ const UserProfileShow: React.FC = () => {
 
         <div className="sm:w-4/5 xs:w-11/12 mx-auto flex">
           <h1 className="w-full text-center my-8 sm:mx-4 xs:pl-4 text-gray-800 text-black lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
-            USER INFORMATION 
+            USER INFORMATION
           </h1>
         </div>
 
@@ -113,8 +108,19 @@ const UserProfileShow: React.FC = () => {
                     <dd className="text-lg font-semibold">{address}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Registered Date</dt>
-                    <dd className="text-lg font-semibold">{new Date(registeredDate).toLocaleDateString()}</dd>
+                    <dt className="mb-1 text-gray-500 md:text-lg">
+                      Registered Date
+                    </dt>
+                    <dd className="text-lg font-semibold">
+                      {new Date(registeredDate).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      })}
+                    </dd>
                   </div>
                 </dl>
               </div>

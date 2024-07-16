@@ -1,4 +1,4 @@
-import axios from "@/dbutils/axios";
+import axios from "@/dbutils/axiosAuth";
 
 interface Size {
   sizeId: number;
@@ -56,17 +56,12 @@ export interface OrderData {
   totalPrice: number;
 }
 
-const getToken = () => sessionStorage.getItem("token");
-
 export const fetchOrder = async (): Promise<OrderData[]> => {
-  const token = getToken();
-  const response = await axios.get<OrderData[]>("/orders/getorder", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get<OrderData[]>("/customer/getorder");
   return response.data;
 };
 
 export const fetchOrderDetail = async (orderId: number): Promise<OrderDetail[]> => {
-  const response = await axios.get<OrderDetail[]>(`/order_details/${orderId}`);
+  const response = await axios.get<OrderDetail[]>(`/public/order_details/${orderId}`);
   return response.data;
 };

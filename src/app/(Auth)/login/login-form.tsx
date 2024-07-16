@@ -27,10 +27,10 @@ export function LoginForm() {
       const response = await AuthService.loginUser(username, password);
       if (AuthService.isAuthenticated()) {
         setSuccess("You are successfully logged in!");
-        console.log(sessionStorage.getItem("role"));
-        AuthService.isCustomer()
-          ? router.push("/")
-          : console.log("Logged in fail");
+        // console.log(sessionStorage.getItem("role"));
+        // AuthService.isCustomer()
+           router.push("/")
+          console.log("Logged sucess");
       } else {
         setError("Login failed. Please check your credentials.");
         setSuccess(null);
@@ -110,7 +110,7 @@ export function LoginForm() {
           type="submit"
         >
           <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-          <Link href="https://api.hephaestus.store/oauth2/authorization/google" className="text-neutral-700 dark:text-neutral-300 text-sm">
+          <Link href="http://api.hephaestus.store/oauth2/authorization/google" className="text-neutral-700 dark:text-neutral-300 text-sm">
             Google
           </Link>
           <BottomGradient />

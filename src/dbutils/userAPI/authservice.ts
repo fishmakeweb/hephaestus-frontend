@@ -11,7 +11,7 @@ class AuthService {
   }
   static async getProfile(token: string) {
     try {
-      const response = await axios.get(`/profile`, {
+      const response = await axios.get(`/public/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
@@ -20,93 +20,33 @@ class AuthService {
     }
   }
 
-  static async checkOut(token: string) {
-    try {
-      const response = await axios.get(`/orders/checkOut`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return response.data.checkoutUrl;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  public static async successCheckOut(payToken: string) {
-    try {
-      const response = await axios.post('/orders/successCheckOut', { payToken });
-      return response.data;
-    } catch (error) {
-      console.error('Failed to checkout', error);
-      throw error;
-    }
-  }
-
-  static isCustomer() {
-    const role = sessionStorage.getItem("role");
-    return role === "CUSTOMER";
-  }
   static getUserName() {
     const username = sessionStorage.getItem("username");
-    return username ? JSON.parse(username) : null;
+    return username ? username : null;
   }
+
   static async loginUser(username: string, password: string) {
     try {
       const response = await axios.post('/auth/login', {
         username,
         password
       });
-      const { token, refreshToken, staff, customer } = response.data;
-
-      // Save the auth tokens and user information in sessionStorage
-      if (token != null) {
+      const token = response.data.token;
+      if (token) {
         sessionStorage.setItem("token", token);
-        sessionStorage.setItem("refreshToken", refreshToken);
+        sessionStorage.setItem("username",username);
       }
-      if (staff) {
-        sessionStorage.setItem("role", "STAFF");
-        sessionStorage.setItem("user", JSON.stringify(staff));
-      } else if (customer) {
-        sessionStorage.setItem("role", "CUSTOMER");
-        sessionStorage.setItem("user", JSON.stringify(customer));
-        sessionStorage.setItem("username", JSON.stringify(customer.username)); // Initialize empty cart for new customers
-      }
-      return response.data;
+      window.location.href = "/";
+      return response.data.token;
     } catch (error) {
       console.error('Failed to login', error);
       throw error;
     }
   }
 
-  static async checkOutCustomOrder(token: string,customOrderId: number) {
-    try {
-      const response = await axios.get(`/custom-orders/checkOutCustomOrder/${customOrderId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log(response.data.checkoutUrl)
-      return response.data.checkoutUrl;
-      
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  public static async successCheckOutForCustomOrder(payToken: string) {
-    try {
-      const response = await axios.post('/custom-orders/successCheckOutForCustomOrder', { payToken });
-      return response.data;
-    } catch (error) {
-      console.error('Failed to checkout', error);
-      throw error;
-    }
-  }
-
-
-
   static logout() {
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("refreshToken");
-    sessionStorage.removeItem("role");
-    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("username");
   }
   static async registerCustomer(userData: any): Promise<any> {
 
