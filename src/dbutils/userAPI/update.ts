@@ -8,14 +8,14 @@ interface UpdateUserParams {
   address: string;
 }
 
-export const updateUser = async ({ userId, fullName, email, address }: UpdateUserParams) => {
+export const updateUser = async ({fullName, email, address }: UpdateUserParams) => {
   try {
     const userData = {
       fullName,
       email,
       address,
     };
-    const response = await axios.put(`/customer/update-profile/${userId}`, userData);
+    const response = await axios.put(`/customer/update-profile`, userData);
     return response.data;
   } catch (error) {
     console.error('Operation failed: ', error);
