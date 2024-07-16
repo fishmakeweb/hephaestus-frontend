@@ -23,10 +23,7 @@ const ConfirmOrderForm: React.FC = () =>  {
   const [orderId, setOrderId] = useState<number>();
 
   useEffect(() => {
-    const token  = sessionStorage.getItem("token");
-    if (token) {
-      fetchProfile(token);
-    }
+    fetchProfile();
     fetchCartData();
   }, []);
 
@@ -53,9 +50,9 @@ const ConfirmOrderForm: React.FC = () =>  {
   };
 
   
-  const fetchProfile = async (token: string) => {
+  const fetchProfile = async () => {
     try {
-      const data = await AuthService.getProfile(token);
+      const data = await AuthService.getProfile();
       setProfile(data);
     } catch (error) {
       console.error("Failed to fetch profile:", error);

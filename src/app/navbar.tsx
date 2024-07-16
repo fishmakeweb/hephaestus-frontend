@@ -9,16 +9,25 @@ import UserProfile from "@/components/ui/user-profile-button";
 import { useRouter } from "next/navigation";
 import MenuButton from "@/components/ui/button-homepage-mobile";
 const NewNavbar = () => {
-  const [isClient, setIsClient] = useState(false);
-  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(AuthService.isAuthenticated());
+
   useEffect(() => {
-    router.refresh();
-    setIsClient(true); // This will be true only on the client side after mounting
+      const onAuthChange = () => setIsAuthenticated(AuthService.isAuthenticated());
+
+      AuthService.subscribe(onAuthChange);
+
+      return () => {
+          AuthService.unsubscribe(onAuthChange);
+      };
   }, []);
+  // const [isClient, setIsClient] = useState(false);
+  // const router = useRouter();
+  // useEffect(() => {
+  //   router.refresh();
+  //   setIsClient(true); // This will be true only on the client side after mounting
+  // }, []);
 
   return (
-    <>
-      {isClient && (
         <nav className="bg-white shadow-md shadow-black/5 w-full flex relative justify-between items-center mx-auto md:px-7 h-20 z-50">
           
           {/* end dropdown */}
@@ -72,7 +81,7 @@ const NewNavbar = () => {
                   <Cart />
                 </div>
               </div>
-              {AuthService.isAuthenticated() ? (
+              {isAuthenticated ? (
                 <div className="flex mr-4 mt-1">
                   <div className="inline relative">
                     <div className="inline-flex relative px-2 border rounded-full hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">   
@@ -92,8 +101,6 @@ const NewNavbar = () => {
           
           {/* end login */}
         </nav>
-      )}
-    </>
   );
 };
 

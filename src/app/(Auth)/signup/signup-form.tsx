@@ -38,7 +38,7 @@ export function SignUpForm() {
         return "";
       case "email":
         if (!value.trim()) return "Email is required.";
-        if (!/\S+@\S+\.\S+/.test(value)) return "Email is invalid.";
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) return "Email is invalid.";
         return "";
       case "address":
       case "username":
