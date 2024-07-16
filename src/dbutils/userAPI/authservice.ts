@@ -36,7 +36,6 @@ class AuthService {
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("username",username);
       }
-      window.location.href = "/";
       return response.data.token;
     } catch (error) {
       console.error('Failed to login', error);
