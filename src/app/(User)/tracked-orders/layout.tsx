@@ -53,7 +53,7 @@ export default function TrackedOrderLayout({
                         <p className="text-xl text-center font-semibold mb-4">Your Orders:</p>
                         <OrderCards orderData={orderData}/>
                     </div>
-                    <div className="flex-1 p-4">
+                    <div className="flex-1 pt-6">
                         {children}
                     </div>
                 </>

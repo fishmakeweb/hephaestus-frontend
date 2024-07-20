@@ -5,9 +5,7 @@ import { Profile } from "@/app/(User)/profile/user-profile-show";
 import React, { useState, useEffect } from "react";
 import { fetchProfile } from "@/dbutils/userAPI/showprofile";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  fetchOrderDetail,
-} from "@/dbutils/userAPI/order";
+import { fetchOrderDetail } from "@/dbutils/userAPI/order";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { OrderChatMessage } from "@/dbutils/chatAPI/types";
@@ -205,8 +203,7 @@ const TrackedOrderCard: React.FC = () => {
                       {formData
                         .reduce(
                           (total, detail) =>
-                            total +
-                            detail.jewelry.price * detail.quantity,
+                            total + detail.jewelry.price * detail.quantity,
                           0
                         )
                         .toFixed(2)}
@@ -214,28 +211,38 @@ const TrackedOrderCard: React.FC = () => {
                   </div>
                 </div>
                 {chatInitialized && (
-                  <>
-                    <p className="text-md font-semibold">Support Box</p>
-                    <div className="chat-box">
-                      <div className="messages">
+                  <div className="mt-4 bg-white shadow-lg rounded-lg p-1 sm:p-2 w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
+                    <h3 className="text-lg font-semibold mb-1 sm:mb-2">
+                      Support Box
+                    </h3>
+                    <div className="chat-box border border-gray-300 rounded-lg p-1 sm:p-2 max-h-60 overflow-auto">
+                      <ul className="space-y-1 sm:space-y-2">
                         {chatMessages.map((msg) => (
-                          <p key={msg.id}>
-                            {msg.username}: {msg.message}
-                          </p>
+                          <li key={msg.id} className="break-words">
+                            <strong>{msg.username}:</strong> {msg.message}
+                          </li>
                         ))}
-                      </div>
+                      </ul>
+                    </div>
+                    <div className="mt-2 sm:mt-3 flex space-x-1 sm:space-x-2 w-full">
                       <input
                         type="text"
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         placeholder="Type a message..."
+                        className="flex-grow p-1 sm:p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-indigo-300"
                         onKeyPress={(e) =>
                           e.key === "Enter" ? sendMessage() : null
                         }
                       />
-                      <button onClick={sendMessage}>Send</button>
+                      <button
+                        onClick={sendMessage}
+                        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded transition-colors duration-150 ease-in-out"
+                      >
+                        Send
+                      </button>
                     </div>
-                  </>
+                  </div>
                 )}
               </section>
             </div>
