@@ -7,7 +7,6 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import AuthService from "@/dbutils/userAPI/authservice";
 function Homepage() {
-
   // const router = useRouter();
   // useEffect(() => {
   //   const urlParams = new URLSearchParams(window.location.search);
@@ -51,7 +50,7 @@ function Homepage() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
     const username = urlParams.get("username");
-    if (token&&username) {
+    if (token && username) {
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("username", username);
       AuthService.notify(); // Notify any subscribers that authentication state might have changed
@@ -74,7 +73,7 @@ function Homepage() {
   }, []);
   return (
     <>
-      {/* <div className="relative h-screen">
+      {/* <div className="relative h-screen md:block hidden">
         <ThreeScene />
         <div className="absolute top-0 left-0 w-1/2 h-full mt-[30vh] text-white pl-[15vw]">
           <h3 className="text-3xl mt-8">
@@ -87,14 +86,14 @@ function Homepage() {
         </div>
       </div> */}
       <div className="flex flex-col bg-white">
-        <div className="self-center mt-11 text-md md:text-2xl lg:text-4xl text-center text-black max-md:mt-10">
+        <div className="self-center mt-11 text-3xl md:text-2xl lg:text-4xl text-center text-black max-md:mt-10">
           Shop by category
         </div>
-        <div className="self-center mt-6 text-3xl italic text-center text-black">
+        <div className="self-center mt-6 text-2xl italic text-center text-black">
           Indulge in what we offer.
         </div>
         <div className="self-center px-5 mt-20 w-full max-w-[1182px] max-md:mt-10 max-md:max-w-full">
-          <div className="grid grid-cols-4 gap-5 md:grid-cols-4 sm:grid-cols-1 sm:gap-0">
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-4 sm:grid-cols-1 sm:gap-0">
             <div className="flex flex-col w-full">
               {/* wedding ring page */}
               <div className="flex flex-col grow justify-center sm:mt-10">
@@ -103,7 +102,9 @@ function Homepage() {
                     className="w-full aspect-[0.9]"
                     width={150}
                     height={100}
-                    src={"/img/homepage/s-l1200.webp"}
+                    src={
+                      "https://ap-south-1.linodeobjects.com/diamondshop-img/1721378591949_SP-1.jpg"
+                    }
                     alt={"wedding-ring-sample"}
                     sizes="10vw"
                     style={{
@@ -112,8 +113,8 @@ function Homepage() {
                     }}
                   />
                 </div>
-                <div className="self-center mt-5 text-2xl sm:text-xl text-center text-black">
-                  Diamond Chains
+                <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
+                  Necklace
                 </div>
               </div>
             </div>
@@ -125,7 +126,9 @@ function Homepage() {
                     className="w-full aspect-[0.9]"
                     width={150}
                     height={100}
-                    src={"/img/homepage/eng-ring-sample.png"}
+                    src={
+                      "https://ap-south-1.linodeobjects.com/diamondshop-img/1721378969518_eng-ring-sample.png"
+                    }
                     alt={"eng-ring-sample"}
                     sizes="10vw"
                     style={{
@@ -135,7 +138,7 @@ function Homepage() {
                     priority
                   />
                 </div>
-                <div className="self-center mt-5 text-2xl sm:text-xl text-center text-black">
+                <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
                   Engagement Ring
                 </div>
               </div>
@@ -148,7 +151,9 @@ function Homepage() {
                     className="w-full aspect-[0.9]"
                     width={150}
                     height={200}
-                    src={"/img/homepage/diamond.png"}
+                    src={
+                      "https://ap-south-1.linodeobjects.com/diamondshop-img/1721378906734_diamond.png"
+                    }
                     alt={"diamond"}
                     sizes="10vw"
                     style={{
@@ -157,7 +162,7 @@ function Homepage() {
                     }}
                   />
                 </div>
-                <div className="self-center mt-5 text-2xl sm:text-xl text-center text-black">
+                <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
                   Diamond
                 </div>
               </div>
@@ -170,7 +175,9 @@ function Homepage() {
                     className="w-full aspect-[0.9]"
                     width={150}
                     height={200}
-                    src={"/img/homepage/jewelry-sample.png"}
+                    src={
+                      "https://ap-south-1.linodeobjects.com/diamondshop-img/1721378748648_CDR-1.jpg"
+                    }
                     alt={"jewelry-sample"}
                     sizes="10vw"
                     style={{
@@ -179,8 +186,8 @@ function Homepage() {
                     }}
                   />
                 </div>
-                <div className="self-center mt-5 text-2xl sm:text-xl text-center text-black">
-                  Jewelry
+                <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
+                  Fashion Ring
                 </div>
               </div>
             </div>
@@ -191,17 +198,16 @@ function Homepage() {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/img/homepage/background-kim-cuong-trang-dep-nhat_035335879.jpg"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
+              src="https://ap-south-1.linodeobjects.com/diamondshop-img/1721382503548_background-kim-cuong-trang-dep-nhat_035335879.webp"
+              fill
+              style={{ objectFit: "cover", objectPosition: "center" }}
               alt="Diamond Background"
               className="z-0"
             />
           </div>
           <div className="absolute inset-0 bg-black bg-opacity-50 z-1"></div>
           {/* Content Overlay */}
-          <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56 relative z-10">
+          <div className="px-4 mx-auto max-w-screen-xl text-center py-40 lg:py-56 relative z-10">
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
               Discovering Brilliance in Every Facet
             </h1>
@@ -212,7 +218,7 @@ function Homepage() {
             </p>
             <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <Link
-                href={'/custom'}
+                href={"/custom"}
                 className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center hover:bg-black hover:text-white transition duration-300 border border-white rounded-lg bg-gray-100 hover:bg-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
                 Get started
@@ -240,15 +246,13 @@ function Homepage() {
           </div>
         </section>
         <div className="h-[80vh] bg-gray-50 flex items-center">
- f
           <section className="relative bg-cover bg-center py-32 w-full">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/img/homepage/eb2ea5d47889eddbd3c8f452561430e6.jpg"
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center"
+                src="https://ap-south-1.linodeobjects.com/diamondshop-img/1721382557755_eb2ea5d47889eddbd3c8f452561430e6.webp"
+                fill
+                style={{ objectFit: "cover", objectPosition: "center" }}
                 alt="Background"
               />
             </div>
@@ -321,12 +325,14 @@ function Homepage() {
         </div>
         <div className="mt-10 w-full bg-stone-950 max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-            <div className="flex flex-col w-full md:w-1/2 lg:w-[25vw] max-md:ml-0">
+            <div className="flex flex-col w-full md:w-1/2 lg:w-[30vw] max-md:ml-0">
               <Image
                 className="w-full aspect-[0.88] max-md:mt-10 max-md:max-w-full"
                 width={150}
                 height={200}
-                src={"/img/homepage/ringyellowarticle.webp"}
+                src={
+                  "https://ap-south-1.linodeobjects.com/diamondshop-img/1721383319340_ringyellowarticle.webp"
+                }
                 alt={"Article-img"}
                 sizes="20vw"
                 style={{
