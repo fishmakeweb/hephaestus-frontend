@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   Category,
@@ -18,13 +18,18 @@ import SizeForm from "./size-form";
 import NoteForm from "./note-form"; // Import NoteForm
 import PriceForm from "./price"; // Import PriceForm
 import { Diamond } from "../diamond/diamond-table";
-
+import AuthService from "@/dbutils/userAPI/authservice";
 export default function JewelryForm() {
   const [jewelry, setJewelry] = useState<Jewelry | null>(null);
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>(1);
   const [selectedGemstoneOption, setSelectedGemstoneOption] = useState<string | null>(null);
   const router = useRouter();
-
+  useEffect(() => {
+    if (!AuthService.isAuthenticated()) {
+      alert("Please login to customize your jewelry.");
+      router.push('/login');
+    }
+  }, [router]);
   const handleCategorySelect = (cat: Category) => {
     const updatedJewelry: Jewelry = {
       ...jewelry,

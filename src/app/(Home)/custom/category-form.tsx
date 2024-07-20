@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Divider,
 } from "@nextui-org/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
