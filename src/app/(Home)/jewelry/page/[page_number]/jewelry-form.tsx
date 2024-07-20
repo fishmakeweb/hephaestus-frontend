@@ -51,10 +51,10 @@ export default function Jewelry() {
         {items.map((item) => (
           <div
             key={item.jewelryId}
-            className="w-full max-w-xs bg-white rounded-xl hover:shadow-md duration-500"
+            className="w-full max-w-xs bg-white rounded-xl hover:shadow-xl duration-500"
           >
             <Link href={`/jewelry/${item.jewelryId}`}>
-              <div className="w-full h-[50vh] ">
+              <div className="w-full md:h-[50vh] sm:h-[25vh]">
               <Image
                 width={150}
                 height={100}
