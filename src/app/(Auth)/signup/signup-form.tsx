@@ -18,87 +18,103 @@ export function SignUpForm() {
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
 
-  const [validationErrors, setValidationErrors] = useState<
-    Record<string, string>
-  >({
-    fullName: "",
-    email: "",
-    address: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const validateInput = (name: string, value: string) => {
-    switch (name) {
-      case "fullName":
-        if (!value.trim()) return "Full name is required.";
-        if (/[^a-zA-Z -]/.test(value))
-          return "Full name should not contain special characters.";
-        return "";
-      case "email":
-        if (!value.trim()) return "Email is required.";
-        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)) return "Email is invalid.";
-        return "";
-      case "address":
-      case "username":
-        if (!value.trim())
-          return `${name.charAt(0).toUpperCase() + name.slice(1)} is required.`;
-        return "";
-      case "password":
-        if (value.length < 10) {
-          return "Password must be at least 10 characters long.";
-        } else if (!value.trim()) {
-          return "Password is required.";
-        }
-        return "";
-      case "confirmPassword":
-        if (value !== password) return "Passwords do not match.";
-        return "";
-      default:
-        return "";
-    }
-  };
-
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let allValid = true;
 
-    // Create a new object to hold potential validation errors
-    const newErrors: Record<string, string> = {};
-
-    // Validate each field and populate the errors object
-    newErrors.fullName = validateInput("fullName", fullName);
-    newErrors.email = validateInput("email", email);
-    newErrors.address = validateInput("address", address);
-    newErrors.username = validateInput("username", username);
-    newErrors.password = validateInput("password", password);
-    newErrors.confirmPassword = validateInput(
-      "confirmPassword",
-      confirmPassword
-    );
-
-    // Check if there are any errors
-    allValid = !Object.values(newErrors).some((error) => error !== "");
-
-    // Update state with new errors or clear them if valid
-    setValidationErrors(newErrors);
-
-    if (!allValid) {
-      return; // Stop form submission if errors exist
+    if (username.includes(" ")) {
+      setError("Username cannot contain spaces.");
+      return;
     }
+
+    if (password.includes(" ")) {
+      setError("Password cannot contain spaces.");
+      return;
+    }
+
+    // Now trim the values for further validation
+    const trimmedFullName = fullName.trim();
+    const trimmedEmail = email.trim(); // Trimming after checking for spaces
+    const trimmedAddress = address.trim();
+    const trimmedUsername = username.trim();
+    const trimmedPassword = password.trim();
+    const trimmedConfirmPassword = confirmPassword.trim();
+
+    // Further validations
+    if (!trimmedFullName) {
+      setError("Full name is required.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    } else if (/[^a-zA-Z -]/.test(trimmedFullName)) {
+      setError("Full name should not contain special characters.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    }
+
+    if (!trimmedEmail) {
+      setError("Email is required.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(trimmedEmail)
+    ) {
+      setError("Email is invalid.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    }
+
+    if (!trimmedAddress) {
+      setError("Address is required.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    }
+
+    if (!trimmedUsername) {
+      setError("Username is required.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    }
+
+    if (!trimmedPassword) {
+      setError("Password is required.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    } else if (trimmedPassword.length < 5) {
+      setError("Password must be at least 5 characters long.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    }
+
+    if (trimmedConfirmPassword !== trimmedPassword) {
+      setError("Passwords do not match.");
+      setTimeout(() => setError(null), 1000);
+      return;
+    }
+
+    // Use trimmed values to create userData object
+    const userData = {
+      fullName: trimmedFullName,
+      email: trimmedEmail,
+      address: trimmedAddress,
+      username: trimmedUsername,
+      password: trimmedPassword,
+    };
+
     try {
-      const userData = { fullName, email, address, username, password };
       const response = await AuthService.registerCustomer(userData);
-      if(response.error){
+      if (response.error) {
         setError(response.error);
+        setTimeout(() => setError(null), 2000);
         return;
       }
       const loginResponse = await AuthService.loginUser(username, password);
       setSuccess("Sign up successful! You are now logged in.");
-      setTimeout(() => router.push("/"), 2000);
+      setTimeout(() => {
+        setError(null);
+        router.push("/");
+      }, 2000);
     } catch (error) {
       setError("Sign up failed. Please try again.");
+      setTimeout(() => setError(null), 2000);
     }
   };
 
@@ -168,28 +184,16 @@ export function SignUpForm() {
             onChange={(e) => setConfirmPassword(e.target.value)} // Corrected
           />
         </LabelInputContainer>
-        {Object.keys(validationErrors).map(
-          (key) =>
-            validationErrors[key] && (
-              <div
-                key={key}
-                className="mb-4 p-3 text-red-600 bg-red-100 rounded border border-red-500"
-              >
-                {validationErrors[key]}
-              </div>
-            )
-        )}
         {success && (
           <div className="mb-4 p-3 text-green-600 bg-green-100 rounded border border-green-500">
             {success}
-            
           </div>
         )}
         {error && (
-              <div className="mb-4 p-3 text-red-600 bg-red-100 rounded border border-red-500">
-                {error}
-              </div>
-            )}
+          <div className="mb-4 p-3 text-red-600 bg-red-100 rounded border border-red-500">
+            {error}
+          </div>
+        )}
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"

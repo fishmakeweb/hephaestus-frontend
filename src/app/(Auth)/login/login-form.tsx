@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -19,7 +19,7 @@ export function LoginForm() {
     const token = sessionStorage.getItem("token");
     if (token != null) {
       alert("You are already logged in!");
-      AuthService.logout();
+      router.push("/");
       return;
     }
     e.preventDefault();
@@ -28,9 +28,9 @@ export function LoginForm() {
       const response = await AuthService.loginUser(username, password);
       if (AuthService.isAuthenticated()) {
         setSuccess("You are successfully logged in!");
-        // console.log(sessionStorage.getItem("role"));
-        // AuthService.isCustomer()
-        router.push("/");
+        setTimeout(() => {
+          router.push("/"); // Redirect after 2000ms
+        }, 1000); // Delay set to 2000 milliseconds
         console.log("Logged sucess");
       } else {
         setError("Login failed. Please check your credentials.");
@@ -91,37 +91,20 @@ export function LoginForm() {
         <span className="text-neutral-700 dark:text-neutral-300 text-sm">
           Do not have an account?
         </span>
-
-        <button
-          className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-          type="submit"
-        >
-          <Link
-            href="/signup"
-            className="text-neutral-700 dark:text-neutral-300 text-sm"
-          >
-            Signup now
-          </Link>
-          <BottomGradient />
-        </button>
-
         <Link
-          href="https://api.hephaestus.store/oauth2/authorization/google"
-          className="text-neutral-700 dark:text-neutral-300 text-sm"
+          href="/signup"
+          className="text-neutral-700 dark:text-neutral-300 text-sm relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
         >
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <Link
-              href="http://api.hephaestus.store/oauth2/authorization/google"
-              className="text-neutral-700 dark:text-neutral-300 text-sm"
-            >
-              Google
-            </Link>
-            <BottomGradient />
-          </button>
+          Signup now
+          <BottomGradient />
+        </Link>
+        <Link
+          href="http://api.hephaestus.store/oauth2/authorization/google"
+          className="text-neutral-700 dark:text-neutral-300 text-sm  relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
+        >
+          <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+          Google
+          <BottomGradient />
         </Link>
       </div>
     </div>
