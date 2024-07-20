@@ -145,13 +145,13 @@ export function Cart() {
           </SheetTitle>
           <SheetDescription></SheetDescription>
         </SheetHeader>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center ">
           {itemDetails.length === 0 ? (
             <p className="text-xl text-center font-medium text-neutral-600">
               Your cart is currently empty.
             </p>
           ) : (
-            <ScrollArea className="w-full h-[70vh]">
+            <ScrollArea className="h-[60vh] md:h-[70vh] ">
               <ul className="divide-y divide-gray-200 w-full">
                 {itemDetails.map((item) => (
                   <li
@@ -233,7 +233,7 @@ export function Cart() {
                 </p>
                 <SheetClose asChild className="mt-4">
                   <Link
-                    className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
+                    className="bg-black text-white px-10 py-3 rounded-full hover:bg-gray-800"
                     href="/order-confirmation"
                   >
                     CHECK OUT

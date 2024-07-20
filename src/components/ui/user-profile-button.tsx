@@ -62,7 +62,7 @@ export default function UserProfile() {
               onClick={handleViewCustomOrder}
               className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
-              View custom order
+              View Custom Order
             </DropdownItem>
             <DropdownItem
               key="profile"

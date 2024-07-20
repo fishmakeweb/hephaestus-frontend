@@ -126,14 +126,6 @@ const JewelryItem: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex z-10 flex-col text-center self-center px-5 pt-9 pb-4 mt-20 border-t border-solid border-neutral-300 max-md:mt-10 max-md:max-w-full">
-        <div className="text-3xl text-black max-md:max-w-full">
-          Recommended for you
-        </div>
-        <div className="mt-3 text-lg font-[353] text-neutral-500 max-md:max-w-full">
-          Based on your history
-        </div>
-      </div>
     </div>
   );
 };

@@ -165,10 +165,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     try {
       const token = sessionStorage.getItem("token");
       if (token) {
-        const checkoutUrl = await checkOutCustomOrder(
-          token,
-          customOrderId
-        );
+        const checkoutUrl = await checkOutCustomOrder(token, customOrderId);
         window.location.href = checkoutUrl;
       } else {
         console.error("No token found");
@@ -247,105 +244,96 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                 Customer Information
               </h2>
               <div className="flex flex-col md:flex-row gap-4 justify-center">
-                <div className="bg-gray-50 p-4 rounded-lg shadow">
-                  <dl className="text-gray-800 divide-y divide-gray-200">
+                <div className="bg-gray-50 p-4 rounded-lg shadow w-full ">
+                  <dl className="text-gray-800">
                     <div className="py-2">
-                      <dt className="text-sm font-semibold text-gray-600">
-                        Full Name
+                      <dt className="text-md text-black">
+                        <strong>Full Name</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData?.customer.fullName}
                       </dd>
                     </div>
                     <div className="py-2">
-                      <dt className="text-sm font-semibold text-gray-600">
-                        Email
+                      <dt className="text-md text-black">
+                        <strong>Email</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData?.customer.email}
                       </dd>
                     </div>
-                  </dl>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg shadow">
-                  <dl className="text-gray-800 divide-y divide-gray-200">
                     <div className="py-2">
-                      <dt className="text-sm font-semibold text-gray-600">
-                        Address
+                      <dt className="text-md text-black">
+                        <strong>Address</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData?.customer.address}
                       </dd>
                     </div>
                     <div className="py-2">
-                      <dt className="text-sm font-semibold text-gray-600">
-                        Registered Date
+                      <dt className="text-md text-black">
+                        <strong> Registered Date</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
-                        {
-                          userData? new Date(userData.customer.registeredDate
-                        ).toLocaleString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                        }) : "No data"}
+                        {userData
+                          ? new Date(
+                              userData.customer.registeredDate
+                            ).toLocaleString("en-US", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: false,
+                            })
+                          : "No data"}
                       </dd>
                     </div>
                   </dl>
                 </div>
               </div>
             </div>
+
             <div className="mb-5">
               <h2 className="text-lg font-bold text-gray-800">
                 Custom Jewelry Info
               </h2>
               <div className="bg-gray-50 p-4 rounded-lg shadow divide-y divide-gray-200">
-                <div className="py-3 flex flex-wrap items-start gap-4">
-                  <div className="flex-grow">
-                    <p className="text-md text-black">
-                      Category: {formData.customJewelry.category.categoryName}
-                    </p>
-                  </div>
-                  <div className="flex-grow">
-                    <p className="text-md text-black">
-                      Material: {formData.customJewelry.material.materialName}
-                    </p>
-                  </div>
-                  <div className="flex-grow">
-                    <p className="text-md text-black">
-                      Shape: {formData.customJewelry.shape.shapeDescription}
-                    </p>
-                  </div>
+                <div className="space-y-3">
+                  <p className="text-md text-black">
+                    <strong>Category:</strong>{" "}
+                    {formData.customJewelry.category.categoryName}
+                  </p>
+                  <p className="text-md text-black">
+                    <strong>Material:</strong>{" "}
+                    {formData.customJewelry.material.materialName}
+                  </p>
+                  <p className="text-md text-black">
+                    <strong>Shape:</strong>{" "}
+                    {formData.customJewelry.shape.shapeDescription}
+                  </p>
                   {formData.customJewelry.diamond !== null && (
-                    <div className="flex-grow flex items-center gap-2">
-                      <p className="text-md text-black">
-                        Diamond:{" "}
-                        {formData.customJewelry.diamond.cut.cutDescription}
-                      </p>
-                    </div>
+                    <p className="text-md text-black">
+                      <strong>Diamond:</strong>{" "}
+                      {formData.customJewelry.diamond.cut.cutDescription}
+                    </p>
                   )}
-                  <div className="flex-grow">
-                    <p className="text-md text-black">
-                      Size: {formData.customJewelry.size.sizeNumber}{" "}
-                      {formData.customJewelry.size.unit}
-                    </p>
-                  </div>
-                  <div className="flex-grow">
-                    <p className="text-md text-black">
-                      Price: ${formData.customJewelry.price.toFixed(2)}
-                    </p>
-                  </div>
-                  <div className="flex-grow">
-                    <p className="text-md text-black">
-                      Your Note: {formData.customJewelry.note}
-                    </p>
-                  </div>
+                  <p className="text-md text-black">
+                    <strong>Size:</strong>{" "}
+                    {formData.customJewelry.size.sizeNumber}{" "}
+                    {formData.customJewelry.size.unit}
+                  </p>
+                  <p className="text-md text-black">
+                    <strong>Price:</strong> $
+                    {formData.customJewelry.price.toFixed(2)}
+                  </p>
+                  <p className="text-md text-black">
+                    <strong>Your Note:</strong> {formData.customJewelry.note}
+                  </p>
                 </div>
               </div>
             </div>
+
             {formData.orderStatus.statusId !== 4 && (
               <div className="flex justify-between mt-6">
                 {formData.orderStatus.statusId !== 3 && (
@@ -379,27 +367,36 @@ const SelectedCusOrderForm: React.FC = ({}) => {
             )}
           </section>
           {chatInitialized && (
-            <>
-              <p className="text-md font-semibold">Support Box</p>
-              <div className="chat-box">
-                <div className="messages">
-                  {chatMessages.map((msg) => (
-                    <p key={msg.id}>
-                      {msg.username}: {msg.message}
-                    </p>
-                  ))}
-                </div>
-                <input
-                  type="text"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  placeholder="Type a message..."
-                  onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
-                />
-                <button onClick={sendMessage}>Send</button>
-              </div>
-            </>
-          )}
+  <div className="mt-4 bg-white shadow-lg rounded-lg p-1 sm:p-2 w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
+    <h3 className="text-lg font-semibold mb-1 sm:mb-2">Support Box</h3>
+    <div className="chat-box border border-gray-300 rounded-lg p-1 sm:p-2 max-h-60 overflow-auto">
+      <ul className="space-y-1 sm:space-y-2">
+        {chatMessages.map((msg) => (
+          <li key={msg.id} className="break-words">
+            <strong>{msg.username}:</strong> {msg.message}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div className="mt-2 sm:mt-3 flex space-x-1 sm:space-x-2 w-full">
+      <input
+        type="text"
+        value={newMessage}
+        onChange={(e) => setNewMessage(e.target.value)}
+        placeholder="Type a message..."
+        className="flex-grow p-1 sm:p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-indigo-300"
+        onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
+      />
+      <button
+        onClick={sendMessage}
+        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded transition-colors duration-150 ease-in-out"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+)}
+
         </div>
       </ScrollArea>
     </div>
