@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NewNavbar />
-        <main className="min-h-[100vh]">{children}</main>
+        <main>{children}</main>
         <Footer/>
       </body>
     </html>
