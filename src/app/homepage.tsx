@@ -7,32 +7,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import AuthService from "@/dbutils/userAPI/authservice";
 function Homepage() {
-  // const router = useRouter();
-  // useEffect(() => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const token = urlParams.get("token");
-  //   if (token) {
-  //     sessionStorage.setItem("token", token);
-  //   }
-  //   document.title = "Hephaestus";
-  //   router.refresh();
-  //   const myCanvas = document.getElementById("myThreeJsCanvas");
-  //   const canvasContainer = document.getElementById("threejs-container");
 
-  //   if (myCanvas && canvasContainer) {
-  //     canvasContainer.appendChild(myCanvas);
-  //   }
-  // }, []);
-  // const handleClick = async () => {
-  //   const token = sessionStorage.getItem("token");
-  //   if (!token) {
-  //     alert("Please log in to custom your jewelry.");
-  //     router.push("/login");
-  //     return;
-  //   } else {
-  //     router.push("/custom");
-  //   }
-  // };
+
   const router = useRouter();
 
   useEffect(() => {
@@ -41,6 +17,7 @@ function Homepage() {
       if (AuthService.isAuthenticated()) {
         router.refresh(); // Refresh the current page properly
       }
+      
     };
 
     // Subscribe to authentication changes
@@ -73,7 +50,7 @@ function Homepage() {
   }, []);
   return (
     <>
-      {/* <div className="relative h-screen md:block hidden">
+      <div className="relative h-screen md:block hidden">
         <ThreeScene />
         <div className="absolute top-0 left-0 w-1/2 h-full mt-[30vh] text-white pl-[15vw]">
           <h3 className="text-3xl mt-8">
@@ -84,7 +61,7 @@ function Homepage() {
             DESIGN YOURS NOW
           </Button>
         </div>
-      </div> */}
+      </div>
       <div className="flex flex-col bg-white">
         <div className="self-center mt-11 text-3xl md:text-2xl lg:text-4xl text-center text-black max-md:mt-10">
           Shop by category
