@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams , useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getAllJewelry } from "@/dbutils/jewelryAPI/getAllJewelry";
 import {
@@ -22,14 +22,14 @@ interface JewelryItem {
 
 export default function Jewelry() {
   const { page_number } = useParams<{ page_number: string }>();
-
+  const filterParam = "";
   const [items, setItems] = useState<JewelryItem[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const pageNumber = parseInt(page_number || "0") - 1;
-    getAllJewelry(pageNumber)
+    getAllJewelry(pageNumber,"")
       .then((data) => {
         setItems(
           data.content.map((item: JewelryItem) => ({
