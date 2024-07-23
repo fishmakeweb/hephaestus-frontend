@@ -75,7 +75,7 @@ function Homepage() {
   }, []);
   return (
     <>
-      {/* <div className="relative h-screen md:block hidden">
+      <div className="relative h-screen md:block hidden">
         <ThreeScene />
         <div className="absolute top-0 left-0 w-1/2 h-full mt-[30vh] text-white pl-[15vw]">
           <h3 className="text-3xl mt-8">Mùa hè rực rỡ: Thiết kế mẫu riêng ngay</h3>
@@ -86,7 +86,7 @@ function Homepage() {
           </Button>
           </Link>
         </div>
-      </div> */}
+      </div>
       <div className="flex flex-col bg-white">
         <div className="self-center mt-11 text-3xl md:text-2xl lg:text-4xl text-center text-black max-md:mt-10">
           Mua sắm theo danh mục

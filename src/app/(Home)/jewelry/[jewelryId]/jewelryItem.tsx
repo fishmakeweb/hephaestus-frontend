@@ -88,7 +88,7 @@ const JewelryItem: React.FC = () => {
   if (!itemDetails) return <div>Loading...</div>;
 
   return (
-    <div className="flex flex-col bg-white">
+    <div className="flex flex-col bg-white  mb-[20vh]">
       <div className="self-center mt-20 w-full max-w-[1214px] max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-2/5 max-md:ml-0 max-md:w-full">
