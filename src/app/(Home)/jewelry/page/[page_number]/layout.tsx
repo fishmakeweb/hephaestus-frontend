@@ -1,5 +1,5 @@
 "use client";
-import { Inter } from "next/font/google";
+import Link from 'next/link';
 import {
   fetchAllAttributes,
   Attributes,
@@ -19,6 +19,20 @@ export default function JewelryPageLayout({
     sizes: [],
     shapes: [],
   });
+  const [showDropdown, setShowDropdown] = useState({
+    categories: false,
+    materials: false,
+    sizes: false,
+    shapes: false,
+  });
+
+  const toggleDropdown = (type: keyof typeof showDropdown) => {
+    setShowDropdown((prev) => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  };
+
   const handleCheckboxChange = (
     type: keyof AttributeSelections,
     value: number
@@ -31,6 +45,17 @@ export default function JewelryPageLayout({
     }));
   };
 
+
+  const generateQueryParams = () => {
+    const params = new URLSearchParams();
+    Object.entries(selected).forEach(([key, values]) => {
+      if (values.length > 0) {
+        params.append(`${key}Ids`, values.join(','));
+      }
+    });
+    return params.toString();
+  };
+
   useEffect(() => {
     const loadAttributes = async () => {
       try {
@@ -40,7 +65,6 @@ export default function JewelryPageLayout({
         console.error("Failed to load attributes:", error);
       }
     };
-
     loadAttributes();
   }, []);
   return (
@@ -143,8 +167,11 @@ export default function JewelryPageLayout({
                 ))}
               </div>
             </fieldset>
-
-            {/* Repeat for sizes and shapes */}
+            <Link href={`/jewelry/page/1?${generateQueryParams()}`}>
+              <p className="mt-4 inline-block px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+                Search
+              </p>
+            </Link>
           </form>
         ) : (
           <p>Loading filters...</p>
