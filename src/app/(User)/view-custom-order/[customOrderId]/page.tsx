@@ -94,7 +94,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
         onConnect: () => {
           client.subscribe(
@@ -126,7 +126,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     const response = await axios.get<CustomOrderChatMessage[]>(
       `https://api.hephaestus.store/api/chat/custom-order-history/${customOrderId}`,
       {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }
     );
     setChatMessages(response.data);
@@ -163,7 +163,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
 
   const handleSubmit = async (customOrderId: number) => {
     try {
-      const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
       if (token) {
         const checkoutUrl = await checkOutCustomOrder(token, customOrderId);
         window.location.href = checkoutUrl;

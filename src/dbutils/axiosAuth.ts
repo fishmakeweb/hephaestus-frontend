@@ -2,7 +2,7 @@
 
 // const getToken = () => {
 //   if (typeof window !== 'undefined') {
-//     return sessionStorage.getItem('token');
+//     return localStorage.getItem('token');
 //   }
 //   return '';
 // };
@@ -19,10 +19,10 @@
 
 import axios from 'axios';
 
-// Function to retrieve the token from sessionStorage
+// Function to retrieve the token from localStorage
 const getToken = () => {
   if (typeof window !== 'undefined') {
-    return sessionStorage.getItem('token');
+    return localStorage.getItem('token');
   }
   return '';
 };

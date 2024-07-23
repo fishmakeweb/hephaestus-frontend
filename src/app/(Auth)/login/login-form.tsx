@@ -16,7 +16,7 @@ export function LoginForm() {
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (token != null) {
       alert("You are already logged in!");
       router.push("/");

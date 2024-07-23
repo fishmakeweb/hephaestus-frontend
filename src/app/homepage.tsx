@@ -28,8 +28,8 @@ function Homepage() {
     const token = urlParams.get("token");
     const username = urlParams.get("username");
     if (token && username) {
-      sessionStorage.setItem("token", token);
-      sessionStorage.setItem("username", username);
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
       AuthService.notify(); // Notify any subscribers that authentication state might have changed
     }
 

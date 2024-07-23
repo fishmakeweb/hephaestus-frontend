@@ -23,7 +23,7 @@ export default function CenterStoneForm({
   const router = useRouter();
 
   useEffect(() => {
-    const storedJewelry = sessionStorage.getItem("edittingJewelry");
+    const storedJewelry = localStorage.getItem("edittingJewelry");
     if (storedJewelry) {
       setJewelry(JSON.parse(storedJewelry));
     }

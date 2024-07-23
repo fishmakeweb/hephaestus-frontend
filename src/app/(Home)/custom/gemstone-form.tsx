@@ -28,7 +28,7 @@ export default function GemstoneForm({ jewelry, setJewelry, onBack, onSelectGems
   const router = useRouter();
 
   useEffect(() => {
-    const storedJewelry = sessionStorage.getItem("edittingJewelry");
+    const storedJewelry = localStorage.getItem("edittingJewelry");
     if (storedJewelry) {
       setJewelry(JSON.parse(storedJewelry));
     }

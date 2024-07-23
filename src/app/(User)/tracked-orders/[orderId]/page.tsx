@@ -34,7 +34,7 @@ const TrackedOrderCard: React.FC = () => {
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
         onConnect: () => {
           client.subscribe(`/topic/orders/${orderId}`, (message) => {
@@ -71,7 +71,7 @@ const TrackedOrderCard: React.FC = () => {
     const response = await axios.get<OrderChatMessage[]>(
       `https://api.hephaestus.store/api/chat/history/${orderId}`,
       {
-        headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }
     );
     setChatMessages(response.data);

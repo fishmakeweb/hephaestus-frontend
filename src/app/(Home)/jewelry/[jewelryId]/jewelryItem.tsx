@@ -49,7 +49,7 @@ const JewelryItem: React.FC = () => {
   const [openLocation, setOpenLocation] = useState(false);
   const toggleLocation = () => setOpenLocation(!openLocation);
   const handleClick = async () => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     if (!token) {
       alert("Please log in to add items to your cart.");
       router.push("/login");

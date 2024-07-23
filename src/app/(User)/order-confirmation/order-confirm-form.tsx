@@ -65,7 +65,7 @@ const ConfirmOrderForm: React.FC = () =>  {
 
   const handleSubmit = async () => {
       try {
-        const token = sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
           const checkoutUrl = await checkOut();
           window.location.href = checkoutUrl;
