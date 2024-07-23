@@ -1,5 +1,5 @@
 "use client";
-import { Inter } from "next/font/google";
+import Link from 'next/link';
 import {
   fetchAllAttributes,
   Attributes,
@@ -19,6 +19,20 @@ export default function JewelryPageLayout({
     sizes: [],
     shapes: [],
   });
+  const [showDropdown, setShowDropdown] = useState({
+    categories: false,
+    materials: false,
+    sizes: false,
+    shapes: false,
+  });
+
+  const toggleDropdown = (type: keyof typeof showDropdown) => {
+    setShowDropdown((prev) => ({
+      ...prev,
+      [type]: !prev[type],
+    }));
+  };
+
   const handleCheckboxChange = (
     type: keyof AttributeSelections,
     value: number
@@ -31,6 +45,17 @@ export default function JewelryPageLayout({
     }));
   };
 
+
+  const generateQueryParams = () => {
+    const params = new URLSearchParams();
+    Object.entries(selected).forEach(([key, values]) => {
+      if (values.length > 0) {
+        params.append(`${key}Ids`, values.join(','));
+      }
+    });
+    return params.toString();
+  };
+
   useEffect(() => {
     const loadAttributes = async () => {
       try {
@@ -40,12 +65,12 @@ export default function JewelryPageLayout({
         console.error("Failed to load attributes:", error);
       }
     };
-
     loadAttributes();
   }, []);
   return (
-    <div className="flex pt-12">
-      <div className="w-[15vw] p-4">
+    <div className="flex pt-12 pb-12">
+      <div className="w-[15vw] pl-[5vw]">
+        <h2 className="text-2xl mb-8">Bộ Lọc</h2>
         {attributes ? (
           <form>
             <fieldset>
@@ -69,7 +94,7 @@ export default function JewelryPageLayout({
                           )
                         }
                       />
-                      <span className="ml-2">{category.categoryName}</span>
+                      <span className="ml-2 text-sm">{category.categoryName}</span>
                     </label>
                   </div>
                 ))}
@@ -93,7 +118,7 @@ export default function JewelryPageLayout({
                           handleCheckboxChange("materials", material.materialId)
                         }
                       />
-                      <span className="ml-2">{material.materialName}</span>
+                      <span className="ml-2 text-sm">{material.materialName}</span>
                     </label>
                   </div>
                 ))}
@@ -115,7 +140,7 @@ export default function JewelryPageLayout({
                           handleCheckboxChange("sizes", size.sizeId)
                         }
                       />
-                      <span className="ml-2">{`${size.sizeNumber} (${size.unit})`}</span>
+                      <span className="ml-2 text-sm">{`${size.sizeNumber} (${size.unit})`}</span>
                     </label>
                   </div>
                 ))}
@@ -137,20 +162,23 @@ export default function JewelryPageLayout({
                           handleCheckboxChange("shapes", shape.shapeId)
                         }
                       />
-                      <span className="ml-2">{shape.shapeDescription}</span>
+                      <span className="ml-2 text-sm">{shape.shapeDescription}</span>
                     </label>
                   </div>
                 ))}
               </div>
             </fieldset>
-
-            {/* Repeat for sizes and shapes */}
+            <Link href={`/jewelry/page/1?${generateQueryParams()}`}>
+              <p className="mt-4 inline-block px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+                Search
+              </p>
+            </Link>
           </form>
         ) : (
           <p>Loading filters...</p>
         )}
       </div>
-      <div className="w-[85vw]">{children}</div>
+      <div className="w-[80vw]">{children}</div>
     </div>
   );
 }
