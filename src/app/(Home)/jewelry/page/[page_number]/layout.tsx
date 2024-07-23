@@ -68,8 +68,9 @@ export default function JewelryPageLayout({
     loadAttributes();
   }, []);
   return (
-    <div className="flex pt-12">
-      <div className="w-[15vw] p-4">
+    <div className="flex pt-12 pb-12">
+      <div className="w-[15vw] pl-[5vw]">
+        <h2 className="text-2xl mb-8">Bộ Lọc</h2>
         {attributes ? (
           <form>
             <fieldset>
@@ -93,7 +94,7 @@ export default function JewelryPageLayout({
                           )
                         }
                       />
-                      <span className="ml-2">{category.categoryName}</span>
+                      <span className="ml-2 text-sm">{category.categoryName}</span>
                     </label>
                   </div>
                 ))}
@@ -117,7 +118,7 @@ export default function JewelryPageLayout({
                           handleCheckboxChange("materials", material.materialId)
                         }
                       />
-                      <span className="ml-2">{material.materialName}</span>
+                      <span className="ml-2 text-sm">{material.materialName}</span>
                     </label>
                   </div>
                 ))}
@@ -139,7 +140,7 @@ export default function JewelryPageLayout({
                           handleCheckboxChange("sizes", size.sizeId)
                         }
                       />
-                      <span className="ml-2">{`${size.sizeNumber} (${size.unit})`}</span>
+                      <span className="ml-2 text-sm">{`${size.sizeNumber} (${size.unit})`}</span>
                     </label>
                   </div>
                 ))}
@@ -161,7 +162,7 @@ export default function JewelryPageLayout({
                           handleCheckboxChange("shapes", shape.shapeId)
                         }
                       />
-                      <span className="ml-2">{shape.shapeDescription}</span>
+                      <span className="ml-2 text-sm">{shape.shapeDescription}</span>
                     </label>
                   </div>
                 ))}
@@ -177,7 +178,7 @@ export default function JewelryPageLayout({
           <p>Loading filters...</p>
         )}
       </div>
-      <div className="w-[85vw]">{children}</div>
+      <div className="w-[80vw]">{children}</div>
     </div>
   );
 }
