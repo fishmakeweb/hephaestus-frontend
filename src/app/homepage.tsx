@@ -28,8 +28,8 @@ function Homepage() {
     const token = urlParams.get("token");
     const username = urlParams.get("username");
     if (token && username) {
-      sessionStorage.setItem("token", token);
-      sessionStorage.setItem("username", username);
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", username);
       AuthService.notify(); // Notify any subscribers that authentication state might have changed
     }
 
@@ -51,7 +51,7 @@ function Homepage() {
   return (
     <>
       <div className="relative h-screen md:block hidden">
-        <ThreeScene />
+        {/* <ThreeScene /> */}
         <div className="absolute top-0 left-0 w-1/2 h-full mt-[30vh] text-white pl-[15vw]">
           <h3 className="text-3xl mt-8">
             Summer Brilliance: Custom Diamond Jewelry

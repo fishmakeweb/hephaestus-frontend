@@ -2,7 +2,7 @@
 // class AuthService {
 //   static isAuthenticated() {
 //     try {
-//       const token = sessionStorage.getItem("token");
+//       const token = localStorage.getItem("token");
 //       return !!token;
 //     } catch (error) {
 //       // console.error("Error checking authentication status:", error);
@@ -21,7 +21,7 @@
 //   }
 
 //   static getUserName() {
-//     const username = sessionStorage.getItem("username");
+//     const username = localStorage.getItem("username");
 //     return username ? username : null;
 //   }
 
@@ -33,8 +33,8 @@
 //       });
 //       const token = response.data.token;
 //       if (token) {
-//         sessionStorage.setItem("token", token);
-//         sessionStorage.setItem("username",username);
+//         localStorage.setItem("token", token);
+//         localStorage.setItem("username",username);
 //       }
 //       return response.data.token;
 //     } catch (error) {
@@ -44,8 +44,8 @@
 //   }
 
 //   static logout() {
-//     sessionStorage.removeItem("token");
-//     sessionStorage.removeItem("username");
+//     localStorage.removeItem("token");
+//     localStorage.removeItem("username");
 //   }
 //   static async registerCustomer(userData: any): Promise<any> {
 
@@ -82,7 +82,7 @@ class AuthService {
 
   static isAuthenticated() {
     try {
-      const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
       return !!token;
     } catch (error) {
       console.error("Error checking authentication status:", error);
@@ -93,7 +93,7 @@ class AuthService {
   static async getProfile() {
     try {
       const response = await axios.get(`/public/profile`, {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       return response.data;
     } catch (error) {
@@ -102,7 +102,7 @@ class AuthService {
   }
 
   static getUserName() {
-    const username = sessionStorage.getItem("username");
+    const username = localStorage.getItem("username");
     return username ? username : null;
   }
 
@@ -111,8 +111,8 @@ class AuthService {
       const response = await axios.post('/auth/login', { username, password });
       const { token } = response.data;
       if (token) {
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("username", username);
+        localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
         AuthService.notify();
       }
 
@@ -124,8 +124,8 @@ class AuthService {
   }
 
   static logout() {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("username");
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
     AuthService.notify();
   }
 
