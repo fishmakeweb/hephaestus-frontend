@@ -101,10 +101,10 @@ const ConfirmOrderForm: React.FC = () =>  {
                   />
                   <div className="ml-4 flex-grow">
                     <p className="text-lg font-medium text-gray-900">{item.name}</p>
-                    <p className="text-sm text-gray-500">Giá tiền: {item.price.toFixed(2)} VNĐ</p>
+                    <p className="text-sm text-gray-500">Giá tiền: {item.price} VNĐ</p>
                     <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
                   </div>
-                  <p className="text-lg font-medium text-gray-900">{(item.price * item.quantity).toFixed(2)} VNĐ</p>
+                  <p className="text-lg font-medium text-gray-900">{(item.price * item.quantity)} VNĐ</p>
                 </div>
               ))}
             </div>
@@ -142,7 +142,7 @@ const ConfirmOrderForm: React.FC = () =>  {
             <h2 className="text-xl font-[800] mb-4">Tổng kết</h2>
             <div className="flex justify-between items-center">
               <p className="text-lg">Tổng giá tiền</p>
-              <p className="text-lg font-semibold">${totalAmount.toFixed(2)}</p>
+              <p className="text-lg font-semibold">{totalAmount} VNĐ</p>
             </div>
           </div>
           <button

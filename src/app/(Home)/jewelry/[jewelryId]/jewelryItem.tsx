@@ -48,11 +48,14 @@ const JewelryItem: React.FC = () => {
   const toggleTips = () => setShowTips(!showTips);
   const [openLocation, setOpenLocation] = useState(false);
   const toggleLocation = () => setOpenLocation(!openLocation);
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
   const handleClick = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Vui lòng đăng nhập.");
-      router.push("/login");
+      setShowLoginMessage(true); // Show login message
+      setTimeout(() => {
+        router.push("/login"); // Redirect to login after showing the message
+      }, 3000); // Display message for 3 seconds before redirecting
       return;
     }
 
@@ -89,6 +92,21 @@ const JewelryItem: React.FC = () => {
 
   return (
     <div className="flex flex-col bg-white  mb-[20vh]">
+      {showLoginMessage && (
+        <div
+          style={{
+            padding: "20px",
+            backgroundColor: "#f8d7da",
+            color: "#721c24",
+            border: "1px solid #f5c6cb",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            textAlign: "center",
+          }}
+        >
+          Vui lòng đăng nhập để tiếp tục.
+        </div>
+      )}
       <div className="self-center mt-20 w-full max-w-[1214px] max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-2/5 max-md:ml-0 max-md:w-full">
@@ -155,24 +173,30 @@ const JewelryItem: React.FC = () => {
               </button>
 
               <JewelryItemData data={itemDetails} />
-              <div className="flex gap-5 justify-center py-3 pr-2 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full cursor-pointer" onClick={toggleTips}>
+              <div
+                className="flex gap-5 justify-center py-3 pr-2 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full cursor-pointer"
+                onClick={toggleTips}
+              >
                 <div className="flex-auto my-auto">LỜI KHUYÊN & CẢNH BÁO</div>
-                  <img
-                    loading="lazy"
-                    alt=""
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a20b583fc524c1afdb28207b9bc2fbcaafc28e514c302e5d668864cf5c97e49?"
-                    className="shrink-0 w-6 aspect-square"
-                  />
+                <img
+                  loading="lazy"
+                  alt=""
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a20b583fc524c1afdb28207b9bc2fbcaafc28e514c302e5d668864cf5c97e49?"
+                  className="shrink-0 w-6 aspect-square"
+                />
               </div>
               {showTips && <TipsAndWarnings />}
-              <div className="flex gap-5 justify-center py-3 pr-1.5 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full cursor-pointer" onClick={toggleLocation}>
+              <div
+                className="flex gap-5 justify-center py-3 pr-1.5 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full cursor-pointer"
+                onClick={toggleLocation}
+              >
                 <div className="flex-auto my-auto">SẢN PHẨM CÒN HÀNG TẠI</div>
-                  <img
-                    loading="lazy"
-                    alt=""
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/35d01c5cc7d2f8e99764e480ad8a21ca61347d99af30fc8107408dfda4294276?"
-                    className="shrink-0 aspect-square w-[26px]"
-                  />
+                <img
+                  loading="lazy"
+                  alt=""
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/35d01c5cc7d2f8e99764e480ad8a21ca61347d99af30fc8107408dfda4294276?"
+                  className="shrink-0 aspect-square w-[26px]"
+                />
               </div>
               {openLocation && (
                 <div className="flex flex-col">

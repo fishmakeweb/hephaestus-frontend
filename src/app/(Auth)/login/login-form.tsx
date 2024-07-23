@@ -53,7 +53,7 @@ export function LoginForm() {
           <Label htmlFor="username">Tên đăng nhập</Label>
           <Input
             id="username"
-            placeholder="Enter your username..."
+            placeholder="username123"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}

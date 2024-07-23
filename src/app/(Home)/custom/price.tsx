@@ -136,7 +136,7 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
       <Card>
         <CardBody className="items-center">
           <p className="max-w-md text-center">
-            Giá tiền ước tính: {jewelry?.price !== undefined ? `$${jewelry.price}` : "Calculating..."}
+            Giá tiền ước tính: {jewelry?.price !== undefined ? `${jewelry.price} VNĐ` : "Calculating..."}
           </p>
           <div className="mt-4">
             <button
