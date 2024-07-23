@@ -110,14 +110,14 @@ export default function NoteForm({ jewelry, onBack, onSubmitNote }: NoteFormProp
       </ol>
       <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
         <h1 className="font-bold text-center text-xl text-neutral-800 dark:text-neutral-200 mb-2">
-          Contact us
+          Liên hệ với chúng tôi
         </h1>
         <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300 mb-4">
-          Welcome to Hephaestus, if you have any descriptions about your custom jewelry, please fill out the form below.
+          Chào mừng bạn đến Hephaestus, nếu bạn có bất kì lưu ý gì cho sản phẩm chế tác, vui lòng điền vào biểu mẫu bên dưới.
         </p>
         <form onSubmit={handleSubmit}>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="message">NOTE</Label>
+            <Label htmlFor="message">GHI CHÚ</Label>
             <textarea
               id="message"
               name="message"
@@ -130,7 +130,7 @@ export default function NoteForm({ jewelry, onBack, onSubmitNote }: NoteFormProp
             type="submit" // Ensure the button type is submit for form submission
             className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           >
-            Send &rarr;
+            Gửi &rarr;
             <BottomGradient />
           </button>
         </form>
@@ -139,10 +139,10 @@ export default function NoteForm({ jewelry, onBack, onSubmitNote }: NoteFormProp
         <div className="flex flex-wrap justify-center gap-4">
           <Card className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md">
             <CardBody className="flex flex-col gap-2">
-              <p className="text-md font-semibold">Category: "{jewelry?.category.categoryName}"</p>
-              <p className="text-md font-semibold">Material: "{jewelry?.material.materialName}"</p>
-              <p className="text-md font-semibold">Shape: "{jewelry?.shape.shapeDescription}"</p>
-              <p className="text-md font-semibold">Gemstone: {jewelry?.diamond?.cut.cutDescription}</p>
+              <p className="text-md font-semibold">Loại: "{jewelry?.category.categoryName}"</p>
+              <p className="text-md font-semibold">Chất liệu: "{jewelry?.material.materialName}"</p>
+              <p className="text-md font-semibold">Hình dáng: "{jewelry?.shape.shapeDescription}"</p>
+              <p className="text-md font-semibold">Loại đá: {jewelry?.diamond?.cut.cutDescription}</p>
               <p className="text-md font-semibold">
                 Size: {jewelry?.size.sizeNumber} {jewelry?.size.unit} ({jewelry?.size.type})
               </p>

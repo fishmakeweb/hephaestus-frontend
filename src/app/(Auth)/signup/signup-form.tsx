@@ -22,12 +22,12 @@ export function SignUpForm() {
     e.preventDefault();
 
     if (username.includes(" ")) {
-      setError("Username cannot contain spaces.");
+      setError("Tên đăng nhập không chứa khoảng trắng.");
       return;
     }
 
     if (password.includes(" ")) {
-      setError("Password cannot contain spaces.");
+      setError("Mật khẩu không chứa khoảng trắng.");
       return;
     }
 
@@ -41,51 +41,51 @@ export function SignUpForm() {
 
     // Further validations
     if (!trimmedFullName) {
-      setError("Full name is required.");
+      setError("Vui lòng nhập họ và tên.");
       setTimeout(() => setError(null), 1000);
       return;
     } else if (/[^a-zA-Z -]/.test(trimmedFullName)) {
-      setError("Full name should not contain special characters.");
+      setError("Họ và tên không nên chứa kí tự đặc biệt.");
       setTimeout(() => setError(null), 1000);
       return;
     }
 
     if (!trimmedEmail) {
-      setError("Email is required.");
+      setError("Vui lòng nhập email.");
       setTimeout(() => setError(null), 1000);
       return;
     } else if (
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(trimmedEmail)
     ) {
-      setError("Email is invalid.");
+      setError("Email không hợp lệ.");
       setTimeout(() => setError(null), 1000);
       return;
     }
 
     if (!trimmedAddress) {
-      setError("Address is required.");
+      setError("Vui lòng nhập địa chỉ.");
       setTimeout(() => setError(null), 1000);
       return;
     }
 
     if (!trimmedUsername) {
-      setError("Username is required.");
+      setError("Vui lòng nhập tên đăng nhập.");
       setTimeout(() => setError(null), 1000);
       return;
     }
 
     if (!trimmedPassword) {
-      setError("Password is required.");
+      setError("Vui lòng nhập mật khẩu.");
       setTimeout(() => setError(null), 1000);
       return;
     } else if (trimmedPassword.length < 5) {
-      setError("Password must be at least 5 characters long.");
+      setError("Mật khẩu phải từ 5 kí tự trở lên.");
       setTimeout(() => setError(null), 1000);
       return;
     }
 
     if (trimmedConfirmPassword !== trimmedPassword) {
-      setError("Passwords do not match.");
+      setError("Mật khẩu không khớp.");
       setTimeout(() => setError(null), 1000);
       return;
     }
@@ -107,13 +107,13 @@ export function SignUpForm() {
         return;
       }
       const loginResponse = await AuthService.loginUser(username, password);
-      setSuccess("Sign up successful! You are now logged in.");
+      setSuccess("Đăng kí thành công! Bạn sẽ được đăng nhập ngay.");
       setTimeout(() => {
         setError(null);
         router.push("/");
       }, 2000);
     } catch (error) {
-      setError("Sign up failed. Please try again.");
+      setError("Đăng kí thất bại. Vui lòng thử lại.");
       setTimeout(() => setError(null), 2000);
     }
   };
@@ -125,10 +125,10 @@ export function SignUpForm() {
       </h1>
       <form className="my-8" onSubmit={handleSignUp}>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="fullname">Full name</Label>
+          <Label htmlFor="fullname">Họ và tên</Label>
           <Input
             id="fullname"
-            placeholder="Enter full name..."
+            placeholder="Nhập họ và tên..."
             type="text"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)} // Corrected
@@ -145,27 +145,27 @@ export function SignUpForm() {
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="address">Address</Label>
+          <Label htmlFor="address">Địa chỉ</Label>
           <Input
             id="address"
-            placeholder="Enter your address..."
+            placeholder="Nhập địa chỉ..."
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)} // Corrected
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="username">Username</Label>
+          <Label htmlFor="username">Tên đăng nhập</Label>
           <Input
             id="username"
-            placeholder="Enter your username..."
+            placeholder="Nhập tên đăng nhập..."
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)} // Corrected
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Mật khẩu</Label>
           <Input
             id="password"
             placeholder="••••••••"
@@ -175,7 +175,7 @@ export function SignUpForm() {
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="confirmpassword">Confirm password</Label>
+          <Label htmlFor="confirmpassword">Nhập lại mật khẩu</Label>
           <Input
             id="confirmpassword"
             placeholder="••••••••"
@@ -198,7 +198,7 @@ export function SignUpForm() {
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
-          Sign up &rarr;
+          Đăng kí &rarr;
           <BottomGradient />
         </button>
       </form>
@@ -206,7 +206,7 @@ export function SignUpForm() {
 
       <div className="flex flex-col space-y-4">
         <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-          Already have an account?
+          Đã có tài khoản?
         </span>
         <button
           className=" relative group/btn flex space-x-2 items-center justify-center px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
@@ -216,7 +216,7 @@ export function SignUpForm() {
             href="/login"
             className="text-neutral-700 dark:text-neutral-300 text-sm"
           >
-            Login
+            Đăng nhập
           </Link>
           <BottomGradient />
         </button>

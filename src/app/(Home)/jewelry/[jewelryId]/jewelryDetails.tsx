@@ -12,37 +12,37 @@ const JewelryDetails: React.FC<Props> = ({ jewelry }) => {
         <tbody>
           {jewelry.name && (
             <tr>
-              <th>Name:</th>
+              <th>Tên:</th>
               <td>{jewelry.name}</td>
             </tr>
           )}
           {jewelry.price && (
             <tr>
-              <th>Price:</th>
+              <th>Giá tiền:</th>
               <td>${jewelry.price}</td>
             </tr>
           )}
           {jewelry.shape && jewelry.shape.shapeDescription && (
             <tr>
-              <th>Shape:</th>
+              <th>Hình dáng:</th>
               <td>{jewelry.shape.shapeDescription}</td>
             </tr>
           )}
           {jewelry.material && jewelry.material.materialName && (
             <tr>
-              <th>Material:</th>
+              <th>Chất liệu:</th>
               <td>{jewelry.material.materialName}</td>
             </tr>
           )}
           {jewelry.category && jewelry.category.categoryName && (
             <tr>
-              <th>Category:</th>
+              <th>Loại:</th>
               <td>{jewelry.category.categoryName}</td>
             </tr>
           )}
           {jewelry.gemstone && jewelry.gemstone.gemstoneName && (
             <tr>
-              <th>Gemstone:</th>
+              <th>Loại đá:</th>
               <td>{jewelry.gemstone.gemstoneName}</td>
             </tr>
           )}

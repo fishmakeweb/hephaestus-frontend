@@ -136,7 +136,7 @@ export default function CenterStoneForm({
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Measurement(lxhxw)
+                  Kích thước(dxcxr)
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Carat
@@ -151,10 +151,9 @@ export default function CenterStoneForm({
                   Clarity
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Price
+                  Giá tiền
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Select
                 </th>
               </tr>
             </thead>
@@ -179,13 +178,13 @@ export default function CenterStoneForm({
                   <td className="px-6 py-4">
                     {diamond.clarity.clarityDescription}
                   </td>
-                  <td className="px-6 py-4">${diamond.price}</td>
+                  <td className="px-6 py-4">{diamond.price} VNĐ</td>
                   <td>
                     <button
                       className="inline-block bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded"
                       onClick={() => onSelectDiamond(diamond)}
                     >
-                      Select
+                      Chọn
                     </button>
                   </td>
                 </tr>

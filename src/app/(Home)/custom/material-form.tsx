@@ -142,10 +142,10 @@ export default function MaterialForm({
         <div className="flex flex-wrap justify-center gap-4">
           <Card className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md">
             <CardBody className="flex flex-col gap-2">
-              <p className="text-md font-semibold">Category: "{jewelry?.category.categoryName}"</p>
-              <p className="text-md font-semibold">Material:</p>
-              <p className="text-md font-semibold">Shape:</p>
-              <p className="text-md font-semibold">Gemstone:</p>
+              <p className="text-md font-semibold">Loại: "{jewelry?.category.categoryName}"</p>
+              <p className="text-md font-semibold">Chất liệu:</p>
+              <p className="text-md font-semibold">Hình dáng:</p>
+              <p className="text-md font-semibold">Loại đá:</p>
               <p className="text-md font-semibold">
                 Size:
               </p>

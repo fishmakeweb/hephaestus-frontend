@@ -34,7 +34,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onClose, profile }) => 
   const handleChangePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setPasswordError('Passwords do not match');
+      setPasswordError('Mật khẩu không khớp');
       return;
     }
 
@@ -44,9 +44,9 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onClose, profile }) => 
       onClose();
     } catch (error) {
       if (error instanceof Error) {
-        setError("Old password is incorrect");
+        setError("Mật khẩu cũ không đúng");
       } else {
-        setError('An unexpected error occurred.');
+        setError('Có lỗi.');
       }
     } finally {
       setLoading(false);
@@ -57,11 +57,11 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onClose, profile }) => 
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <div className="flex justify-between items-center text-lg font-semibold text-gray-800 mb-6">
-          <div>Change Password</div>
+          <div>Đổi mật khẩu</div>
         </div>
         <form onSubmit={handleChangePassword} className="space-y-4">
           <div>
-            <label htmlFor="oldPassword" className="block font-medium">Old Password *</label>
+            <label htmlFor="oldPassword" className="block font-medium">Mật khẩu cũ *</label>
             <input
               id="oldPassword"
               type="password"
@@ -71,7 +71,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onClose, profile }) => 
             />
           </div>
           <div>
-            <label htmlFor="newPassword" className="block font-medium">New Password *</label>
+            <label htmlFor="newPassword" className="block font-medium">Mật khẩu mới *</label>
             <input
               id="newPassword"
               type="password"
@@ -80,7 +80,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onClose, profile }) => 
             />
           </div>
           <div>
-            <label htmlFor="confirmPassword" className="block font-medium">Confirm New Password *</label>
+            <label htmlFor="confirmPassword" className="block font-medium">Nhập lại mật khẩu *</label>
             <input
               id="confirmPassword"
               type="password"
@@ -92,7 +92,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ onClose, profile }) => 
           </div>
           <div className="flex justify-end space-x-4 mt-6">
             <button onClick={onClose} className="px-6 py-2 font-semibold text-gray-500 border border-gray-300 rounded-lg hover:bg-gray-100">
-              Cancel
+              Hủy
             </button>
             <button type="submit" className="px-6 py-2 font-semibold text-white bg-black rounded-lg" disabled={loading}>
               {loading ? 'Changing...' : 'Change'}

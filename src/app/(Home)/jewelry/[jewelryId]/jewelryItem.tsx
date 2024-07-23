@@ -21,19 +21,19 @@ const JewelryItem: React.FC = () => {
   };
   const locations = [
     {
-      name: "District 9",
+      name: "Quận 9",
       address: "Vinhome grand park, S10.06",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.540073034032!2d106.83739671086674!3d10.846466057852783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317521af4730391f%3A0xfa0bd6efed6cc3f9!2sS10.06%20Origami%2C%20Vinhomes%20Grandpark!5e0!3m2!1svi!2s!4v1721408031290!5m2!1svi!2s",
     },
     {
-      name: "Binh Duong",
+      name: "Bình Dương",
       address: "HT PEARL, A06.17",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.984863448347!2d106.7833512108672!3d10.888754557066415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d94cad4c6827%3A0xa995be83e3f54f52!2sChung%20c%C6%B0%20HT%20Pearl!5e0!3m2!1svi!2s!4v1721408746581!5m2!1svi!2s",
     },
     {
-      name: "High-Tech Park",
+      name: "Khu công nghệ cao",
       address: "FPT University",
       mapUrl:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.6524982885437!2d106.80923926960885!3d10.841128916501571!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgVFAuIEhDTQ!5e0!3m2!1svi!2s!4v1718106331955!5m2!1svi!2s",
@@ -43,7 +43,7 @@ const JewelryItem: React.FC = () => {
     setShowLocation(false);
   };
   const [itemDetails, setItemDetails] = useState<JewelryDetail | null>(null);
-  const [buttonText, setButtonText] = useState("ADD TO BAG");
+  const [buttonText, setButtonText] = useState("THÊM VÀO GIỎ HÀNG");
   const [showTips, setShowTips] = useState(false);
   const toggleTips = () => setShowTips(!showTips);
   const [openLocation, setOpenLocation] = useState(false);
@@ -51,7 +51,7 @@ const JewelryItem: React.FC = () => {
   const handleClick = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Please log in to add items to your cart.");
+      alert("Vui lòng đăng nhập.");
       router.push("/login");
       return;
     }
@@ -63,8 +63,8 @@ const JewelryItem: React.FC = () => {
 
     try {
       await addToCart(parseInt(jewelryId));
-      setButtonText("ADDED");
-      setTimeout(() => setButtonText("ADD TO BAG"), 700);
+      setButtonText("ĐÃ THÊM");
+      setTimeout(() => setButtonText("THÊM VÀO GIỎ HÀNG"), 700);
     } catch (error) {
       console.error("Error adding item to cart:", error);
     }
@@ -127,54 +127,52 @@ const JewelryItem: React.FC = () => {
                           fill="currentColor"
                         ></path>
                       </svg>
-                      BACK TO SELECTION
+                      QUAY LẠI LỰA CHỌN
                     </button>
                   </div>
                   <div className="mt-11 text-4xl text-black max-md:mt-10">
                     {itemDetails.name}
                   </div>
                   <div className="mt-4 text-2xl font-bold text-black text-opacity-50">
-                    ${itemDetails.price}
+                    {itemDetails.price} VNĐ
                   </div>
                 </div>
               </div>
               <div className="mt-9 text-xl text-black font-[350] max-md:max-w-full">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                Mỗi sản phẩm tại Hephaestus đều được chế tác tinh xảo, kết hợp
+                giữa sự sang trọng và phong cách hiện đại. Được tạo ra từ những
+                nguyên liệu quý Giá tiền nhất, sản phẩm này không chỉ là một món
+                trang sức mà còn là biểu tượng của sự tinh tế và đẳng cấp.
                 <br />
+                Hãy để ánh sáng của những viên đá quý này tỏa sáng và làm nổi
+                bật vẻ đẹp độc đáo của bạn.
               </div>
               <button
-                className="justify-center w-36 self-start px-4 py-4 mt-9 text-lg border border-solid bg-opacity-0 border-neutral-700 text-neutral-700 hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300"
+                className="justify-center w-45 self-start px-4 py-4 mt-9 text-lg border border-solid bg-opacity-0 border-neutral-700 text-neutral-700 hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300"
                 onClick={handleClick}
               >
                 {buttonText}
               </button>
 
               <JewelryItemData data={itemDetails} />
-              <div className="flex gap-5 justify-center py-3 pr-2 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full">
-                <div className="flex-auto my-auto">TIPS & WARNINGS</div>
-                <button onClick={toggleTips}>
+              <div className="flex gap-5 justify-center py-3 pr-2 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full cursor-pointer" onClick={toggleTips}>
+                <div className="flex-auto my-auto">LỜI KHUYÊN & CẢNH BÁO</div>
                   <img
                     loading="lazy"
                     alt=""
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/9a20b583fc524c1afdb28207b9bc2fbcaafc28e514c302e5d668864cf5c97e49?"
                     className="shrink-0 w-6 aspect-square"
                   />
-                </button>
               </div>
               {showTips && <TipsAndWarnings />}
-              <div className="flex gap-5 justify-center py-3 pr-1.5 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full">
-                <div className="flex-auto my-auto">LOCAL AVAILABILITY</div>
-                <button onClick={toggleLocation}>
+              <div className="flex gap-5 justify-center py-3 pr-1.5 pl-px mt-3 text-xl border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full cursor-pointer" onClick={toggleLocation}>
+                <div className="flex-auto my-auto">SẢN PHẨM CÒN HÀNG TẠI</div>
                   <img
                     loading="lazy"
                     alt=""
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/35d01c5cc7d2f8e99764e480ad8a21ca61347d99af30fc8107408dfda4294276?"
                     className="shrink-0 aspect-square w-[26px]"
                   />
-                </button>
               </div>
               {openLocation && (
                 <div className="flex flex-col">

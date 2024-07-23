@@ -42,7 +42,7 @@ const NewNavbar = () => {
                 className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full font-semibold"
               >
                 <div className="flex items-center relative cursor-pointer whitespace-nowrap">
-                  Diamond
+                  Kim cương
                 </div>
               </Link>
               <Link
@@ -50,7 +50,7 @@ const NewNavbar = () => {
                 className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full font-semibold"
               >
                 <div className="flex items-center relative cursor-pointer whitespace-nowrap">
-                  Jewelry
+                  Trang sức
                 </div>
               </Link>
               <Link
@@ -58,7 +58,7 @@ const NewNavbar = () => {
                 className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full font-semibold"
               >
                 <div className="flex items-center relative cursor-pointer whitespace-nowrap">
-                  New release
+                  Bộ sưu tập mới
                 </div>
               </Link>
             </div>

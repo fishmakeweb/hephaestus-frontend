@@ -26,26 +26,32 @@ export default function Footer() {
                   <div className="flex flex-col w-[30%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col grow text-sm text-neutral-700 ">
                       <div className="text-sm font-bold text-black">
-                        CUSTOMER SERVICES
+                        Dịch vụ khách hàng
                       </div>
-                      <Link href="/contact" className="mt-4 underline md:no-underline hover:underline">
-                        Contact Us
+                      <Link
+                        href="/contact"
+                        className="mt-4 underline md:no-underline hover:underline"
+                      >
+                        Liên hệ với chúng tôi
                       </Link>
-                      <Link href={"/tracked-orders"} className="mt-4 underline md:no-underline hover:underline">
-                        Track Order
+                      <Link
+                        href={"/tracked-orders"}
+                        className="mt-4 underline md:no-underline hover:underline"
+                      >
+                        Sản phẩm đã mua
                       </Link>
                       <Link
                         href={"/view-custom-order"}
                         className="mt-4 underline md:no-underline hover:underline"
                       >
-                        Track Custom Order
+                        Sản phẩm chế tác
                       </Link>
                     </div>
                   </div>
                   <div className="flex flex-col ml-4 w-[35%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col text-sm text-neutral-700 max-md:mt-8">
                       <div className="text-sm font-bold text-black">
-                        ABOUT US
+                        Về chúng tôi
                       </div>
                       <div className="mt-4 flex items-center">
                         <svg
@@ -69,7 +75,7 @@ export default function Footer() {
                           <path d="M21.384,17.752a2.108,2.108,0,0,1-.522,3.359,7.543,7.543,0,0,1-5.476.642C10.5,20.523,3.477,13.5,2.247,8.614a7.543,7.543,0,0,1,.642-5.476,2.108,2.108,0,0,1,3.359-.522L8.333,4.7a2.094,2.094,0,0,1,.445,2.328A3.877,3.877,0,0,1,8,8.2c-2.384,2.384,5.417,10.185,7.8,7.8a3.877,3.877,0,0,1,1.173-.781,2.092,2.092,0,0,1,2.328.445Z" />
                         </svg>
                         <div className="text-gray-700 font-medium font-bold">
-                          Phone:
+                          Số điện thoại:
                         </div>
                       </div>
                       <div className="mt-2">(+84) 123456789</div>
@@ -78,7 +84,7 @@ export default function Footer() {
                   <div className="flex flex-col ml-4 w-[23%] max-md:ml-0 max-md:w-full">
                     <div className="flex flex-col text-sm text-neutral-700 max-md:mt-8">
                       <div className="text-sm font-bold text-black">
-                        MAIN LOCATIONS
+                        Địa chỉ cửa hàng
                       </div>
                       <div
                         className="mt-4 flex items-center no-underline hover:underline cursor-pointer"
@@ -97,7 +103,7 @@ export default function Footer() {
                           <path d="M0 0h48v48h-48z" fill="none" />
                         </svg>
                         <div className="text-gray-700 font-medium font-bold">
-                          District 9
+                          Quận 9
                         </div>
                       </div>
                       <div className="mt-2">Vinhome grand park, S10.06</div>
@@ -118,7 +124,7 @@ export default function Footer() {
                           <path d="M0 0h48v48h-48z" fill="none" />
                         </svg>
                         <div className="text-gray-700 font-medium font-bold">
-                          Binh Duong
+                          Bình Dương
                         </div>
                       </div>
                       <div className="mt-4">HT PEARL, A06.17</div>
@@ -139,10 +145,10 @@ export default function Footer() {
                           <path d="M0 0h48v48h-48z" fill="none" />
                         </svg>
                         <div className="text-gray-700 font-medium font-bold">
-                          High-Tech Park
+                          Khu công nghệ cao
                         </div>
                       </div>
-                      <div className="mt-2">FPT University</div>
+                      <div className="mt-2">Đại học FPT</div>
                     </div>
                   </div>
                 </div>
@@ -160,13 +166,14 @@ export default function Footer() {
                   <h2 className="font-bold ">H E P H A E S T U S</h2>
                 </div>
                 <div className="mt-2 text-lg text-black">
-                  Viet Nam premier Diamond Wholesale and Jewelry Manufacturer.
+                  Nhà sản xuất trang sức và buôn bán kim cương hàng đầu Việt
+                  Nam.
                 </div>
                 <Link
                   href={"/jewelry/page/1"}
                   className="justify-center self-start hover:bg-gray-700 hover:text-white transition duration-300 p-7 mt-6 text-xl text-center text-white max-md:mt-10 bg-black no-underline hover:underline"
                 >
-                  Explore Our Jewelry
+                  Khám phá trang sức 
                 </Link>
               </div>
             </div>

@@ -32,10 +32,10 @@ const NotificationBox: React.FC<NotificationBoxProps> = ({
     <div className="bg-white rounded-lg shadow-xl max-w-sm w-full">
       <div className="p-5 border-b border-gray-200">
         <h3 className="text-lg leading-6 font-medium text-gray-900">
-          Confirmation
+          Xác nhận
         </h3>
         <p className="mt-2 text-sm text-gray-600">
-          Are you sure you want to cancel this order?
+          Bạn có chắc muốn hủy đơn hàng không?
         </p>
       </div>
       <div className="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
@@ -44,14 +44,14 @@ const NotificationBox: React.FC<NotificationBoxProps> = ({
           className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm transition duration-150 ease-in-out"
           onClick={onConfirm}
         >
-          Confirm
+          Xác nhận
         </button>
         <button
           type="button"
           className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition duration-150 ease-in-out"
           onClick={onCancel}
         >
-          Cancel
+          Hủy
         </button>
       </div>
     </div>
@@ -213,7 +213,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
         <div className="mb-10 flex flex-col items-center justify-center w-full font-nunito text-slate-600">
           <section className="max-w-full lg:max-w-[968px] w-full mx-4 flex items-center justify-center">
             <p className="text-xl lg:text-2xl font-semibold text-gray-700">
-              Select an order to display details
+              Chọn đơn hàng để xem chi tiết
             </p>
           </section>
         </div>
@@ -228,27 +228,27 @@ const SelectedCusOrderForm: React.FC = ({}) => {
           <section className="max-w-full lg:max-w-4xl w-full">
             <div className="mb-5">
               <h1 className="text-2xl font-semibold text-gray-800">
-                Custom Order Review
+                Chi tiết đơn hàng
               </h1>
               {!chatInitialized && (
                 <button
                   className="mt-2 bg-gray-800 hover:bg-black text-white font-bold py-1 px-3 rounded ml-auto"
                   onClick={createOrderTicket}
                 >
-                  Create an order ticket
+                  Yêu cầu hỗ trợ
                 </button>
               )}
             </div>
             <div className="mb-5">
               <h2 className="text-lg font-bold text-gray-800">
-                Customer Information
+                Thông tin cá nhân
               </h2>
               <div className="flex flex-col md:flex-row gap-4 justify-center">
                 <div className="bg-gray-50 p-4 rounded-lg shadow w-full ">
                   <dl className="text-gray-800">
                     <div className="py-2">
                       <dt className="text-md text-black">
-                        <strong>Full Name</strong>
+                        <strong>Họ và tên</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData?.customer.fullName}
@@ -264,7 +264,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     </div>
                     <div className="py-2">
                       <dt className="text-md text-black">
-                        <strong>Address</strong>
+                        <strong>Địa chỉ</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData?.customer.address}
@@ -272,7 +272,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     </div>
                     <div className="py-2">
                       <dt className="text-md text-black">
-                        <strong> Registered Date</strong>
+                        <strong>Ngày đăng kí</strong>
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData
@@ -296,25 +296,25 @@ const SelectedCusOrderForm: React.FC = ({}) => {
 
             <div className="mb-5">
               <h2 className="text-lg font-bold text-gray-800">
-                Custom Jewelry Info
+                Thông tin sản phẩm
               </h2>
               <div className="bg-gray-50 p-4 rounded-lg shadow divide-y divide-gray-200">
                 <div className="space-y-3">
                   <p className="text-md text-black">
-                    <strong>Category:</strong>{" "}
+                    <strong>Loại:</strong>{" "}
                     {formData.customJewelry.category.categoryName}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Material:</strong>{" "}
+                    <strong>Chất liệu:</strong>{" "}
                     {formData.customJewelry.material.materialName}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Shape:</strong>{" "}
+                    <strong>Hình dáng:</strong>{" "}
                     {formData.customJewelry.shape.shapeDescription}
                   </p>
                   {formData.customJewelry.diamond !== null && (
                     <p className="text-md text-black">
-                      <strong>Diamond:</strong>{" "}
+                      <strong>Kim cương:</strong>{" "}
                       {formData.customJewelry.diamond.cut.cutDescription}
                     </p>
                   )}
@@ -324,11 +324,11 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     {formData.customJewelry.size.unit}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Price:</strong> $
+                    <strong>Giá tiền:</strong> $
                     {formData.customJewelry.price.toFixed(2)}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Your Note:</strong> {formData.customJewelry.note}
+                    <strong>Ghi chú:</strong> {formData.customJewelry.note}
                   </p>
                 </div>
               </div>
@@ -341,7 +341,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     onClick={() => handleSubmit(formData.customOrderId)}
                     className="bg-black hover:bg-gray-700 transition duration-300 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline"
                   >
-                    Checkout
+                    Thanh toán trước
                   </button>
                 )}
                 {formData.description !== "REQUEST CANCEL" && (
@@ -349,7 +349,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     onClick={handleCancelClick}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   >
-                    Cancel
+                    Hủy 
                   </button>
                 )}
                 {showNotification && (
@@ -368,7 +368,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
           </section>
           {chatInitialized && (
   <div className="mt-4 bg-white shadow-lg rounded-lg p-1 sm:p-2 w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
-    <h3 className="text-lg font-semibold mb-1 sm:mb-2">Support Box</h3>
+    <h3 className="text-lg font-semibold mb-1 sm:mb-2">Hỗ trợ</h3>
     <div className="chat-box border border-gray-300 rounded-lg p-1 sm:p-2 max-h-60 overflow-auto">
       <ul className="space-y-1 sm:space-y-2">
         {chatMessages.map((msg) => (
@@ -391,7 +391,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
         onClick={sendMessage}
         className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded transition-colors duration-150 ease-in-out"
       >
-        Send
+        Gửi
       </button>
     </div>
   </div>

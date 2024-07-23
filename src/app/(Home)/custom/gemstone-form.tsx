@@ -13,12 +13,12 @@ interface GemstoneFormProps {
 
 const gemstoneOptions = [
   {
-    title: "No stone",
+    title: "Trơn",
     img: "/img/jewelry/WB-3.jpg",
     path: "/size",
   },
   {
-    title: "Center stone",
+    title: "Đính đá",
     img: "/img/jewelry/FR-3.jpg",
     path: "/center-stone-detail",
   },
