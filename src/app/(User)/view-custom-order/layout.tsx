@@ -44,7 +44,7 @@ useEffect(() => {
             </p>
             <CusOrderCards customOrderData={customOrderData} />
           </div>
-          <div>{children}</div>
+          <div className="flex-grow">{children}</div>
         </>
       )}
     </div>
