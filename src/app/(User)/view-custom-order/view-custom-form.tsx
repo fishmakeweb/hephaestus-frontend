@@ -30,10 +30,10 @@ const CusOrderCards: React.FC<OrderCardsProps> = ({ customOrderData }) => {
             <CardHeader className="flex flex-col gap-3 sm:flex-row sm:justify-between">
               <div className="flex flex-col">
                 <p className="text-md font-semibold">
-                  Custom Order ID: {customOrder.customOrderId}
+                  Mã đơn hàng: {customOrder.customOrderId}
                 </p>
                 <p className="text-md font-semibold">
-                  Start Date:{" "}
+                  Ngày tiếp nhận:{" "}
                   {new Date(customOrder.startDate).toLocaleString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -48,16 +48,16 @@ const CusOrderCards: React.FC<OrderCardsProps> = ({ customOrderData }) => {
             <Divider />
             <CardBody className="flex flex-col gap-2">
               <p className="text-lg font-semibold">
-                Status: {customOrder.description}
+                Trạng thái: {customOrder.description}
               </p>
               <p className="text-lg font-semibold">
-                Prepaid: ${customOrder.prepaid}
+                Thanh toán trước: {customOrder.prepaid} VNĐ
               </p>
               <p id="fullPaid" className="text-lg font-semibold">
-                Fullpaid: ${customOrder.fullpaid}
+                Tổng giá tiền: {customOrder.fullpaid} VNĐ
               </p>
               <label htmlFor="fullPaid">
-                This price can change in the future
+                Giá này có thể thay đổi trong tương lai
               </label>
             </CardBody>
             <Divider />
@@ -66,7 +66,7 @@ const CusOrderCards: React.FC<OrderCardsProps> = ({ customOrderData }) => {
                 href={`/view-custom-order/${customOrder.customOrderId}`}
                 className="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded"
               >
-                View Details
+                Xem chi tiết 
               </Link>
             </CardFooter>
           </Card>

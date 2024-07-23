@@ -36,10 +36,10 @@ const PaymentSuccessForCustomOrder: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="text-2xl font-bold text-green-600 mb-4">Payment Success!</div>
-        <div className="text-xl text-black mb-8">Thank you for your purchase!</div>
+        <div className="text-2xl font-bold text-green-600 mb-4">Thanh toán thành công!</div>
+        <div className="text-xl text-black mb-8">Cảm ơn bạn đã chọn sản phẩm của chúng tôi!</div>
         <Link href="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
-          Go Back to Store
+          Trở về cửa hàng
         </Link>
       </div>
     </div>

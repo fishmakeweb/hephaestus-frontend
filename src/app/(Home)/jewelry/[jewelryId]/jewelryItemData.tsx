@@ -14,7 +14,7 @@ const JewelryItemData: React.FC<Props> = ({ data }) => {
         className="flex gap-5 hover:text-custom-brown justify-center px-0.5 py-3 mt-9 text-xl whitespace-nowrap border-b border-solid border-zinc-400 text-neutral-700 max-md:flex-wrap max-md:max-w-full"
         onClick={() => setShowDetails(!showDetails)}
       >
-        DETAILS
+        XEM CHI TIẾT SẢN PHẨM
         <img
           loading="lazy"
           alt=""

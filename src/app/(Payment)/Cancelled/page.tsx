@@ -11,10 +11,10 @@ const PaymentCanceled: React.FC = () => {
             alt="cancelled"
           />
         </div>
-        <div className="text-2xl font-bold text-red-600 mb-10">Payment Cancelled!</div>
+        <div className="text-2xl font-bold text-red-600 mb-10">Hủy thanh toán!</div>
         <div className="items-center">
           <Link href="/" className="bg-black text-white py-4 px-6 rounded hover:bg-gray-900 focus:outline-none">
-            Go Back to Store
+            Quay lại cửa hàng
           </Link>
         </div>
       </div>

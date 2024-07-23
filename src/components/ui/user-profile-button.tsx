@@ -55,24 +55,24 @@ export default function UserProfile() {
               onClick={handleViewProfile}
               className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
-              View Profile
+              Hồ sơ
             </DropdownItem>
             <DropdownItem
               key="profile"
               onClick={handleViewCustomOrder}
               className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
-              View Custom Order
+              Sản phẩm chế tác
             </DropdownItem>
             <DropdownItem
               key="profile"
               onClick={handleViewOrders}
               className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300"
             >
-              Purchased Orders
+              Sản phẩm đã mua
             </DropdownItem>
             <DropdownItem key="logout" onClick={handleLogout} className="hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring-gray-300">
-              Logout
+              Đăng xuất
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

@@ -78,7 +78,7 @@ const UserProfileShow: React.FC = () => {
 
         <div className="sm:w-4/5 xs:w-11/12 mx-auto flex">
           <h1 className="w-full text-center my-8 sm:mx-4 xs:pl-4 text-gray-800 text-black lg:text-4xl md:text-3xl sm:text-3xl xs:text-xl font-serif">
-            USER INFORMATION
+            Thông tin cá nhân
           </h1>
         </div>
 
@@ -88,11 +88,11 @@ const UserProfileShow: React.FC = () => {
               <div className="w-full">
                 <dl className="text-black divide-y divide-gray-200">
                   <div className="flex flex-col py-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Full Name</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">Họ và tên</dt>
                     <dd className="text-lg font-semibold">{fullName}</dd>
                   </div>
                   <div className="flex flex-col py-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Username</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">Tên đăng nhập</dt>
                     <dd className="text-lg font-semibold">{username}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
@@ -104,12 +104,12 @@ const UserProfileShow: React.FC = () => {
               <div className="w-full">
                 <dl className="text-black divide-y divide-gray-200">
                   <div className="flex flex-col py-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Address</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">Địa chỉ</dt>
                     <dd className="text-lg font-semibold">{address}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
                     <dt className="mb-1 text-gray-500 md:text-lg">
-                      Registered Date
+                      Ngày đăng kí
                     </dt>
                     <dd className="text-lg font-semibold">
                       {new Date(registeredDate).toLocaleString("en-US", {
@@ -131,13 +131,13 @@ const UserProfileShow: React.FC = () => {
               onClick={handleUpdateClick}
               className="px-6 py-2 font-semibold text-white bg-black rounded-lg hover:bg-gray-800"
             >
-              Update Profile
+              Cập nhật hồ sơ
             </button>
             <button
               onClick={handleChangePasswordClick}
               className="px-6 py-2 font-semibold text-white bg-black rounded-lg hover:bg-gray-800"
             >
-              Change Password
+              Đổi mật khẩu
             </button>
           </div>
         </div>

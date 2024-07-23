@@ -73,7 +73,7 @@ export function Cart() {
       if (numericQuantity > 1000) {
         setErrorMessages((prev) => ({
           ...prev,
-          [orderDetailId]: "Quantity cannot exceed 1000",
+          [orderDetailId]: "Số lượng không được quá 1000",
         }));
       } else {
         setErrorMessages((prev) => ({ ...prev, [orderDetailId]: "" }));
@@ -140,7 +140,7 @@ export function Cart() {
               alt="In cart Logo"
             />
             <p className="inline-block text-2xl font-semibold ml-16">
-              Your cart
+              Giỏ hàng
             </p>
           </SheetTitle>
           <SheetDescription></SheetDescription>
@@ -148,7 +148,7 @@ export function Cart() {
         <div className="flex flex-col items-center ">
           {itemDetails.length === 0 ? (
             <p className="text-xl text-center font-medium text-neutral-600">
-              Your cart is currently empty.
+              Giỏ hàng trống.
             </p>
           ) : (
             <ScrollArea className="h-[60vh] md:h-[70vh] ">
@@ -175,7 +175,7 @@ export function Cart() {
                         {item.name}
                       </p>
                       <p className="text-sm text-gray-500">
-                        Price: ${item.price}
+                        Giá tiền: {item.price} VNĐ
                       </p>
                       <div className="flex items-center mt-2 md:mt-0">
                         <button
@@ -217,7 +217,7 @@ export function Cart() {
                       className="text-sm text-red-600 mt-4 md:mt-0 md:ml-6"
                       onClick={() => removeFromCart(item.orderDetailId)}
                     >
-                      Remove
+                      Xóa
                     </button>
                   </li>
                 ))}
@@ -229,14 +229,14 @@ export function Cart() {
             {itemDetails.length > 0 && (
               <div className="mt-4 w-full flex flex-col items-center">
                 <p className="text-md font-semibold text-center">
-                  Total Amount: ${getTotalAmount()}
+                  Tổng giá tiền: {getTotalAmount()} VNĐ
                 </p>
                 <SheetClose asChild className="mt-4">
                   <Link
                     className="bg-black text-white px-10 py-3 rounded-full hover:bg-gray-800"
                     href="/order-confirmation"
                   >
-                    CHECK OUT
+                    Thanh toán
                   </Link>
                 </SheetClose>
               </div>

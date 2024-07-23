@@ -73,7 +73,7 @@ export default function Jewelry() {
                   {item.name}
                 </p>
                 <p className="text-lightgray text-sm font-normal my-3">
-                  ${item.price}
+                  {item.price} VNĐ
                 </p>
               </div>
             </Link>

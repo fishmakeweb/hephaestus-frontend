@@ -25,7 +25,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
   const [sizes, setSizes] = useState<Size[]>([]);
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
   const [selectedSizeText, setSelectedSizeText] =
-    useState<string>("SELECT SIZE");
+    useState<string>("CHỌN SIZE");
   const getAllAttribute = new getAttribute();
   const [srcSize, setSrcSize] = useState("/img/jewelry/ringSize.jpg");
 
@@ -103,7 +103,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
   };
   const handleSubmit = () => {
     if (!selectedSize) {
-      alert("Please select a size");
+      alert("Vui lòng chọn size");
       return;
     }
     onSelectSize(selectedSize);
@@ -289,7 +289,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
               onClick={handleSubmit}
               className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
             >
-              NEXT
+              Tiếp tục
             </button>
           </div>
         </CardBody>
@@ -299,16 +299,16 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
           <Card className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md">
             <CardBody className="flex flex-col gap-2">
               <p className="text-md font-semibold">
-                Category: "{jewelry?.category.categoryName}"
+                Loại: "{jewelry?.category.categoryName}"
               </p>
               <p className="text-md font-semibold">
-                Material: "{jewelry?.material.materialName}"
+                Chất liệu: "{jewelry?.material.materialName}"
               </p>
               <p className="text-md font-semibold">
-                Shape: "{jewelry?.shape.shapeDescription}"
+                Hình dáng: "{jewelry?.shape.shapeDescription}"
               </p>
               <p className="text-md font-semibold">
-                Gemstone: {jewelry?.diamond?.cut.cutDescription}
+                Loại đá: {jewelry?.diamond?.cut.cutDescription}
               </p>
               <p className="text-md font-semibold">Size:</p>
             </CardBody>

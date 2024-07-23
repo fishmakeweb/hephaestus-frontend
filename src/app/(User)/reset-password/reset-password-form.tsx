@@ -27,7 +27,7 @@ const ResetPasswordForm: React.FC = () => {
     setMessage(""); // Clear previous messages
     setError(""); // Clear previous errors
     if (password !== confirmPassword) {
-      setError("Passwords do not match!");
+      setError("Mật khẩu không khớp");
       return;
     }
 
@@ -45,20 +45,20 @@ const ResetPasswordForm: React.FC = () => {
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h1 className="font-bold text-center text-xl text-neutral-800 dark:text-neutral-200">
-        Reset Password
+        Khôi phục mật khẩu
       </h1>
       <p className="text-center">{message || "Enter new password in the form below."}</p>
 
       <form className="my-8" onSubmit={handleSubmit}>
         <input type="hidden" name="token" value={token} />
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">New password</Label>
+          <Label htmlFor="password">Mật khẩu mới</Label>
           <Input
             type="password"
             name="password"
             id="password"
             className="form-control"
-            placeholder="Enter your new password"
+            placeholder="Nhập mật khẩu mới"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -66,11 +66,11 @@ const ResetPasswordForm: React.FC = () => {
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="confirm-password">Confirm new password</Label>
+          <Label htmlFor="confirm-password">Nhập lại mật khẩu</Label>
           <Input
             type="password"
             className="form-control"
-            placeholder="Confirm your new password"
+            placeholder="Nhập lại mật khẩu"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
@@ -82,7 +82,7 @@ const ResetPasswordForm: React.FC = () => {
           value="Change Password"
           disabled={password !== confirmPassword}
         >
-          Send &rarr;
+          Gửi &rarr;
         </button>
         {message && (
           <p className="text-green-500 text-center mt-2">{message}</p>

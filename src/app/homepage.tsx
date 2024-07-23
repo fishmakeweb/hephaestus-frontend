@@ -1,23 +1,48 @@
 "use client";
 import ThreeScene from "./ThreeScene";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import AuthService from "@/dbutils/userAPI/authservice";
+import sendContactUs from "@/dbutils/userAPI/contactus"; // Adjust the import path as needed
+
+interface ContactDTO {
+  name: string;
+  email: string;
+  message: string;
+}
 function Homepage() {
-
-
   const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+  const [error, setError] = useState("");
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const contactDTO: ContactDTO = { name, email, message };
+
+    try {
+      const response = await sendContactUs(contactDTO);
+      setResponseMessage(response);
+      setError("");
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
+    } catch (error: any) {
+      setError(error.message);
+      setResponseMessage("");
+    }
+  };
   useEffect(() => {
     const handleAuthChange = () => {
       // Check if the authentication status has changed and act accordingly
       if (AuthService.isAuthenticated()) {
         router.refresh(); // Refresh the current page properly
       }
-      
     };
 
     // Subscribe to authentication changes
@@ -50,24 +75,24 @@ function Homepage() {
   }, []);
   return (
     <>
-      <div className="relative h-screen md:block hidden">
+      {/* <div className="relative h-screen md:block hidden">
         <ThreeScene />
         <div className="absolute top-0 left-0 w-1/2 h-full mt-[30vh] text-white pl-[15vw]">
-          <h3 className="text-3xl mt-8">
-            Summer Brilliance: Custom Diamond Jewelry
-          </h3>
-          <h4 className="text-xl">Create your unique sparkle. Start today.</h4>
+          <h3 className="text-3xl mt-8">Mùa hè rực rỡ: Thiết kế mẫu riêng ngay</h3>
+          <h4 className="text-xl">Tạo ra sự lấp lánh độc đáo của bạn. Bắt đầu ngay hôm nay.</h4>
+          <Link href={"/custom"}>
           <Button className="text-md border-white	border-2 hover:text-black hover:bg-white my-8 p-4">
-            DESIGN YOURS NOW
+            THIẾT KẾ NGAY
           </Button>
+          </Link>
         </div>
-      </div>
+      </div> */}
       <div className="flex flex-col bg-white">
         <div className="self-center mt-11 text-3xl md:text-2xl lg:text-4xl text-center text-black max-md:mt-10">
-          Shop by category
+          Mua sắm theo danh mục
         </div>
         <div className="self-center mt-6 text-2xl italic text-center text-black">
-          Indulge in what we offer.
+          Thưởng thức những gì chúng tôi cung cấp.
         </div>
         <div className="self-center px-5 mt-20 w-full max-w-[1182px] max-md:mt-10 max-md:max-w-full">
           <div className="grid grid-cols-2 gap-5 md:grid-cols-4 sm:grid-cols-1 sm:gap-0">
@@ -91,7 +116,7 @@ function Homepage() {
                   />
                 </div>
                 <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
-                  Necklace
+                  Dây chuyền
                 </div>
               </div>
             </div>
@@ -116,7 +141,7 @@ function Homepage() {
                   />
                 </div>
                 <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
-                  Engagement Ring
+                  Nhẫn đính hôn
                 </div>
               </div>
             </div>
@@ -140,7 +165,7 @@ function Homepage() {
                   />
                 </div>
                 <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
-                  Diamond
+                  Kim cương
                 </div>
               </div>
             </div>
@@ -164,7 +189,7 @@ function Homepage() {
                   />
                 </div>
                 <div className="self-center mt-5 text-md sm:text-xl text-center text-black">
-                  Fashion Ring
+                  Nhẫn thời trang
                 </div>
               </div>
             </div>
@@ -186,19 +211,19 @@ function Homepage() {
           {/* Content Overlay */}
           <div className="px-4 mx-auto max-w-screen-xl text-center py-40 lg:py-56 relative z-10">
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
-              Discovering Brilliance in Every Facet
+              Khám phá sự lấp lánh trong từng góc cạnh
             </h1>
             <p className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
-              At Hephaetus, we specialize in uncovering the allure of diamonds,
-              where craftsmanship, innovation, and elegance converge to reveal
-              timeless beauty and lasting value.
+              Tại Hephaestus, chúng tôi chuyên khám phá vẻ đẹp của kim cương,
+              nơi nghệ thuật thủ công, sự đổi mới và sự thanh lịch hội tụ để
+              tiết lộ vẻ đẹp vượt thời gian và Giá tiền trị lâu dài.
             </p>
             <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
               <Link
                 href={"/custom"}
                 className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center hover:bg-black hover:text-white transition duration-300 border border-white rounded-lg bg-gray-100 hover:bg-black focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
               >
-                Get started
+                Bắt đầu
                 <svg
                   aria-hidden="true"
                   className="ml-2 -mr-1 w-4 h-4"
@@ -217,7 +242,7 @@ function Homepage() {
                 href="#"
                 className="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
               >
-                Learn more
+                Tìm hiểu thêm
               </Link>
             </div>
           </div>
@@ -239,26 +264,30 @@ function Homepage() {
               <div className="flex flex-col md:flex-row items-center">
                 <div className="w-full md:w-1/2 md:pr-16">
                   <h1 className="text-5xl text-black font-medium mb-6">
-                    Are you interested yet?
+                    Bạn đã thấy hứng thú chưa?
                   </h1>
                   <p className="text-xl text-black mb-12">
-                    Fill in the form so our staff can support you right away.
+                    Điền vào biểu mẫu để nhân viên của chúng tôi có thể hỗ trợ
+                    bạn ngay lập tức.
                   </p>
                 </div>
                 <div className="w-full md:w-1/2 mt-8 md:mt-20">
-                  <form className="bg-white p-8 rounded-lg shadow-md">
+                  <form
+                    className="bg-white p-8 rounded-lg shadow-md"
+                    onSubmit={handleSubmit}
+                  >
                     <div className="mb-4">
                       <label
                         htmlFor="name"
                         className="block text-gray-700 font-bold mb-2"
                       >
-                        Name
+                        Tên
                       </label>
                       <input
                         type="text"
                         id="name"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter your name"
+                        placeholder="Nhập tên của bạn"
                       />
                     </div>
                     <div className="mb-4">
@@ -272,7 +301,7 @@ function Homepage() {
                         type="email"
                         id="email"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter your email"
+                        placeholder="Nhập email của bạn"
                       />
                     </div>
                     <div className="mb-4">
@@ -280,20 +309,24 @@ function Homepage() {
                         htmlFor="message"
                         className="block text-gray-700 font-bold mb-2"
                       >
-                        Message
+                        Tin nhắn
                       </label>
                       <textarea
                         id="message"
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter your message"
+                        placeholder="Nhập tin nhắn của bạn"
                       />
                     </div>
                     <button
                       type="submit"
                       className="bg-gray-900 hover:bg-gray-400 hover:text-black transition duration-300 py-2 px-4 rounded-full w-full"
                     >
-                      Submit
+                      Gửi
                     </button>
+                    {responseMessage && (
+                      <p className="text-green-500 mt-2">{responseMessage}</p>
+                    )}
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
                   </form>
                 </div>
               </div>
@@ -321,23 +354,24 @@ function Homepage() {
             <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
               <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
                 <div className="text-xl max-md:max-w-full">
-                  ARTICLE • SUMMER 2024
+                  BÀI VIẾT • MÙA HÈ 2024
                 </div>
                 <div className="mt-20 text-4xl font-bold max-md:mt-10 max-md:max-w-full">
-                  During the golden hour.
+                  Trong giờ vàng.
                 </div>
                 <div className="mt-8 text-2xl max-md:max-w-full">
-                  As the sun bathes everything in a warm, ethereal glow during
-                  the golden hour, our diamond boutique offers a sanctuary of
-                  timeless beauty. Discover the allure of our meticulously
-                  curated collection, where each diamond sparkles with
-                  unparalleled brilliance. Whether youre celebrating a special
-                  occasion or simply treating yourself, our expert team is
-                  dedicated to helping you find the perfect piece that resonates
-                  with elegance and sophistication.
+                  Khi mặt trời chiếu sáng mọi thứ trong ánh sáng ấm áp, thần
+                  tiên trong giờ vàng, cửa hàng kim cương của chúng tôi cung cấp
+                  một nơi trú ẩn của vẻ đẹp vượt thời gian. Khám phá sự hấp dẫn
+                  của bộ sưu tập được tuyển chọn tỉ mỉ của chúng tôi, nơi mỗi
+                  viên kim cương lấp lánh với vẻ đẹp vô song. Dù bạn đang kỷ
+                  niệm một dịp đặc biệt hay chỉ đơn giản là tự thưởng cho bản
+                  thân, đội ngũ chuyên gia của chúng tôi luôn sẵn sàng giúp bạn
+                  tìm thấy món trang sức hoàn hảo phù hợp với sự thanh lịch và
+                  tinh tế.
                 </div>
                 <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
-                  READ MORE
+                  ĐỌC THÊM
                 </div>
               </div>
             </div>
@@ -348,20 +382,21 @@ function Homepage() {
             <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
               <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
                 <div className="text-xl max-md:max-w-full">
-                  ARTICLE • SUMMER 2024
+                  BÀI VIẾT • MÙA HÈ 2024
                 </div>
                 <div className="mt-20 text-4xl font-bold max-md:mt-10 max-md:max-w-full">
-                  During the golden hour.
+                  Trong giờ vàng.
                 </div>
                 <div className="mt-8 text-2xl max-md:max-w-full">
-                  Create a Unique Custom Piece At The Diamond Shop, we take you
-                  through a step by step process, beginning with a one-on-one
-                  consultation, and ending with a stunning one of a kind piece
-                  of jewelry. Start your project off by clicking the button
-                  below and letting us know what your dream piece looks like!
+                  Tạo một món trang sức độc đáo tại The Diamond Shop, chúng tôi
+                  sẽ đưa bạn qua một quy trình từng bước, bắt đầu với một buổi
+                  tư vấn riêng và kết thúc bằng một món trang sức độc đáo tuyệt
+                  đẹp. Bắt đầu dự án của bạn bằng cách nhấp vào nút dưới đây và
+                  cho chúng tôi biết món trang sức mơ ước của bạn trông như thế
+                  nào!
                 </div>
                 <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
-                  READ MORE
+                  ĐỌC THÊM
                 </div>
               </div>
             </div>
@@ -398,23 +433,24 @@ function Homepage() {
             <div className="flex flex-col ml-5 w-full md:w-1/2 lg:w-3/5 max-md:ml-0">
               <div className="flex flex-col px-5 mt-11 text-white max-md:mt-10 max-md:max-w-full">
                 <div className="text-xl max-md:max-w-full">
-                  ARTICLE • SUMMER 2024
+                  BÀI VIẾT • MÙA HÈ 2024
                 </div>
                 <div className="mt-20 text-4xl font-bold max-md:mt-10 max-md:max-w-full">
-                  During the golden hour.
+                  Trong giờ vàng.
                 </div>
                 <div className="mt-8 text-2xl max-md:max-w-full">
-                  As the sun bathes everything in a warm, ethereal glow during
-                  the golden hour, our diamond boutique offers a sanctuary of
-                  timeless beauty. Discover the allure of our meticulously
-                  curated collection, where each diamond sparkles with
-                  unparalleled brilliance. Whether youre celebrating a special
-                  occasion or simply treating yourself, our expert team is
-                  dedicated to helping you find the perfect piece that resonates
-                  with elegance and sophistication.
+                  Khi mặt trời chiếu sáng mọi thứ trong ánh sáng ấm áp, thần
+                  tiên trong giờ vàng, cửa hàng kim cương của chúng tôi cung cấp
+                  một nơi trú ẩn của vẻ đẹp vượt thời gian. Khám phá sự hấp dẫn
+                  của bộ sưu tập được tuyển chọn tỉ mỉ của chúng tôi, nơi mỗi
+                  viên kim cương lấp lánh với vẻ đẹp vô song. Dù bạn đang kỷ
+                  niệm một dịp đặc biệt hay chỉ đơn giản là tự thưởng cho bản
+                  thân, đội ngũ chuyên gia của chúng tôi luôn sẵn sàng giúp bạn
+                  tìm thấy món trang sức hoàn hảo phù hợp với sự thanh lịch và
+                  tinh tế.
                 </div>
                 <div className="justify-center mb-8 self-start hover:bg-white hover:text-black transition duration-300 p-7 mt-12 text-xl text-center border border-white border-solid max-md:mt-10">
-                  READ MORE
+                  ĐỌC THÊM
                 </div>
               </div>
             </div>

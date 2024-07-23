@@ -30,10 +30,10 @@ const OrderCards: React.FC<OrderCardsProps> = ({ orderData }) => {
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
                 <p className="text-md font-semibold">
-                  Order ID: {order.orderId}
+                  Mã đơn hàng: {order.orderId}
                 </p>
                 <p className="text-sm text-default-500">
-                  Date:{" "}
+                  Ngày:{" "}
                   {new Date(order.orderDate).toLocaleString("en-US", {
                     year: "numeric",
                     month: "long",
@@ -48,10 +48,10 @@ const OrderCards: React.FC<OrderCardsProps> = ({ orderData }) => {
             <Divider />
             <CardBody>
               <p className="text-lg font-semibold">
-                Status: {order.orderStatus.statusDescription}
+                Trạng thái: {order.orderStatus.statusDescription}
               </p>
               <p className="text-lg font-semibold">
-                Total Price: ${order.totalPrice}
+                Tổng giá tiền: {order.totalPrice} VNĐ
               </p>
             </CardBody>
             <Divider />
@@ -60,7 +60,7 @@ const OrderCards: React.FC<OrderCardsProps> = ({ orderData }) => {
                 href={`/tracked-orders/${order.orderId}`}
                 className="bg-gray-800 hover:bg-black text-white font-bold py-2 px-4 rounded"
               >
-                View Details
+                Xem chi tiết
               </Link>
             </CardFooter>
           </Card>

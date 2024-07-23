@@ -109,27 +109,27 @@ const TrackedOrderCard: React.FC = () => {
               <section className="max-w-full lg:max-w-[720px] w-full mx-4">
                 <div className="flex justify-between items-center">
                   <h1 className="my-2 text-xl font-semibold sm:text-2xl">
-                    Order Review
+                    Chi tiết đơn hàng
                   </h1>
                   {!chatInitialized && (
                     <button
                       className="mt-2 bg-gray-800 hover:bg-black text-white font-bold py-1 px-3 rounded ml-auto"
                       onClick={createOrderTicket}
                     >
-                      Create an order ticket
+                      Yêu cầu hỗ trợ
                     </button>
                   )}
                 </div>
                 <div className="w-full mt-3 mb-3">
                   <h2 className="text-lg font-bold my-2">
-                    Customer Information
+                    Thông tin cá nhân
                   </h2>
                   <div className="flex flex-col sm:flex-row gap-2 justify-center">
                     <div className="w-full">
                       <dl className="text-black divide-y divide-gray-200">
                         <div className="flex flex-col py-2">
                           <dt className="mb-1 text-gray-500 text-md">
-                            Full Name
+                            Họ và tên
                           </dt>
                           <dd className="text-md font-medium text-gray-900">
                             {userData?.customer.fullName}
@@ -147,7 +147,7 @@ const TrackedOrderCard: React.FC = () => {
                       <dl className="text-black divide-y divide-gray-200">
                         <div className="flex flex-col py-2">
                           <dt className="mb-1 text-gray-500 text-md">
-                            Address
+                            Địa chỉ
                           </dt>
                           <dd className="text-md font-medium text-gray-900">
                             {userData?.customer.address}
@@ -155,7 +155,7 @@ const TrackedOrderCard: React.FC = () => {
                         </div>
                         <div className="flex flex-col pt-2">
                           <dt className="mb-1 text-gray-500 text-md">
-                            Registered Date
+                            Ngày đăng kí
                           </dt>
                           <dd className="text-md font-medium text-gray-900">
                             {userData
@@ -170,7 +170,7 @@ const TrackedOrderCard: React.FC = () => {
                   </div>
                 </div>
                 <div className="w-full mb-3">
-                  <h2 className="text-lg font-bold my-2">List of items:</h2>
+                  <h2 className="text-lg font-bold my-2">Danh sách sản phẩm:</h2>
                   <div className="divide-y divide-gray-200 w-full">
                     {formData.map((detail) => (
                       <div key={detail.id} className="py-3 flex items-center">
@@ -185,10 +185,10 @@ const TrackedOrderCard: React.FC = () => {
                             {detail.jewelry.name}
                           </p>
                           <p className="text-sm text-gray-500">
-                            Price: ${detail.jewelry.price.toFixed(2)}
+                            Giá tiền: ${detail.jewelry.price.toFixed(2)}
                           </p>
                           <p className="text-sm text-gray-500">
-                            Quantity: {detail.quantity}
+                            Số lượng: {detail.quantity}
                           </p>
                         </div>
                       </div>
@@ -197,23 +197,22 @@ const TrackedOrderCard: React.FC = () => {
                 </div>
                 <div className="w-full pb-3 mb-2">
                   <div className="flex justify-between items-center">
-                    <p className="text-md font-semibold">Total:</p>
+                    <p className="text-md font-semibold">Tổng giá tiền:</p>
                     <p className="text-md font-semibold mr-2">
-                      $
                       {formData
                         .reduce(
                           (total, detail) =>
                             total + detail.jewelry.price * detail.quantity,
                           0
                         )
-                        .toFixed(2)}
+                        .toFixed(2)} VNĐ
                     </p>
                   </div>
                 </div>
                 {chatInitialized && (
                   <div className="mt-4 bg-white shadow-lg rounded-lg p-1 sm:p-2 w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
                     <h3 className="text-lg font-semibold mb-1 sm:mb-2">
-                      Support Box
+                      Hỗ trợ
                     </h3>
                     <div className="chat-box border border-gray-300 rounded-lg p-1 sm:p-2 max-h-60 overflow-auto">
                       <ul className="space-y-1 sm:space-y-2">
@@ -229,7 +228,7 @@ const TrackedOrderCard: React.FC = () => {
                         type="text"
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
-                        placeholder="Type a message..."
+                        placeholder="Nhập tin nhắn..."
                         className="flex-grow p-1 sm:p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-indigo-300"
                         onKeyPress={(e) =>
                           e.key === "Enter" ? sendMessage() : null
@@ -239,7 +238,7 @@ const TrackedOrderCard: React.FC = () => {
                         onClick={sendMessage}
                         className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded transition-colors duration-150 ease-in-out"
                       >
-                        Send
+                        Gửi
                       </button>
                     </div>
                   </div>

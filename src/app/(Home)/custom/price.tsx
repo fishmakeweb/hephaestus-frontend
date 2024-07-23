@@ -116,16 +116,16 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
         </li>
       </ol>
       <h1 className="scroll-m-20 text-center text-4xl font-bold tracking-tight lg:text-3xl">
-        Your custom jewelry
+        Sản phẩm chế tác của bạn
       </h1>
       <ScrollArea className="max-h-[550px] lg:max-h-[620px] overflow-y-auto">
         <div className="flex flex-wrap justify-center gap-4">
           <Card className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md">
             <CardBody className="flex flex-col gap-2">
-              <p className="text-md font-semibold">Category: "{jewelry?.category.categoryName}"</p>
-              <p className="text-md font-semibold">Material: "{jewelry?.material.materialName}"</p>
-              <p className="text-md font-semibold">Shape: "{jewelry?.shape.shapeDescription}"</p>
-              <p className="text-md font-semibold">Gemstone: {jewelry?.diamond?.cut.cutDescription}</p>
+              <p className="text-md font-semibold">Loại: "{jewelry?.category.categoryName}"</p>
+              <p className="text-md font-semibold">Chất liệu: "{jewelry?.material.materialName}"</p>
+              <p className="text-md font-semibold">Hình dáng: "{jewelry?.shape.shapeDescription}"</p>
+              <p className="text-md font-semibold">Loại đá: {jewelry?.diamond?.cut.cutDescription}</p>
               <p className="text-md font-semibold">
                 Size: {jewelry?.size.sizeNumber} {jewelry?.size.unit} ({jewelry?.size.type})
               </p>
@@ -136,14 +136,14 @@ export default function PriceForm({ jewelry, onBack }: PriceFormProps) {
       <Card>
         <CardBody className="items-center">
           <p className="max-w-md text-center">
-            Estimated price: {jewelry?.price !== undefined ? `$${jewelry.price}` : "Calculating..."}
+            Giá tiền ước tính: {jewelry?.price !== undefined ? `$${jewelry.price}` : "Calculating..."}
           </p>
           <div className="mt-4">
             <button
               className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
               onClick={() => handleSave(jewelry!)}
             >
-              Save
+              Lưu
             </button>
           </div>
         </CardBody>

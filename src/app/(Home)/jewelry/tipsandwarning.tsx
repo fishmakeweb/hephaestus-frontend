@@ -1,27 +1,32 @@
-import React from 'react';
+import React from "react";
 
 const TipsAndWarnings = () => {
   const tips = [
     {
-      title: "Understanding the 4Cs",
-      content: "The 4Cs of diamond quality are Color, Clarity, Cut, and Carat Weight. Each C affects the overall appearance and value of a diamond. Be sure to check the certification for these details when purchasing."
+      title: "Hiểu Về 4Cs",
+      content:
+        "4Cs của chất lượng kim cương bao gồm Màu sắc (Color), Độ trong (Clarity), Giá tiềnc cắt (Cut), và Trọng lượng carat (Carat Weight). Mỗi yếu tố này ảnh hưởng đến vẻ ngoài và Giá tiền trị của kim cương. Hãy chắc chắn kiểm tra chứng nhận để biết chi tiết khi mua hàng.",
     },
     {
-      title: "Proper Care and Handling",
-      content: "Diamonds and fine jewelry should be handled with care. Regular cleaning and inspections are recommended to maintain their sparkle and ensure their settings are secure."
+      title: "Chăm Sóc Và Xử Lý Đúng Cách",
+      content:
+        "Kim cương và trang sức cao cấp cần được xử lý cẩn thận. Nên làm sạch và kiểm tra định kỳ để duy trì độ sáng và đảm bảo độ chắc chắn của các thiết lập.",
     },
     {
-      title: "Storage Solutions",
-      content: "Store your jewelry in a lined box or a soft pouch to avoid scratches. Keep different jewelry pieces separated to prevent them from tangling or causing damage to each other."
+      title: "Giải Pháp Lưu Trữ",
+      content:
+        "Lưu trữ trang sức của bạn trong hộp có lót hoặc túi mềm để tránh trầy xước. Giữ các món trang sức riêng biệt để tránh bị rối hoặc gây hư hỏng cho nhau.",
     },
     {
-      title: "Getting the Perfect Fit",
-      content: "Ensure your ring fits perfectly by having your finger professionally measured at a jewelry store. Remember, your finger size can change with weather and time of day. If you're between sizes, choose the larger size for comfort."
+      title: "Đeo Nhẫn Vừa Vặn",
+      content:
+        "Hãy đảm bảo nhẫn vừa vặn bằng cách đo ngón tay của bạn tại cửa hàng trang sức. Kích thước ngón tay có thể thay đổi theo thời tiết và thời gian trong ngày. Nếu bạn đang giữa hai kích thước, hãy chọn kích thước lớn hơn để thoải mái.",
     },
     {
-      title: "Care for Delicate Jewelry",
-      content: "Handle delicate jewelry with care. Avoid wearing fine jewelry during activities that may expose it to abrasion or impact. Always remove your jewelry before swimming, cleaning, or applying lotions and perfumes to prevent chemical damage."
-    }
+      title: "Chăm Sóc Trang Sức Tinh Tế",
+      content:
+        "Xử lý trang sức tinh tế một cách cẩn thận. Tránh đeo trang sức cao cấp khi thực hiện các hoạt động có thể gây mài mòn hoặc va đập. Luôn tháo trang sức trước khi bơi, làm sạch, hoặc thoa kem dưỡng và nước hoa để tránh hư hỏng hóa chất.",
+    },
   ];
 
   return (

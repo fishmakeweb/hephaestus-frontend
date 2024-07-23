@@ -86,10 +86,10 @@ const ConfirmOrderForm: React.FC = () =>  {
       <div className="bg-gray-100 flex items-center justify-center min-h-screen font-nunito text-slate-600">
         <section className="max-w-[968px] w-full mx-4">
           <h1 className="mx-2 my-10 text-2xl font-semibold sm:text-3xl">
-            Order Review
+            Chi tiết đơn hàng
           </h1>
           <div className="w-full bg-white p-8 rounded-lg shadow-[0px_10px_15px_9px_#DDE4F1] mb-10">
-            <h2 className="text-xl font-[800] mb-4">Items in your cart</h2>
+            <h2 className="text-xl font-[800] mb-4">Sản phẩm</h2>
             <div className="divide-y divide-gray-200 w-full">
               {itemDetails.map((item) => (
                 <div key={item.orderDetailId} className="py-4 flex items-center">
@@ -101,21 +101,21 @@ const ConfirmOrderForm: React.FC = () =>  {
                   />
                   <div className="ml-4 flex-grow">
                     <p className="text-lg font-medium text-gray-900">{item.name}</p>
-                    <p className="text-sm text-gray-500">Price: ${item.price.toFixed(2)}</p>
-                    <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                    <p className="text-sm text-gray-500">Giá tiền: {item.price.toFixed(2)} VNĐ</p>
+                    <p className="text-sm text-gray-500">Số lượng: {item.quantity}</p>
                   </div>
-                  <p className="text-lg font-medium text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="text-lg font-medium text-gray-900">{(item.price * item.quantity).toFixed(2)} VNĐ</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="w-full bg-white p-8 rounded-lg shadow-[0px_10px_15px_9px_#DDE4F1] mb-10">
-            <h2 className="text-xl font-[800] mb-4">User Information</h2>
+            <h2 className="text-xl font-[800] mb-4">Thông tin cá nhân</h2>
             <div className="flex flex-col sm:flex-row gap-2 justify-center">
               <div className="w-full">
                 <dl className="text-black divide-y divide-gray-200">
                   <div className="flex flex-col py-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Full Name</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">Họ và tên</dt>
                     <dd className="text-lg font-semibold">{fullName}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
@@ -127,11 +127,11 @@ const ConfirmOrderForm: React.FC = () =>  {
               <div className="w-full">
                 <dl className="text-black divide-y divide-gray-200">
                   <div className="flex flex-col py-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Address</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">Địa chỉ</dt>
                     <dd className="text-lg font-semibold">{address}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Registered Date</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">Ngày đăng kí</dt>
                     <dd className="text-lg font-semibold">{new Date(registeredDate).toLocaleDateString()}</dd>
                   </div>
                 </dl>
@@ -139,9 +139,9 @@ const ConfirmOrderForm: React.FC = () =>  {
             </div>
           </div>
           <div className="w-full bg-white p-8 rounded-lg shadow-[0px_10px_15px_9px_#DDE4F1] mb-10">
-            <h2 className="text-xl font-[800] mb-4">Order Summary</h2>
+            <h2 className="text-xl font-[800] mb-4">Tổng kết</h2>
             <div className="flex justify-between items-center">
-              <p className="text-lg">Total</p>
+              <p className="text-lg">Tổng giá tiền</p>
               <p className="text-lg font-semibold">${totalAmount.toFixed(2)}</p>
             </div>
           </div>
@@ -149,7 +149,7 @@ const ConfirmOrderForm: React.FC = () =>  {
             className="w-full bg-black mb-5 text-white py-4 rounded-lg text-lg font-semibold hover:bg-gray-900 transition duration-300 ease-in-out"
             onClick={handleSubmit}
           >
-            Confirm Order
+            Thanh toán
           </button>
         </section>
       </div>
