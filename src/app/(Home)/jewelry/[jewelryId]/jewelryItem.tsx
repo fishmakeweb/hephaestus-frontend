@@ -166,7 +166,7 @@ const JewelryItem: React.FC = () => {
                 bật vẻ đẹp độc đáo của bạn.
               </div>
               <button
-                className="justify-center w-45 self-start px-4 py-4 mt-9 text-lg border border-solid bg-opacity-0 border-neutral-700 text-neutral-700 hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300"
+                className="justify-center w-56 self-start px-4 py-4 mt-9 text-lg border border-solid bg-opacity-0 border-neutral-700 text-neutral-700 hover:bg-gray-300 active:bg-gray-300 focus:outline-none focus:ring focus:ring-gray-300"
                 onClick={handleClick}
               >
                 {buttonText}
