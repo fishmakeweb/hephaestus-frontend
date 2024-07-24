@@ -94,7 +94,7 @@ export const columns: ColumnDef<Diamond>[] = [
         </Button>
       );
     },
-    cell: (info) => `$${info.getValue()}`,
+    cell: (info) => `${info.getValue()} VNĐ`,
   },
   {
     accessorKey: "img",
