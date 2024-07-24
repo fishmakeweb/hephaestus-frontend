@@ -185,7 +185,7 @@ const TrackedOrderCard: React.FC = () => {
                             {detail.jewelry.name}
                           </p>
                           <p className="text-sm text-gray-500">
-                            Giá tiền: ${detail.jewelry.price}
+                            Giá tiền: {detail.jewelry.price} VNĐ
                           </p>
                           <p className="text-sm text-gray-500">
                             Số lượng: {detail.quantity}

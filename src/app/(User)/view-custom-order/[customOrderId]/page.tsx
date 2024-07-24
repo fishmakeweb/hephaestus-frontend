@@ -324,7 +324,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     {formData.customJewelry.size.unit}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Giá tiền:</strong> $
+                    <strong>Giá tiền:</strong> VNĐ
                     {formData.customJewelry.price}
                   </p>
                   <p className="text-md text-black">
