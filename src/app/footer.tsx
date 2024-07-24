@@ -180,9 +180,9 @@ export default function Footer() {
           </div>
         </div>
         <div className="flex gap-4 mt-8 max-w-full w-[767px] max-md:flex-wrap max-md:mt-8">
-          <div className="flex-auto text-xs text-stone-500 max-md:max-w-full">
-            PRIVACY POLICY • TERMS OF USE • SITEMAP • COOKIES
-          </div>
+          <Link href="/policy" className="flex-auto text-xs text-stone-500 max-md:max-w-full">
+            Chính sách và điều khoản mua hàng 
+          </Link>
         </div>
       </div>
       <div className="mt-8 w-full bg-zinc-300 min-h-[18px] max-md:max-w-full" />
