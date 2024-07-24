@@ -39,6 +39,7 @@ export function Cart() {
         ...item.jewelry,
         orderDetailId: item.id,
         quantity: item.quantity,
+        availableQuantity: item.jewelry.quantity
       })).filter(item => item !== null); // Filtering out any null jewelry items
       setItemDetails(items);
     } catch (error) {
@@ -67,13 +68,31 @@ export function Cart() {
     []
   );
 
+  // const handleQuantityChange = (orderDetailId: number, newQuantity: string) => {
+  //   const numericQuantity = parseInt(newQuantity, 10);
+  //   if (!isNaN(numericQuantity)) {
+  //     if (numericQuantity > 1000) {
+  //       setErrorMessages((prev) => ({
+  //         ...prev,
+  //         [orderDetailId]: "Số lượng không được quá 1000",
+  //       }));
+  //     } else {
+  //       setErrorMessages((prev) => ({ ...prev, [orderDetailId]: "" }));
+  //       updateQuantityInState(orderDetailId, numericQuantity);
+  //       debouncedUpdateTotal(orderDetailId, numericQuantity);
+  //     }
+  //   }
+  // };
+
   const handleQuantityChange = (orderDetailId: number, newQuantity: string) => {
     const numericQuantity = parseInt(newQuantity, 10);
-    if (!isNaN(numericQuantity)) {
-      if (numericQuantity > 1000) {
+    const item = itemDetails.find(item => item.orderDetailId === orderDetailId);
+
+    if (!isNaN(numericQuantity) && item) {
+      if (numericQuantity > item.availableQuantity) {
         setErrorMessages((prev) => ({
           ...prev,
-          [orderDetailId]: "Số lượng không được quá 1000",
+          [orderDetailId]: `Số lượng không được vượt quá ${item.availableQuantity}`,
         }));
       } else {
         setErrorMessages((prev) => ({ ...prev, [orderDetailId]: "" }));
@@ -81,7 +100,8 @@ export function Cart() {
         debouncedUpdateTotal(orderDetailId, numericQuantity);
       }
     }
-  };
+};
+
 
   const incrementQuantity = (
     orderDetailId: number,
