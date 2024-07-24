@@ -19,7 +19,7 @@ const JewelryDetails: React.FC<Props> = ({ jewelry }) => {
           {jewelry.price && (
             <tr>
               <th>Giá tiền:</th>
-              <td>${jewelry.price}</td>
+              <td>{jewelry.price} VNĐ</td>
             </tr>
           )}
           {jewelry.shape && jewelry.shape.shapeDescription && (
