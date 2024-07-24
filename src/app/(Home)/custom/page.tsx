@@ -22,12 +22,18 @@ import AuthService from "@/dbutils/userAPI/authservice";
 export default function JewelryForm() {
   const [jewelry, setJewelry] = useState<Jewelry | null>(null);
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>(1);
-  const [selectedGemstoneOption, setSelectedGemstoneOption] = useState<string | null>(null);
+  const [selectedGemstoneOption, setSelectedGemstoneOption] = useState<
+    string | null
+  >(null);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
   const router = useRouter();
   useEffect(() => {
     if (!AuthService.isAuthenticated()) {
-      alert("Please login to customize your jewelry.");
-      router.push('/login');
+      setShowLoginPrompt(true); // Show the login prompt instead of alert
+      setTimeout(() => {
+        router.push("/login"); // Redirect after showing the message
+      }, 3000); // Adjust the time as necessary
     }
   }, [router]);
   const handleCategorySelect = (cat: Category) => {
@@ -97,7 +103,10 @@ export default function JewelryForm() {
 
     try {
       // Make a request to calculate the price
-      const response = await axios.post("/public/calculate-price", updatedJewelry);
+      const response = await axios.post(
+        "/public/calculate-price",
+        updatedJewelry
+      );
       console.log(response);
       const jewelryWithPrice = response.data;
 
@@ -134,6 +143,21 @@ export default function JewelryForm() {
 
   return (
     <div>
+      {showLoginPrompt && (
+        <div
+          style={{
+            padding: "20px",
+            backgroundColor: "#f8d7da",
+            color: "#721c24",
+            border: "1px solid #f5c6cb",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            textAlign: "center",
+          }}
+        >
+          Vui lòng đăng nhập để tiếp tục.
+        </div>
+      )}
       {step === 1 && <CategoryForm onSelectCategory={handleCategorySelect} />}
       {step === 2 && (
         <MaterialForm
@@ -179,12 +203,7 @@ export default function JewelryForm() {
           onSubmitNote={handleNoteSubmit} // Pass the note submit handler
         />
       )}
-      {step === 8 && (
-        <PriceForm
-          jewelry={jewelry}
-          onBack={handleBack}
-        />
-      )}
+      {step === 8 && <PriceForm jewelry={jewelry} onBack={handleBack} />}
     </div>
   );
 }

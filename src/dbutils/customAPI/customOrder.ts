@@ -67,7 +67,7 @@ export const createCustomOrder = async (customJewelry : CustomJewelry) => {
 };
 
 export const fetchCusOrder = async (customOrderId: number): Promise<CustomOrderData> => {
-  const response = await axios.get<CustomOrderData>(`/customer/custom-orders/${customOrderId}`);
+  const response = await axios.get<CustomOrderData>(`/public/custom-orders/${customOrderId}`);
   return response.data;
 };
 
@@ -75,7 +75,7 @@ export const deleteCusOrder = async (customOrderId: number) =>{
   try {
     await axios.delete(`/customer/delete-customorder/${customOrderId}`);
   } catch (error) {
-    console.error("Failed to del: ", error);
+    console.error("Lỗi xóa: ", error);
   }
   
 }
@@ -84,7 +84,7 @@ export const requestCancelCusOrder = async (customOrderId: number) =>{
   try {
     await axios.put(`/customer/request-cancel/${customOrderId}`);
   } catch (error) {
-    console.error("Failed to request cancel: ", error)
+    console.error("Lỗi gửi yêu cầu hủy đơn: ", error)
   }
   
 }

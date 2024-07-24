@@ -172,7 +172,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
         throw new Error("No token found");
       }
     } catch (error) {
-      alert("Failed to create payment link:" + error);
+      alert("Lỗi khi tạo link thanh toán:" + error);
       throw new Error("Failed to create payment link");
     }
   };
@@ -187,7 +187,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
         await requestCancelCusOrder(cusOrderId);
       }
     } catch (error) {
-      console.error("Fail to delete", error);
+      console.error("Lỗi xóa", error);
     }
     console.log("Confirmed cancellation");
     setShowNotification(false);
@@ -278,7 +278,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                         {userData
                           ? new Date(
                               userData.customer.registeredDate
-                            ).toLocaleString("en-US", {
+                            ).toLocaleString("vi-VN", {
                               year: "numeric",
                               month: "long",
                               day: "numeric",
@@ -286,7 +286,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                               minute: "2-digit",
                               hour12: false,
                             })
-                          : "No data"}
+                          : "Không có dữ liệu"}
                       </dd>
                     </div>
                   </dl>
@@ -325,7 +325,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                   </p>
                   <p className="text-md text-black">
                     <strong>Giá tiền:</strong> $
-                    {formData.customJewelry.price.toFixed(2)}
+                    {formData.customJewelry.price}
                   </p>
                   <p className="text-md text-black">
                     <strong>Ghi chú:</strong> {formData.customJewelry.note}

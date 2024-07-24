@@ -57,7 +57,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
     setSelectedSizeText(sizeText);
 
     // Set specific heights for different sizes
-    if (size.type === "Ring") {
+    if (size.type === "Nhẫn") {
       switch (size.sizeNumber) {
         case 6:
           setHeightRing(160);
@@ -76,7 +76,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
           setWidthRing(150);
           break;
       }
-    } else if (size.type === "Necklace") {
+    } else if (size.type === "Dây chuyền") {
       switch (size.sizeNumber) {
         case 16:
           setHeightRing(160);
@@ -103,7 +103,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
   };
   const handleSubmit = () => {
     if (!selectedSize) {
-      alert("Vui lòng chọn size");
+      alert("Please select a size");
       return;
     }
     onSelectSize(selectedSize);
@@ -234,7 +234,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
                   className="max-w-[300px] bg-white"
                 >
                   {sizes
-                    .filter((size) => size.type === "Ring")
+                    .filter((size) => size.type === "Nhẫn")
                     .map((size) => (
                       <DropdownItem
                         key={size.sizeId}
@@ -264,7 +264,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
                   className="max-w-[300px] bg-white"
                 >
                   {sizes
-                    .filter((size) => size.type === "Necklace")
+                    .filter((size) => size.type === "Dây Chuyền")
                     .map((size) => (
                       <DropdownItem
                         key={size.sizeId}
@@ -289,7 +289,7 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
               onClick={handleSubmit}
               className="bg-black text-white px-20 py-3 rounded-full hover:bg-gray-800"
             >
-              Tiếp tục
+              NEXT
             </button>
           </div>
         </CardBody>
@@ -299,16 +299,16 @@ export default function SizeForm({jewelry,onBack,onSelectSize,
           <Card className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md">
             <CardBody className="flex flex-col gap-2">
               <p className="text-md font-semibold">
-                Loại: "{jewelry?.category.categoryName}"
+                Category: "{jewelry?.category.categoryName}"
               </p>
               <p className="text-md font-semibold">
-                Chất liệu: "{jewelry?.material.materialName}"
+                Material: "{jewelry?.material.materialName}"
               </p>
               <p className="text-md font-semibold">
-                Hình dáng: "{jewelry?.shape.shapeDescription}"
+                Shape: "{jewelry?.shape.shapeDescription}"
               </p>
               <p className="text-md font-semibold">
-                Loại đá: {jewelry?.diamond?.cut.cutDescription}
+                Gemstone: {jewelry?.diamond?.cut.cutDescription}
               </p>
               <p className="text-md font-semibold">Size:</p>
             </CardBody>
