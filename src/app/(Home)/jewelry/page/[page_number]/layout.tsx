@@ -75,7 +75,7 @@ export default function JewelryPageLayout({
           <form>
             <fieldset>
               <legend className="text-lg font-medium text-gray-900">
-                Categories
+                Danh mục
               </legend>
               <div className="space-y-2">
                 {attributes.categories.map((category) => (
@@ -102,7 +102,7 @@ export default function JewelryPageLayout({
             </fieldset>
             <fieldset>
               <legend className="text-lg font-medium text-gray-900">
-                Materials
+                Chất liệu
               </legend>
               <div className="space-y-2">
                 {attributes.materials.map((material) => (
@@ -126,7 +126,7 @@ export default function JewelryPageLayout({
             </fieldset>
             <fieldset>
               <legend className="text-lg font-medium text-gray-900">
-                Sizes
+                Kích thước
               </legend>
               <div className="space-y-2">
                 {attributes.sizes.map((size) => (
@@ -148,7 +148,7 @@ export default function JewelryPageLayout({
             </fieldset>
             <fieldset>
               <legend className="text-lg font-medium text-gray-900">
-                Shapes
+                Hình dáng
               </legend>
               <div className="space-y-2">
                 {attributes.shapes.map((shape) => (
@@ -170,7 +170,7 @@ export default function JewelryPageLayout({
             </fieldset>
             <Link href={`/jewelry/page/1?${generateQueryParams()}`}>
               <p className="mt-4 inline-block px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
-                Search
+                Lọc
               </p>
             </Link>
           </form>
