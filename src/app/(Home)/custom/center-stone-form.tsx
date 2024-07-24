@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Jewelry } from "@/dbutils/customAPI/getAttribute";
 import getDiamonds from "@/dbutils/diamondAPI/getAllDiamond"; // Adjust the import path
 import { Diamond } from "@/app/(Home)/diamond/diamond-table";
@@ -18,10 +17,8 @@ export default function CenterStoneForm({
   onBack,
   onSelectDiamond,
 }: CenterStoneFormProps) {
-  const [diamonds, setDiamonds] = useState<Diamond[]>([]);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
+  const [filteredData, setFilteredData] = React.useState<Diamond[]>([]);
   useEffect(() => {
     const storedJewelry = localStorage.getItem("edittingJewelry");
     if (storedJewelry) {
@@ -31,7 +28,7 @@ export default function CenterStoneForm({
       try {
         setLoading(true);
         const fetchedDiamonds = await getDiamonds();
-        setDiamonds(fetchedDiamonds);
+        setFilteredData(fetchedDiamonds.filter((diamond) => !diamond.sold));
         setLoading(false);
       } catch (error) {
         console.error("Error fetching diamonds:", error);
@@ -158,7 +155,7 @@ export default function CenterStoneForm({
               </tr>
             </thead>
             <tbody>
-              {diamonds.map((diamond, index) => (
+              {filteredData.map((diamond, index) => (
                 <tr
                   key={index}
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

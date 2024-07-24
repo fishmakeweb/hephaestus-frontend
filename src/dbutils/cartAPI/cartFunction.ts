@@ -6,6 +6,7 @@ export interface ItemDetails {
   name: string;
   price: number;
   quantity: number;
+  availableQuantity: number;
 }
 
 export interface CartData {
@@ -16,6 +17,7 @@ export interface CartData {
         img: string;
         name: string;
         price: number;
+        quantity:number;
       };
   }[];
   totalPrice:number,

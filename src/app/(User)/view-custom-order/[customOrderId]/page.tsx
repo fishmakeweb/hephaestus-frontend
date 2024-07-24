@@ -70,7 +70,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
   const [newMessage, setNewMessage] = useState("");
   const router = useRouter();
   const [showNotification, setShowNotification] = useState(false);
-
+  const [error, setError] = useState<string | null>(null);
   const handleCancelClick = () => {
     setShowNotification(true);
   };
@@ -90,7 +90,9 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     console.log("success");
     let client: Client;
     if (chatInitialized) {
-      const socket = new SockJS("https://api.hephaestus.store/custom-order-chat");
+      const socket = new SockJS(
+        "https://api.hephaestus.store/custom-order-chat"
+      );
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
@@ -172,8 +174,9 @@ const SelectedCusOrderForm: React.FC = ({}) => {
         throw new Error("No token found");
       }
     } catch (error) {
-      alert("Lỗi khi tạo link thanh toán:" + error);
-      throw new Error("Failed to create payment link");
+      console.error("Failed to create payment link", error);
+      setError("Failed to create payment link");
+      alert("Failed to create payment link");
     }
   };
 
@@ -324,7 +327,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     {formData.customJewelry.size.unit}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Giá tiền:</strong> $
+                    <strong>Giá tiền:</strong> VNĐ
                     {formData.customJewelry.price}
                   </p>
                   <p className="text-md text-black">
@@ -349,7 +352,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     onClick={handleCancelClick}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   >
-                    Hủy 
+                    Hủy
                   </button>
                 )}
                 {showNotification && (
@@ -367,36 +370,35 @@ const SelectedCusOrderForm: React.FC = ({}) => {
             )}
           </section>
           {chatInitialized && (
-  <div className="mt-4 bg-white shadow-lg rounded-lg p-1 sm:p-2 w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
-    <h3 className="text-lg font-semibold mb-1 sm:mb-2">Hỗ trợ</h3>
-    <div className="chat-box border border-gray-300 rounded-lg p-1 sm:p-2 max-h-60 overflow-auto">
-      <ul className="space-y-1 sm:space-y-2">
-        {chatMessages.map((msg) => (
-          <li key={msg.id} className="break-words">
-            <strong>{msg.username}:</strong> {msg.message}
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div className="mt-2 sm:mt-3 flex space-x-1 sm:space-x-2 w-full">
-      <input
-        type="text"
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        placeholder="Type a message..."
-        className="flex-grow p-1 sm:p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-indigo-300"
-        onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
-      />
-      <button
-        onClick={sendMessage}
-        className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded transition-colors duration-150 ease-in-out"
-      >
-        Gửi
-      </button>
-    </div>
-  </div>
-)}
-
+            <div className="mt-4 bg-white shadow-lg rounded-lg p-1 sm:p-2 w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl mx-auto">
+              <h3 className="text-lg font-semibold mb-1 sm:mb-2">Hỗ trợ</h3>
+              <div className="chat-box border border-gray-300 rounded-lg p-1 sm:p-2 max-h-60 overflow-auto">
+                <ul className="space-y-1 sm:space-y-2">
+                  {chatMessages.map((msg) => (
+                    <li key={msg.id} className="break-words">
+                      <strong>{msg.username}:</strong> {msg.message}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="mt-2 sm:mt-3 flex space-x-1 sm:space-x-2 w-full">
+                <input
+                  type="text"
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type a message..."
+                  className="flex-grow p-1 sm:p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-indigo-300"
+                  onKeyPress={(e) => (e.key === "Enter" ? sendMessage() : null)}
+                />
+                <button
+                  onClick={sendMessage}
+                  className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded transition-colors duration-150 ease-in-out"
+                >
+                  Gửi
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </ScrollArea>
     </div>

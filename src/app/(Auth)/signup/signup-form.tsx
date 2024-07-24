@@ -17,9 +17,21 @@ export function SignUpForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
+  const [checkboxError, setCheckboxError] = useState<string | null>(null);
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const checkbox = document.getElementById(
+      "confirmPolicy"
+    ) as HTMLInputElement;
+    if (!checkbox.checked) {
+      setCheckboxError(
+        "Vui lòng chấp nhận điều khoản sử dụng trước khi tiếp tục."
+      );
+      setTimeout(() => setCheckboxError(null), 2000);
+      return;
+    }
 
     if (username.includes(" ")) {
       setError("Tên đăng nhập không chứa khoảng trắng.");
@@ -44,7 +56,11 @@ export function SignUpForm() {
       setError("Vui lòng nhập họ và tên.");
       setTimeout(() => setError(null), 1000);
       return;
-    } else if (/[^a-zA-Z -]/.test(trimmedFullName)) {
+    } else if (
+      /[^a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựýỵỷỹ ]/.test(
+        trimmedFullName
+      )
+    ) {
       setError("Họ và tên không nên chứa kí tự đặc biệt.");
       setTimeout(() => setError(null), 1000);
       return;
@@ -184,6 +200,22 @@ export function SignUpForm() {
             onChange={(e) => setConfirmPassword(e.target.value)} // Corrected
           />
         </LabelInputContainer>
+        <div className="flex items-center space-x-2 my-2">
+          <input className="" id="confirmPolicy" type="checkbox" />
+          <Label htmlFor="confirmPolicy">Chấp nhận điều khoản sử dụng</Label>
+        </div>
+        <Link
+          target="_blank"
+          className="content-none	text-sm text-stone-500 no-underline hover:underline"
+          href="/policy"
+        >
+          Nhấn vào đây để xem điều khoản
+        </Link>
+        {checkboxError && (
+          <div className="mb-4 p-3 text-red-600 bg-red-100 rounded border border-red-500">
+            {checkboxError}
+          </div>
+        )}
         {success && (
           <div className="mb-4 p-3 text-green-600 bg-green-100 rounded border border-green-500">
             {success}
@@ -195,7 +227,7 @@ export function SignUpForm() {
           </div>
         )}
         <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          className="bg-gradient-to-br mt-2 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
           Đăng kí &rarr;
