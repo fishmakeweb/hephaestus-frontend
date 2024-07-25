@@ -90,9 +90,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
     console.log("success");
     let client: Client;
     if (chatInitialized) {
-      const socket = new SockJS(
-        "https://api.hephaestus.store/custom-order-chat"
-      );
+      const socket = new SockJS("https://api.hephaestus.store/custom-order-chat");
       client = new Client({
         webSocketFactory: () => socket,
         connectHeaders: {
@@ -279,16 +277,27 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                       </dt>
                       <dd className="mt-1 text-md font-medium">
                         {userData
-                          ? new Date(
-                              userData.customer.registeredDate
-                            ).toLocaleString("vi-VN", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              hour12: false,
-                            })
+                          ? new Date(userData.customer.registeredDate)
+                          .toLocaleString("vi-VN", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })
+                          .charAt(0)
+                          .toUpperCase() +
+                        new Date(userData.customer.registeredDate)
+                          .toLocaleString("vi-VN", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })
+                          .slice(1)
                           : "Không có dữ liệu"}
                       </dd>
                     </div>
@@ -327,7 +336,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
                     {formData.customJewelry.size.unit}
                   </p>
                   <p className="text-md text-black">
-                    <strong>Giá tiền:</strong> 
+                    <strong>Giá tiền:</strong>
                     {formData.customJewelry.price} VNĐ
                   </p>
                   <p className="text-md text-black">
