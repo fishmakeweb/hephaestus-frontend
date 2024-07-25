@@ -83,8 +83,8 @@ const ConfirmOrderForm: React.FC = () =>  {
 
   return (
     <div className="flex flex-col bg-white">
-      <div className="bg-gray-100 flex items-center justify-center min-h-screen font-nunito text-slate-600">
-        <section className="max-w-[968px] w-full mx-4">
+      <div className="flex items-center justify-center min-h-screen font-nunito text-slate-600">
+        <section className="max-w-[968px] w-full mx-4 shadow-lg">
           <h1 className="mx-2 my-10 text-2xl font-semibold sm:text-3xl">
             Chi tiết đơn hàng
           </h1>
