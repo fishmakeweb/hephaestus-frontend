@@ -25,7 +25,7 @@ useEffect(() => {
   fetchData();
 }, []);
   return (
-    <div className="bg-gray-100 flex flex-col lg:flex-row lg:space-x-4 p-4">
+    <div className="flex flex-col lg:flex-row lg:space-x-4 p-4">
       {customOrderData.length === 0 ? (
         <div className="flex flex-col h-full mt-10 lg:mt-28 mr-5 lg:mr-28">
           <div className="mb-10 flex flex-col items-center justify-center w-full font-nunito text-slate-600">

@@ -16,7 +16,7 @@ export default function Footer() {
     setShowLocation(false);
   };
   return (
-    <div className="flex flex-col pt-8 w-full border-solid bg-gray-100 border-t-[5px] border-zinc-300 max-md:max-w-full">
+    <div className="flex flex-col mt-12 pt-8 w-full border-solid bg-gray-100 border-t-[5px] border-zinc-300 max-md:max-w-full">
       <div className="flex flex-col px-16 w-full max-md:px-4 max-md:max-w-full">
         <div className="max-md:mr-1.5 max-md:max-w-full">
           <div className="flex gap-4 max-md:flex-col max-md:gap-0">
