@@ -69,7 +69,7 @@ const NewNavbar = () => {
                   href="/"
                   className="flex items-center py-3 border-b border-b-gray-400 text-sm md:text-2xl md:mr-32 "
                 >
-                  <h2 className="font-bold ">H E P H A E S T U S</h2>
+                  <h2 className="font-bold ">TEST H E P H A E S T U S</h2>
                 </Link>
                 
           {/* end search bar */}
