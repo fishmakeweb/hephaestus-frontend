@@ -92,7 +92,9 @@ const UserProfileShow: React.FC = () => {
                     <dd className="text-lg font-semibold">{fullName}</dd>
                   </div>
                   <div className="flex flex-col py-3">
-                    <dt className="mb-1 text-gray-500 md:text-lg">Tên đăng nhập</dt>
+                    <dt className="mb-1 text-gray-500 md:text-lg">
+                      Tên đăng nhập
+                    </dt>
                     <dd className="text-lg font-semibold">{username}</dd>
                   </div>
                   <div className="flex flex-col pt-3">
@@ -112,14 +114,27 @@ const UserProfileShow: React.FC = () => {
                       Ngày đăng kí
                     </dt>
                     <dd className="text-lg font-semibold">
-                      {new Date(registeredDate).toLocaleString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                      })}
+                      {new Date(registeredDate)
+                        .toLocaleString("vi-VN", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                        })
+                        .charAt(0)
+                        .toUpperCase() +
+                        new Date(registeredDate)
+                          .toLocaleString("vi-VN", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })
+                          .slice(1)}
                     </dd>
                   </div>
                 </dl>
