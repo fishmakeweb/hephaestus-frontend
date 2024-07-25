@@ -223,7 +223,7 @@ const SelectedCusOrderForm: React.FC = ({}) => {
   }
 
   return (
-    <div className="flex flex-col mt-4 h-full lg:mt-8 mr-5 lg:mr-28 relative">
+    <div className="flex flex-col mt-4 h-full lg:mt-8 mr-5 lg:mr-28 relative shadow-lg">
       <ScrollArea className="max-h-[500px] lg:max-h-[615px] overflow-auto">
         <div className="bg-white p-6 rounded-lg shadow flex flex-col items-center justify-center w-full font-nunito text-gray-800">
           <section className="max-w-full lg:max-w-4xl w-full">

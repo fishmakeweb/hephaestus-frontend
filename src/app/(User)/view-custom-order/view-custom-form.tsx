@@ -25,7 +25,7 @@ const CusOrderCards: React.FC<OrderCardsProps> = ({ customOrderData }) => {
         {customOrderData.map((customOrder) => (
           <Card
             key={customOrder.customOrderId}
-            className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-md"
+            className="w-full max-w-md mx-auto my-4 lg:my-8 bg-white rounded-lg shadow-lg"
           >
             <CardHeader className="flex flex-col gap-3 sm:flex-row sm:justify-between">
               <div className="flex flex-col">
