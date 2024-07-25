@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getAllJewelry } from "@/dbutils/jewelryAPI/getAllJewelry";
 import {
@@ -22,14 +22,44 @@ interface JewelryItem {
 
 export default function Jewelry() {
   const { page_number } = useParams<{ page_number: string }>();
-
+  const searchParams = useSearchParams();
   const [items, setItems] = useState<JewelryItem[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const pageNumber = parseInt(page_number || "0") - 1;
-    getAllJewelry(pageNumber)
+    const categoriesIds = searchParams.getAll("categoriesIds");
+    const materialsIds = searchParams.getAll("materialsIds");
+    const sizesIds = searchParams.getAll("sizesIds");
+    const shapesIds = searchParams.getAll("shapesIds");
+    const minPrice = searchParams.get("minPrice");
+    const maxPrice = searchParams.get("maxPrice");
+
+    let params = [];
+    if (categoriesIds.length > 0) {
+      params.push(`categoryIds=${categoriesIds.join(",")}`);
+    }
+    if (materialsIds.length > 0) {
+      params.push(`materialIds=${materialsIds.join(",")}`);
+    }
+    if (sizesIds.length > 0) {
+      params.push(`sizeIds=${sizesIds.join(",")}`);
+    }
+    if (shapesIds.length > 0) {
+      params.push(`shapeIds=${shapesIds.join(",")}`);
+    }
+    if (minPrice) {
+      params.push(`minPrice=${minPrice}`);
+    }
+    if (maxPrice) {
+      params.push(`maxPrice=${maxPrice}`);
+    }
+
+    // Update the filter parameter once with all the parameters combined
+    const filterParams = '&'+ params.join("&");
+    console.log(filterParams);
+    getAllJewelry(pageNumber, filterParams)
       .then((data) => {
         setItems(
           data.content.map((item: JewelryItem) => ({
@@ -43,7 +73,8 @@ export default function Jewelry() {
         setCurrentPage(data.number);
       })
       .catch((error) => console.error("Error fetching jewelry data:", error));
-  }, [page_number]);
+}, [page_number, searchParams]);
+
 
   return (
     <div className="bg-white">
@@ -55,19 +86,19 @@ export default function Jewelry() {
           >
             <Link href={`/jewelry/${item.jewelryId}`}>
               <div className="w-full md:h-[50vh] sm:h-[25vh]">
-              <Image
-                width={150}
-                height={100}
-                src={item.img}
-                alt={item.name}
-                sizes="10vw"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-              />
+                <Image
+                  width={150}
+                  height={100}
+                  src={item.img}
+                  alt={item.name}
+                  sizes="10vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                />
               </div>
-              
+
               <div className="px-4 py-3">
                 <p className="text-darkgray text-sm font-normal truncate capitalize">
                   {item.name}
